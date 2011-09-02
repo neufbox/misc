@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Copyright (C) 2008 Efixo
+#  dec. 2008 - Viallard Anthony <anthony.viallard@efixo.net>
+
+case "$ACTION" in
+    add)
+	logger "Add usb speaker - Magical empty instruction"
+	
+	;;
+    remove)
+	logger "Remove usb speaker"
+	
+        # BOX ready ir shutdown ?
+	[ ! -e /var/state/networks ] && exit 1
+
+	devpath=`echo "$DEVPATH" | sed 's/class\/sound/dev/g'`
+	[ "$devpath" != '/dev/dsp' ] && exit 0
+
+	nbctl async_run sound_up_down stop
+	
+	;;
+esac	

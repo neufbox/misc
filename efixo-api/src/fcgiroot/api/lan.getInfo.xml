@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <lan ip_addr="<?cs var:lan.ipaddr?>" netmask="<?cs var:lan.netmask?>" dhcp_active="<?cs var:lan.dhcpactive?>" dhcp_start="<?cs var:lan.dhcpstartp0?>.<?cs var:lan.dhcpstartp1?>.<?cs var:lan.dhcpstartp2?>.<?cs var:lan.dhcpstartp3?>" dhcp_end="<?cs var:lan.dhcpendp0?>.<?cs var:lan.dhcpendp1?>.<?cs var:lan.dhcpendp2?>.<?cs var:lan.dhcpendp3?>" dhcp_lease="<?cs var:lan.dhcplease?>" />
+</rsp>

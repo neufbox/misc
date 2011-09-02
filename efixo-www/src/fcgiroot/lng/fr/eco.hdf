@@ -1,0 +1,13 @@
+Env.Page.Title = Mode ECO
+
+Env.Help.Text = Dans la rubrique <b>Mode ECO</b> vous retrouvez le statut et le profil du mode "économie d'énergie" de la $BOXNAME.
+
+Env.Section.eco.Title = Mode ECO
+
+Env.Var.eco_status.Header = Etat
+Env.Var.eco_status.Value.up = Mode ECO activé
+Env.Var.eco_status.Value.down = Mode ECO désactivé
+
+Env.Var.eco_profile.Header = Profil
+Env.Var.eco_profile.Value.default = Standard
+Env.Var.eco_profile.Value.custom = Personnalisé

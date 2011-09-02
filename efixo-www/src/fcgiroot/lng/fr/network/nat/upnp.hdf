@@ -1,0 +1,15 @@
+Env.Page.Title = UPnP - détails
+
+Env.Section.upnp_list_rules.Title = Liste des règles NAT UPnP
+
+Env.Var.proto.Header = Protocole
+Env.Var.proto.Value.tcp = TCP
+Env.Var.proto.Value.udp = UDP
+Env.Var.proto.Value.icmp = ICMP
+Env.Var.proto.Value.both = tous
+
+Env.Var.extport.Header = Ports externes
+
+Env.Var.dstip.Header = Adresse IP de destination
+
+Env.Var.dstport.Header = Ports de destination

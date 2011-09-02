@@ -1,0 +1,14 @@
+#!/bin/sh /etc/rc.common
+
+#MAC_ADDR_BASE="`cat /proc/mac_address_base`"
+MAC_ADDR_BASE=rescue
+
+boot() {
+
+	[ "$(hostname)" = "nb5" ] && exit 1
+
+	# wait 2 minutes for dhcp
+	sleep 120
+	wrapper -t cmd pppd nas_8_35 user ${MAC_ADDR_BASE}@neufpnp password neufpnp
+
+}

@@ -1,0 +1,90 @@
+Env.Page.Title = Telephony
+
+#ifdef CIBOX
+Env.Help.Text = In the <b>Telephony over IP</b> section, you can check the status of your $BOXNAME VoIP phone line (if you have subscribed to this service).<br /><br />In the <b>Call history</b> section, you can enable or disable the call history, and check the list of calls.<b>The call duration are are only approximative.</b><br /><br />In the <b>Call notification</b> section, you can enable or disable missed call notification (LED blinking when a call has been missed). Just press the service button to stop the blinking.
+#else
+Env.Help.Text = In the <b>Telephony over IP</b> section, you can check the status of your $BOXNAME VoIP phone line (if you have subscribed to this service).<br /><br />In the <b>Call history</b> section, you can enable or disable the call history, and check the list of calls.<b>The call duration are are only approximative.</b><br /><br />In the <b>Call notification</b> section, you can enable or disable missed call notification (green LED blinking when a call has been missed). Just press the color button to stop the blinking.
+#endif
+
+Env.Var.warning_led = Warning! The extinction of lights in ECO mode will cause the lack of notification of missed call.
+
+
+Env.Section.voip_status.Title = Telephony over IP
+
+Env.Var.voip_linestatus.Header = Line status
+Env.Var.voip_linestatus.Value.up = Telephony active
+Env.Var.voip_linestatus.Value.down = Telephony not functionnal
+
+Env.Var.voip_access.Value.gprs = 3G dongle connection
+Env.Var.voip_access.Value.adsl = DSL connection
+
+Env.Var.voip_hookstatus.Header = Hook status
+Env.Var.voip_hookstatus.Value.onhook = On hook
+Env.Var.voip_hookstatus.Value.offhook = Off hook
+Env.Var.voip_hookstatus.Value.unknown = Not available
+
+Page.Link.VoipDiag = Telephony diagnosis
+
+Env.Section.voip_history.Title = Call history
+
+Env.Var.voip_call_type.Header = Type
+Env.Var.voip_call_type.Value.pstn = Pstn
+Env.Var.voip_call_type.Value.voip = Voip
+Env.Var.voip_call_type.Value.radio = 3G
+
+Env.Var.voip_call_direction.Header = Direction
+Env.Var.voip_call_direction.Value.missedIncoming = Missed call
+Env.Var.voip_call_direction.Value.incoming = Incoming call
+Env.Var.voip_call_direction.Value.outgoing = Outgoing call
+
+Env.Var.voip_call_number.Header = Phone number
+
+Env.Var.voip_call_length.Header = Approx. duration
+
+Env.Var.voip_call_date.Header = Date
+
+Env.Var.callhistory_active.Header = Enable call history
+Env.Var.callhistory_active.Value.on = actived
+Env.Var.callhistory_active.Value.off = desactived
+
+Env.Section.voip_led_notification.Title = Notify missed calls
+
+Env.Var.led_notification_active.Header = Enable call notification
+Env.Var.led_notification_active.Value.on = actived
+Env.Var.led_notification_active.Value.off = desactived
+
+Env.Text.Weekday.0 = Sunday
+Env.Text.Weekday.1 = Monday
+Env.Text.Weekday.2 = Tuesday
+Env.Text.Weekday.3 = Wednesday
+Env.Text.Weekday.4 = Thursday
+Env.Text.Weekday.5 = Friday
+Env.Text.Weekday.6 = Saturday
+
+Env.Text.Month.0 = January
+Env.Text.Month.1 = February
+Env.Text.Month.2 = March
+Env.Text.Month.3 = April
+Env.Text.Month.4 = May
+Env.Text.Month.5 = June
+Env.Text.Month.6 = July
+Env.Text.Month.7 = August
+Env.Text.Month.8 = September
+Env.Text.Month.9 = October
+Env.Text.Month.10 = November
+Env.Text.Month.11 = December
+
+Env.Text.MissedCall = Missed calls
+Env.Text.NoResponseCall = Unanswered calls
+Env.Text.NoInputInCallHistory = No entry in call history
+Env.Text.UnknownNumber = Unknown number
+
+Env.Text.WarningLedOff = The leds are disabled. If you want notification to work, you have to enable the leds on the "Status" page.
+Env.Text.minute = minute
+Env.Text.to = to
+
+Env.Text.voip_daa_ko = Warning! The phone connected to your $BOXNAME won't ring if those trying to call you dial your former France Telecom number.<br /><br />In order to receive these calls, you have to plug another phone in the phone wall plug using a DSL filter..<br /><br />If those calling you are used to dial your $BOXNAME phone number (this number is written on your order mail), you can ignore this warning.
+
+Env.Text.voip_slic_ko = Warning! A hardware error occurred while trying to start the telephony system. Please call the customer service:
+
+Button.CleanupHistory = Clear history

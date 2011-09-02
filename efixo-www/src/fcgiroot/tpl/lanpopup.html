@@ -1,0 +1,69 @@
+<?cs include:"tpl/defs.cst"?>
+
+<div class="title">
+    <h1 class="large"><?cs var:Env.Section.connected_computers.Header?> <?cs if:Var.PortFilter.Value=='wlan0'?><?cs var:Env.Text.InWifi?><?cs /if?></h1>
+</div>
+
+<div class="content">
+	<?cs if:subcount(Var.hosts)>0?>
+	<table id="network_clients">
+		<thead>
+			<tr>
+				<th scope="col" class="col_number">#</th>
+				<th scope="col" class="col_mac"><?cs var:Env.Var.mac_addr.Header?></th>
+				<th scope="col" class="col_ip"><?cs var:Env.Var.ip_addr.Header?></th>
+				<?cs if:Var.PortFilter.Value!='wlan0'?><th scope="col" class="col_port"><?cs var:Env.Var.port.Header?></th><?cs /if?>
+				<th scope="col" class="col_choice"><?cs var:Env.Var.choice.Header?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?cs each:host = Var.hosts ?>
+			<tr>
+				<td class="col_number">
+					<?cs name:host ?>
+				</td>
+				<td>
+					<input type="hidden" id="mac_<?cs name:host?>" value="<?cs var:host.mac.Value ?>" />
+					<?cs var:host.mac.Value ?>
+				</td>
+				<td>
+					<input type="hidden" id="ip_<?cs name:host?>" value="<?cs var:host.ip.Value ?>" />
+                                        <input type="hidden" id="name_<?cs name:host?>" value="<?cs var:host.name.Value ?>" />
+					<?cs var:host.ip.Value ?>
+                                        <?cs if:host.name.Value != ''  ?>
+                                        (<?cs var:host.name.Value ?>)
+                                        <?cs /if?>
+				</td>
+				<?cs if:Var.PortFilter.Value!='wlan0'?>
+				<td>
+					<?cs call:IfaceToPortName(host.iface.Value)?>
+				</td>
+				<?cs /if?>
+				<td style="text-align: center;">
+					<input type="radio" name="computer_selector" value="<?cs name:host?>" <?cs if:Var.RemoteAddress.Value == host.ip.Value?>checked="checked"<?cs /if?>/>
+				</td>
+				<?cs if:Var.RemoteAddress.Value == host.ip.Value?>
+				<td>
+					<img src="/img/icon_home.png" border="0" alt="Votre poste" style="position: relative; top: -2px;" />
+				</td>
+				<?cs /if?>
+			</tr>
+			<?cs /each ?>
+		</tbody>
+	</table>
+	
+	<div class="button_submit">
+		<button class="button_submit" name="submit" id="plc_valid"><?cs var:Env.Text.Validate?></button>
+	</div>
+	<?cs else?>
+	<?cs var:Env.Text.NoClient?>
+	<?cs /if?>
+</div>
+
+<script>
+$(document).ready(function(){
+	$('#plc_valid').click(function() {
+	        validLanPopup();
+	});
+});
+</script>

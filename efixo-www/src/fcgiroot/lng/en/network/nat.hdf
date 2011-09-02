@@ -1,0 +1,68 @@
+Env.Page.Title = NAT
+
+Env.Help.Text = In the <b>Port translation</b> section, you can define the destination among your equipments for traffic coming from the Internet. Some software need to be reached directly from the Internet in order to function properly (games, peer to peer,...). You can configure these rules here. Check the documentation coming with the software for more information.<br /><br />In the <b>UPnP</b> section, you can disable or enable the UPnP service of your $BOXNAME. When UPnP is enabled, you don't need to configure rules for port translation for UPnP compatible software.
+
+
+Env.Section.nat_config.Title = Port translation
+
+Env.Var.nat_rulename.Header = Name
+Env.Var.nat_rulename.Error.value = Invalid format. Only alphanumerics caracters, '_' and '-' are allowed.
+
+Env.Var.nat_proto.Header = Protocol
+Env.Var.nat_proto.Value.tcp = TCP
+Env.Var.nat_proto.Value.udp = UDP
+Env.Var.nat_proto.Value.both = both
+Env.Var.nat_proto.Error.value = Invalid format
+Env.Var.nat_proto.Error.invalid_protocol = Invalid protocol
+
+Env.Var.nat_range.Header = Type
+Env.Var.nat_range.Value.false = Port
+Env.Var.nat_range.Value.true =  Range
+Env.Var.nat_range.Error.value = Invalid format
+
+Env.Var.nat_extport.Header = External ports
+Env.Var.nat_extport.Error.value = Invalid format
+Env.Var.nat_extport.Error.invalid_extport = Invalid external port
+Env.Var.nat_extport.Error.extport_reserved = Reserved external port(s)
+Env.Var.nat_extport.Error.extport_already_use = Port already in use
+Env.Var.nat_extrange_p0.Error.value = Invalid format
+Env.Var.nat_extrange_p1.Error.value = Invalid format
+Env.Var.nat_extrange.Error.invalid_extportrange = Invalid external port range
+Env.Var.nat_extrange.Error.extport_reserved = Reserved external port(s)
+Env.Var.nat_extrange.Error.extport_already_use = Port(s) already in use
+
+Env.Var.nat_dstip.Header = Destination IP address
+Env.Var.nat_dstip.Error.invalid_ip = Invalid IP address
+
+Env.Var.nat_dstport.Header = Destination ports
+Env.Var.nat_dstport.Error.value = Invalid format
+Env.Var.nat_dstport.Error.invalid_dstport = Invalid destionation port
+Env.Var.nat_dstrange_p0.Error.value = Invalid format
+Env.Var.nat_dstrange_p1.Error.value = Invalid format
+Env.Var.nat_dstrange.Error.invalid_dstportrange = Invalid destination port range
+
+Env.Var.nat_active.Header = Activation
+
+Env.Section.upnpd_config.Title = UPnP
+
+Env.Var.upnpd_active.Header = UPnP
+Env.Var.upnpd_active.Value.on = enabled
+Env.Var.upnpd_active.Value.off = disabled
+Env.Var.upnpd_active.Error.value = Invalid format
+
+Env.Var.upnpd_nat_rules.Header = Active UPnP rules
+
+Env.Text.Enable = Enable
+Env.Text.Disable = Disable
+Env.Text.PrivatePortListError = You can't use the following ports
+Env.Text.rule = rule
+Env.Text.rules = rules
+
+Env.Section.dmz_config.Title = DMZ
+Env.Var.dmz_active.Header = Enable DMZ
+Env.Var.dmz_active.Value.on = enabled
+Env.Var.dmz_active.Value.off = disabled
+Env.Var.dmz_active.Error.value = Invalid format
+
+Env.Var.dmz_ip.Header = Ip Address
+Env.Var.dmz_ip3.Error.value = Invalid Ip Address

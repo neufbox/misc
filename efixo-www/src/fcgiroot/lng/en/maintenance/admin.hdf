@@ -1,0 +1,39 @@
+Env.Page.Title = Administration
+
+#ifdef CIBOX
+Env.Help.Text = On this page, you can manage access to the administration interface of your $BOXNAME (web interface and REST API). It is recommended to enable password identification.
+#else
+Env.Help.Text = On this page, you can manage access to the administration interface of your $BOXNAME (web interface and REST API). It is recommended to enable password identification and/or button identification.
+#endif
+
+Env.Section.access.Title = Access to the administration interface of your $BOXNAME
+
+Env.Var.web_auth.Header = Identification
+Env.Var.web_auth.Value.passwd = Password
+Env.Var.web_auth.Value.button = Color button
+Env.Var.web_auth.Value.all = Password and color button
+Env.Var.web_auth.Value.off = Disabled
+
+Env.Var.web_login.Header = Login
+Env.Var.web_login.Error.value = The login must be composed of 5 to 63 letters and digits (a, b, .. z, 0 .. 9).
+
+Env.Var.web_password.Header = New password
+Env.Var.web_password.Error.value = The password must be composed of 5 to 63 characters, except space and: <b>"</b> <b>'</b> <b>`</b>.
+Env.Var.web_password.Error.no_match = The passwords don't match
+
+Env.Var.web_password_check.Header = Password confirmation
+
+Env.Text.SecurityCheck.passwd = As a security precaution, please enter your current login and passord in order to save your modifications:
+Env.Text.SecurityCheck.button = As a security precaution, please press the color button for several seconds until it is blinking, in order to save your modifications:
+
+Env.Var.web_old_login.Header = Login
+Env.Var.web_old_login.Error.value = The login must be composed of 5 to 63 letters and digits (a, b, .. z, 0 .. 9).
+Env.Var.web_old_login.Error.no_match = Error, the login doesn't match.
+
+Env.Var.web_old_password.Header = Password
+Env.Var.web_old_password.Error.value = Invalid password.
+Env.Var.web_old_password.Error.no_match = Error, the password doesn't match.
+
+Env.Form.Error.autologin_off = The color button hasn't been pressed.
+
+Env.Form.Success.done = Modification successfully applied

@@ -1,0 +1,7 @@
+Env.Page.Title = Page non trouvée
+
+Env.Help.Text = La page que vous cherchez n'a pas été trouvée.
+
+Env.Section.page_not_found.Title = Page non trouvée
+
+Env.Text.PageNotFound = La page que vous cherchez n'a pas été trouvée. <br /><br />Vous pouvez retourner à la <a href="/index">page d'accueil</a>, ou alors utiliser le plan ci-dessous.

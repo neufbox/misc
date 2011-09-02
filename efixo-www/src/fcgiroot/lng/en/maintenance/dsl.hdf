@@ -1,0 +1,9 @@
+Env.Page.Title = DSL line
+
+Env.Help.Text = In the <b>DSL optimization</b> section, three different settings are available:<br /><br /><i>Automatic</i>, the network and the $BOXNAME agree on <b>the best compromise between quality of service, stability and bandwidth</b> of your DSL line.<br /><br /><i>Rescue</i>, the $BOXNAME will try to maximise the chances of obtaining an Internet connection. <b>Only use this setting when asked by customer service.</b><br /><br /><i>Manual</i>, depending on how you are using your DSL line, you can personnalize stability and bandwidth settings for your connection.<br /><br /><b>Tips</b>: if you mainly use HD television service, give priority to stability over bandwidth. <b>If you see dysfunctions, use the automatic setting.</b>
+
+Env.Section.ADSLoptimise.Title = DSL optimization
+
+Env.Text.ADSLauto.Header = Automatic (recommended)
+Env.Text.ADSLrescue.Header = Rescue (only use when asked by customer service)
+Env.Text.ADSLmanual.Header = Manual

@@ -1,0 +1,13 @@
+Env.Page.Title = Printer sharing
+
+Env.Help.Text = In the <b>Printer sharing</b> section, you can configure printer sharing.<br /><br />Printer sharing uses the AppSocket/JetDirect protocol. You printer will be available via the IP address of the $BOXNAME, on TCP port 9100.<br /><br />Disable bidirectionnal mode if you encounter issues while trying to print.
+
+Env.Section.PrinterSharing.Title = Printer sharing
+
+Env.Var.PrinterSharingStatus.Header = Service status
+Env.Var.PrinterSharingStatus.Value.up = Started
+Env.Var.PrinterSharingStatus.Value.down = Stopped
+
+Env.Var.PrinterSharingBidir.Header = Bidirectionnal mode
+Env.Var.PrinterSharingBidir.Value.on = enabled
+Env.Var.PrinterSharingBidir.Value.off = disabled

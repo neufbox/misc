@@ -1,0 +1,48 @@
+Env.Page.Title = Local network
+
+Env.Help.Text = In the <b>Switch ports statistics</b> section, you can find various statistics on the ethernet ports of your $BOXNAME.<br /><br />In the <b>WiFi clients statistics</b> section, you can find statistics about the WiFi clients connected to your $BOXNAME.
+
+Env.Link.GeneralStat = Detailled statistics
+Env.Link.WifiGeneralStat = Detailled WiFi statistics
+
+Env.Section.pcports_stats.Title = Switch ports statistics
+
+Env.Section.wlanhost_stats.Title = WiFi clients statistics
+
+Env.Var.rssi.Header = Signal power
+
+Env.Var.rates.Header = Supported rates
+
+Env.Var.in.Header = Connection uptime
+
+Env.Var.idle.Header = Idle time
+
+Env.Var.tx_pkts.Header = Packets sent
+
+Env.Var.tx_failures.Header = Packets sent failures
+
+Env.Var.rx_ucast_pkts.Header = Unicast packets sent
+
+Env.Var.rx_mcast_pkts.Header = Multicast packets sent
+
+Env.Var.tx_rate.Header = Packets sent rate
+
+Env.Var.rx_rate.Header = Packets received rate
+
+Env.Text.tx_good_pkts = Packets sent
+Env.Text.rx_good_pkts = Packets received
+Env.Text.tx_unicast_pkts = Unicast packets sent
+Env.Text.rx_unicast_pkts = Unicast packets received
+Env.Text.tx_good_bytes = Bytes sent
+Env.Text.rx_good_bytes = Bytes received
+Env.Text.tx_collisions = Collisions
+Env.Text.rx_fcs_errors = FCS errors
+
+Env.Text.NoConnectedClients = No WiFi client connected.
+Env.Text.Undefined = Undefined
+Env.Text.port = Port
+
+Env.Text.mac_addr = MAC address
+Env.Text.ip_addr = IP address
+
+Env.text.second = second

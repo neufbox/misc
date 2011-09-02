@@ -1,0 +1,58 @@
+#!/bin/sh /etc/rc.common
+
+boot() {
+	# Multicast streams
+	iptables -I INPUT -d 224.0.0.0/5 -j ACCEPT
+	iptables -I INPUT -d 232.0.0.0/7 -j ACCEPT
+	iptables -I FORWARD -d 224.0.0.0/5 -j ACCEPT
+	iptables -I FORWARD -d 232.0.0.0/7 -j ACCEPT
+
+	# PFS NAT
+	iptables -t nat -N PFS_NAT
+
+
+	# IGMP DSCP/MARK
+	iptables -t mangle -A OUTPUT -p igmp -j DSCP --set-dscp 0x24
+	iptables -t mangle -A OUTPUT -p igmp -m dscp --dscp 0x24 -j MARK --set-mark 3
+
+	# QoS sownstream
+	iptables -t mangle -N in_TV
+	# Pure Pixel
+	iptables -t mangle -A in_TV -s 86.66.127.160/27 -p udp -m multiport --sports 1664,2664 -j MARK --set-mark 3
+	# RTSP
+	iptables -t mangle -A in_TV -s 86.66.127.160/27 -p tcp -m tcp --sport 554 -j MARK --set-mark 3
+
+	# QoS upstream
+	iptables -t mangle -N out_TV
+	# Pure Pixel
+	iptables -t mangle -A out_TV -d 86.66.127.160/27 -p udp -m multiport --dports 1664,2664 -j MARK --set-mark 3
+	# RTSP
+	iptables -t mangle -A out_TV -d 86.66.127.160/27 -p tcp -m tcp --dport 554 -j MARK --set-mark 3
+
+
+	# IGMP snooping
+	wan_ifnames="$(nvram get dhcpc_wan_ifname)"
+	[ -d /etc/adsl ] && wan_ifnames="${wan_ifnames} $(nvram get dhcpc_voip_ifname) $(nvram get dhcpc_tv_ifname)"
+	for ifname in ${wan_ifnames}
+	do
+		syscfg="/sys/class/net/${ifname}/bridge/multicast_snooping"
+		[ -e ${syscfg} ] && echo 0 > ${syscfg}
+	done
+	[ -e ${syscfg} ] && echo 0 > ${syscfg}
+	[ -x /usr/sbin/ebtables ] && {
+		ebtables -N IGMP_SNOOPING
+		ebtables -P IGMP_SNOOPING DROP
+		ebtables -A OUTPUT --logical-out $(nvram get lan_ifname) --pkttype-type multicast -j IGMP_SNOOPING
+	}
+
+	# wrapper
+	wrapper -t tvservices -p /var/run/tvservices-wrapper.pid
+}
+
+reload() {
+	kill -HUP $(cat /var/run/tvservices-wrapper.pid)
+}
+
+restart() {
+	kill -HUP $(cat /var/run/tvservices-wrapper.pid)
+}

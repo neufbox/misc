@@ -1,0 +1,7 @@
+table#traceroute th, table#ping th {
+    width: 170px;
+}
+
+table#traceroute td, table#ping td {
+    width: 180px;
+}

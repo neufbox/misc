@@ -1,0 +1,219 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs set:js = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+  <h1><?cs var:Env.Section.DiagPhone.Title ?></h1>
+</div>
+
+<div class="content">
+  <table id="voip_diag">
+    <tr>
+      <th scope="row"><?cs var:Env.Var.InitResult.Header ?></th>
+      <td class="<?cs if:Var.InitResult.Value == "success" ?>enabled<?cs elif:Var.InitResult.Value == "error" ?>disabled<?cs else ?>unused<?cs /if ?>">
+	<?cs if:Var.InitResult.Value == "success" ?>
+	  <?cs var:Env.Var.InitResult.Value.success ?>
+	<?cs elif:Var.InitResult.Value == "error" ?>
+	  <?cs if:Var.InitError.Value == "check_hook" ?>
+	    <?cs var:Env.Var.InitError.Value.check_hook ?>
+	  <?cs else ?>
+	    <?cs var:Env.Var.InitError.Value.unknown ?>
+	  <?cs /if ?>
+	<?cs else ?>
+	  <?cs var:Env.Var.initResult.Value.not_launched ?>
+	<?cs /if ?>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row"><?cs var:Env.Var.Gr909Result.Header ?></th>
+      <td class="<?cs if:Var.Gr909Result.Value == "success" ?>enabled<?cs elif:Var.Gr909Result.Value == "error" ?>disabled<?cs else ?>unused<?cs /if ?>">
+	<?cs if:Var.Gr909Result.Value == "success" ?>
+          <?cs var:Env.Var.Gr909Result.Value.success ?>
+	<?cs elif:Var.Gr909Result.Value == "error" ?>
+          <?cs call:varValueH3n_gd("Gr909Error", Env.Var.Gr909Result.Value.error)?>
+	<?cs else ?>
+	  <?cs var:Env.Var.Gr909Result.Value.not_launched ?>
+	<?cs /if ?>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row"><?cs var:Env.Var.RingResult.Header ?></th>
+      <td class="<?cs if:Var.RingResult.Value == "success" ?>enabled<?cs elif:Var.RingResult.Value == "error" ?>disabled<?cs else ?>unused<?cs /if ?>">
+	<?cs if:Var.RingResult.Value == "success" ?>
+          <?cs var:Env.Var.RingResult.Value.success ?>
+	<?cs elif:Var.RingResult.Value == "error" ?>
+	  <?cs var:Env.Var.RingResult.Value.error ?>
+	<?cs else ?>
+	  <?cs var:Env.Var.RingResult.Value.not_launched ?>
+	<?cs /if ?>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row"><?cs var:Env.Var.HookntoneResult.Header ?></th>
+      <td class="<?cs if:Var.HookntoneResult.Value == "success" ?>enabled<?cs elif:Var.HookntoneResult.Value == "error" ?>disabled<?cs else ?>unused<?cs /if ?>">
+	<?cs if:Var.HookntoneResult.Value == "success" ?>
+	  <?cs var:Env.Var.HookntoneResult.Value.success ?>
+	<?cs elif:Var.HookntoneResult.Value == "error" ?>
+	  <?cs if:Var.HookntoneError.Value == "pick_up" ?>
+	    <?cs var:Env.Var.HookntoneError.Value.pick_up ?>
+	  <?cs elif:Var.HookntoneError.Value == "hang_up" ?>
+	    <?cs var:Env.Var.HookntoneError.Value.hang_up ?>
+	  <?cs elif:Var.HookntoneError.Value == "ft_standard" ?>
+	    <?cs var:Env.Var.HookntoneError.Value.ft_standard ?>
+	  <?cs else ?>
+	    <?cs var:Env.Var.HookntoneResult.Value.error ?>
+	  <?cs /if ?>
+	<?cs else ?>
+	  <?cs var:Env.Var.HookntoneResult.Value.not_launched ?>
+	<?cs /if ?>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row"><?cs var:Env.Var.DtmfResult.Header ?></th>
+      <td class="<?cs if:Var.DtmfResult.Value == "success" ?>enabled<?cs elif:Var.DtmfResult.Value == "error" ?>disabled<?cs else ?>unused<?cs /if ?>">
+	<?cs if:Var.DtmfResult.Value == "success" ?>
+          <?cs var:Env.Var.DtmfResult.Value.success ?>
+	<?cs elif:Var.DtmfResult.Value == "error" ?>
+          <?cs call:varValueH3n_gd("DtmfError", Env.Var.DtmfResult.Value.error)?>
+	<?cs else ?>
+	  <?cs var:Env.Var.DtmfResult.Value.not_launched ?>
+	<?cs /if ?>
+      </td>
+    </tr>
+  </table>
+
+<?cs if:Var.vSStest_nextstep.Value != ""?>
+<form id="form_voip_diag" method="post" action="<?cs var:Env.Page.Name ?>">
+  <fieldset>
+    <input type="hidden" name="action" value="vSStest" />
+    <input type="hidden" name="step" value="<?cs var:Var.vSStest_nextstep.Value?>" />
+    <div class="button_submit">
+      <button type="submit" name="submit">
+        <?cs if:!?Var.vSStest_step.Value || Var.vSStest_nextstep.Value != Var.vSStest_step.Value?>
+          <?cs if:Var.vSStest_nextstep.Value == "gr909"?>
+            <?cs var:Env.Button.Gr909 ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "ring"?>
+            <?cs var:Env.Button.Ring ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "hookntone"?>
+            <?cs var:Env.Button.Hookntone ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "dtmf"?>
+            <?cs var:Env.Button.Dtmf ?>
+          <?cs else?>
+            <?cs var:Env.Button.Init ?>
+          <?cs /if?>
+        <?cs else?>
+          <?cs if:Var.vSStest_nextstep.Value == "gr909"?>
+            <?cs var:Env.Button.ReGr909 ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "ring"?>
+            <?cs var:Env.Button.ReRing ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "hookntone"?>
+            <?cs var:Env.Button.ReHookntone ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "dtmf"?>
+            <?cs var:Env.Button.ReDtmf ?>
+          <?cs else?>
+            <?cs var:Env.Button.ReInit?>
+          <?cs /if?>
+        <?cs /if?>
+      </button>
+    </div>
+    <img id="loader" style="display:none;" src="/img/icon_anim_loading.gif" alt="<?cs var:Env.Var.pendingDiag.Value ?>" />
+    <span id="info">
+    <?cs if:Var.vSStest_nextstep.Value == "gr909"?>
+      <?cs var:Env.Text.Gr909 ?>
+    <?cs elif:Var.vSStest_nextstep.Value == "ring"?>
+      <?cs var:Env.Text.Ring ?>
+    <?cs elif:Var.vSStest_nextstep.Value == "hookntone"?>
+      <?cs var:Env.Text.Hookntone ?>
+    <?cs elif:Var.vSStest_nextstep.Value == "dtmf"?>
+      <?cs var:Env.Text.Dtmf ?>
+    <?cs else?>
+      <?cs var:Env.Text.Init?>
+    <?cs /if?></span>
+  </fieldset>
+</form>
+<?cs /if ?>
+
+<br />
+	
+
+<form id="form_voip_diag_reboot" method="post" action="<?cs var:Env.Page.Name ?>">
+  <fieldset>
+    <input type="hidden" name="action" value="reboot" />
+    <span class="button_submit">
+      <button type="submit" name="submit"><?cs if:(Var.DtmfResult.Value == "success") ?><?cs var:Button.Reboot ?><?cs else ?><?cs var:Env.Button.CancelAndReboot ?><?cs /if ?></button>
+    </span>
+    <p><b><?cs var:Env.Text.Warning ?>&nbsp;<?cs var:Env.Text.Info ?></b></p>
+  </fieldset>
+</form>
+
+</div>
+
+#ifndef NB5
+<div class="title">
+    <h1><?cs var:Env.Section.dsltest.Title ?></h1>
+</div>
+
+<div id="dsltest_section" class="content">
+    
+    <div style="float: right;">
+#ifndef NB6
+        <img src="/img/img_dsltest.png" />
+#endif
+#ifdef NB6
+        <img src="/img/img_dsltest_nb6.jpg" />
+#endif
+
+    </div>
+    
+    <div style="margin-right: 135px;">
+        <table id="table_dsltest">
+            <tr>
+                <th scope="row"><?cs var:Env.Var.dsltest_result.Header ?></th>
+                <td id="td_dsltest_result" class="<?cs if:Var.dsltest_result.Value == "OK" ?>enabled<?cs elif:Var.dsltest_result.Value == "NOK_LIGHT" || Var.dsltest_result.Value == "NOK_HIGH" ?>disabled<?cs else ?>unused<?cs /if ?>">
+                <?cs if:?Var.dsltest_result.Value?>
+                <?cs call:varValueH3n("dsltest_result")?>
+                <?cs else?>
+                <?cs var:Env.Text.not_launched?>
+                <?cs /if?>
+                </td>
+            </tr>
+        </table>
+    
+        <?cs var:Env.Text.dsltest_instruction?>
+    </div>
+
+    <form id="form_dsltest" method="post" action="<?cs var:Env.Page.Name ?>">
+        <input type="hidden" name="action" value="dsltest" />
+        
+        <div id="div_button_dsltest" class="button_submit">
+            <button type="submit" name="submit"><?cs var:Env.Button.Test ?></button>
+        </div>
+
+        <div id="dsltest_status" class="status" style="display:none;">
+            <span class="loading"><?cs var:Env.Text.dsltest_living?></span>
+        </div>
+    </form>
+</div>
+#endif
+
+<div class="title">
+	<h1><?cs var:Env.Section.DiagReport.Title?></h1>
+</div>
+
+<div class="content">
+	<form method="post" action="<?cs var:Env.Page.Name ?>">
+	
+	<table id="diagnostic_report">
+		<tr>
+			<th scope="row"><?cs var:Env.Text.ExportDiagReport?></th>
+			<td>
+				<input type="hidden" name="action" value="diagreport_export" />
+				<span class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></span>
+			</td>
+		</tr>
+	</table>
+
+	</form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

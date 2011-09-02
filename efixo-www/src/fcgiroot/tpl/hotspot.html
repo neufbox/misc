@@ -1,0 +1,81 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div id="ctn_hotspot_disable" <?cs if:Var.hotspot_enable.Value != "false"?>style="display:none;"<?cs /if?>>
+<div class="title">
+	<h1><?cs var:Env.Section.hotspot_info.Title ?></h1>
+</div>
+
+<div class="content">
+        <div class="warning_notice">
+            <?cs call:varValueH3n_d("hotspot_enable", "false")?>
+        </div>
+</div>
+</div>
+
+<div id="ctn_hotspot_enable" <?cs if:Var.hotspot_enable.Value == "false"?>style="display:none;"<?cs /if?>>
+<div class="title">
+	<h1><?cs var:Env.Section.hotspot_info.Title ?></h1>
+</div>
+
+<div class="content">
+	<table id="hotspot_info">
+		<tr>
+			<th scope="row"><?cs call:varHeader("hotspot_status") ?></th>
+			<td class="<?cs if:Var.hotspot_status.Value == "up" ?>enabled<?cs elif:(Var.hotspot_status.Value == "starting"  || Var.hotspot_status.Value == "stopping") ?>unused<?cs else ?>disabled<?cs /if ?>" id="hotspot_status">
+			    	<?cs call:varValueH3n("hotspot_status")?>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("hotspot_mode") ?></th>
+			<td>
+				<?cs call:varValueH3n_d("hotspot_mode", "unavailable")?>
+			</td>
+		</tr>
+		<tr id="row_ssid"<?cs if:Var.hotspot_status.Value != "up"?> style="display:none"<?cs /if?>>
+			<th scope="row"><?cs call:varHeader("hotspot_ssid") ?></th>
+			<td id="col_ssid">
+                                <?cs var:Var.hotspot_ssid.Value?>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="title">
+	<h1><?cs var:Env.Section.hotspot_assoc.Title ?></h1>
+</div>
+
+<div class="content">
+<?cs if:subcount(Var.hotspot_assoc_list) > 0 ?>
+	<table id="hotspot_assoc">
+		<thead>
+			<tr>
+				<th scope="col" class="col_number">#</th>
+				<th scope="col" class="col_mac"><?cs call:varHeader("hotspot_assoclist_mac") ?></th>
+				<th scope="col" class="col_ip"><?cs call:varHeader("hotspot_assoclist_ip") ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?cs each:item = Var.hotspot_assoc_list ?>
+			<tr>
+				<td class="col_number">
+					<?cs name:item ?>
+				</td>
+				<td>
+					<?cs var:item.macaddr.Value ?>
+				</td>
+				<td>
+					<?cs var:item.ipaddr.Value ?>
+				</td>
+			</tr>
+			<?cs /each ?>
+		</tbody>
+	</table>
+<?cs else ?>
+	<?cs var:Env.Text.NoConnectedClients ?>
+<?cs /if ?>
+</div>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

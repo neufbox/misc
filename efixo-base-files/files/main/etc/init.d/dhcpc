@@ -1,0 +1,58 @@
+#!/bin/sh /etc/rc.common
+
+EXTRA_COMMANDS="adsl_start adsl_stop"
+
+logger "[dhcpc] $$ $action"
+
+DHCPC_WAN_PID_FILE="/var/run/dhcpc-wan.pid"
+DHCPC_VOIP_PID_FILE="/var/run/dhcpc-voip.pid"
+DHCPC_TV_PID_FILE="/var/run/dhcpc-tv.pid"
+
+WRAPPER_TV_PID_FILE="/var/run/tvservices-wrapper.pid"
+
+dhcpc_wan_ifname=$(nvram get dhcpc_wan_ifname)
+[ -d /etc/adsl ] && dhcpc_voip_ifname=$(nvram get dhcpc_voip_ifname)
+[ -d /etc/adsl ] && dhcpc_tv_ifname=$(nvram get dhcpc_tv_ifname)
+[ -d /etc/adsl ] && dhcpc_tv_allow=$(status get dhcpc_tv_allow)
+
+dhcpc_tv_start() {
+	VENDORID="NEUFTVSTB"
+
+	[ ! -e ${DHCPC_TV_PID_FILE} ] && udhcpc -b -p ${DHCPC_TV_PID_FILE} -i ${dhcpc_tv_ifname} -V ${VENDORID} -s /etc/dhcp/tv.script
+}
+
+adsl_start() {
+	VENDORID="neufbox_$(status get productID)_$(status get version_mainfirmware)_$(status get version_dsldriver)"
+
+	udhcpc -b -p ${DHCPC_VOIP_PID_FILE} -i ${dhcpc_voip_ifname} -V ${VENDORID} -s /etc/dhcp/voip.script
+	[ "${dhcpc_tv_allow}" = "on" ] && dhcpc_tv_start
+}
+
+adsl_stop() {
+	[ -e ${DHCPC_VOIP_PID_FILE} ] && kill $(cat ${DHCPC_VOIP_PID_FILE})
+	[ -e ${DHCPC_TV_PID_FILE} ] && kill $(cat ${DHCPC_TV_PID_FILE})
+}
+
+boot() {
+	VENDORID="neufbox_$(status get productID)_$(status get version_mainfirmware)"
+
+	udhcpc -b -p ${DHCPC_WAN_PID_FILE} -i ${dhcpc_wan_ifname} -V ${VENDORID} -s /etc/dhcp/wan.script
+	[ -d /etc/adsl ] && adsl_start
+}
+
+stop() {
+	killall udhcpc
+}
+
+restart() {
+	[ -e ${DHCPC_WAN_PID_FILE} ] && kill -USR1 $(cat ${DHCPC_WAN_PID_FILE})
+	[ -e ${DHCPC_VOIP_PID_FILE} ] && kill -USR1 $(cat ${DHCPC_VOIP_PID_FILE})
+
+	[ -e ${DHCPC_TV_PID_FILE} ] && [ "${dhcpc_tv_allow}" = "on" ] && kill -USR1 $(cat ${DHCPC_TV_PID_FILE})
+	[ -e ${DHCPC_TV_PID_FILE} ] && [ "${dhcpc_tv_allow}" = "off" ] && kill $(cat ${DHCPC_TV_PID_FILE})
+	[ -d /etc/adsl ] && [ "${dhcpc_tv_allow}" = "on" ] && dhcpc_tv_start || true
+}
+
+reload() {
+	restart
+}

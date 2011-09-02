@@ -1,0 +1,96 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.configuration.Title ?></h1>
+</div>
+
+<div class="content">
+	<form method="post" id="form_access_point_config" action="<?cs var:Env.Page.Name ?>">
+
+	<table id="access_point_config">
+		<tr>
+			<th scope="row"><?cs var:Env.Var.ap_active.Header ?></th>
+			<td>
+#ifndef NB6
+                                <input type="radio" value="on" name="ap_active" id="ap_active_on"<?cs if:Var.ap_active.Value == "on" ?> checked="checked"<?cs /if ?>
+                                       <?cs if:Var.wlan_cap.wlan0.interrupter.Value=="hard"?> disabled="disabled"<?cs /if?> />
+                                <label for="ap_active_on"><?cs var:Env.Var.ap_active.Value.on ?></label>
+                                <input type="radio" value="off" name="ap_active" id="ap_active_off"<?cs if:Var.ap_active.Value == "off" ?> checked="checked"<?cs /if ?>
+                                       <?cs if:Var.wlan_cap.wlan0.interrupter.Value=="hard"?> disabled="disabled"<?cs /if?> />
+                                <label for="ap_active_off"><?cs var:Env.Var.ap_active.Value.off ?></label>
+                                <?cs if:Var.wlan_cap.wlan0.interrupter.Value=="hard"?>
+                                
+                                <?cs /if?>
+#endif
+#ifdef NB6
+                                <?cs if:Var.ap_active.Value == "on" ?>
+                                <span><?cs var:Env.Var.Nb6WifiEnabled ?></span>
+                                <?cs else ?>
+                                <span><?cs var:Env.Var.Nb6WifiDisabled ?></span>
+                                <?cs /if ?>
+                                <input name="ap_active" type="hidden" value="<?cs var:Var.ap_active.Value ?>" />
+#endif
+			</td>
+		</tr>
+		<tr id="row_ap_ssid">
+			<th scope="row"><label for="ap_ssid"><?cs var:Env.Var.ap_ssid.Header ?></label></th>
+			<td>
+				<input type="text" name="ap_ssid" class="<?cs if:?Var.ap_ssid.Error ?>error<?cs else ?>text<?cs /if ?>" id="ap_ssid" value="<?cs var:html_escape(Var.ap_ssid.Value) ?>" size="32" maxlength="32" />
+
+				<?cs if:?Var.ap_ssid.Error ?>
+				<div class="error">
+					<?cs var:Env.Var.ap_ssid.Error[Var.ap_ssid.Error] ?>
+				</div>
+				<?cs /if ?>
+			</td>
+		</tr>
+		<tr id="row_ap_closed">
+			<th scope="row"><?cs var:Env.Var.ap_closed.Header ?></th>
+			<td>
+				<input type="radio" value="0" name="ap_closed" id="ap_closed_no"<?cs if:Var.ap_closed.Value == "0" ?> checked="checked"<?cs /if ?> />
+				<label for="ap_closed_no"><?cs var:Env.Var.ap_closed.Value.on ?></label>
+				<input type="radio" value="1" name="ap_closed" id="ap_closed_yes"<?cs if:Var.ap_closed.Value == "1" ?> checked="checked"<?cs /if ?> />
+				<label for="ap_closed_yes"><?cs var:Env.Var.ap_closed.Value.off ?></label>
+			</td>
+		</tr>
+		<tr id="row_ap_channel">
+			<th scope="row"><label for="ap_channel"><?cs var:Env.Var.ap_channel.Header ?></label></th>
+			<td>
+				<select name="ap_channel" id="ap_channel">
+					<option value="auto"<?cs if:Var.ap_channel.Value == "auto" ?> selected="selected"<?cs /if ?>>auto</option>
+					<?cs loop:chan = #1, #13, #1 ?>
+					<option value="<?cs var:chan ?>"<?cs if:#Var.ap_channel.Value == chan ?> selected="selected"<?cs /if ?>>
+						<?cs var:chan ?>
+					</option>
+					<?cs /loop ?>
+				</select>
+			</td>
+		</tr>
+		<tr id="row_ap_mode">
+			<th scope="row"><?cs var:Env.Var.ap_mode.Header ?></th>
+			<td>
+				<?cs each:mode = Env.Var.ap_mode.List?>
+				     <input type="radio" value="<?cs var:mode.Value?>" name="ap_mode" id="ap_mode_<?cs var:mode.Value?>"<?cs if:Var.ap_mode.Value == mode.Value ?> checked="checked"<?cs /if ?> />
+				     <label for="ap_mode_<?cs var:mode.Value?>"><?cs var:mode.Label ?></label>
+				<?cs /each?>
+			</td>
+		</tr>
+#ifndef NB4
+		<tr id="row_access_point_options"<?cs if:Var.ap_mode.Value != "11n" ?> style="display: none;"<?cs /if ?>>
+			<th scope="row" valign="top"><?cs var:Env.Var.AccessPointOption.Header?></th>
+			<td>
+				<input type="checkbox" name="ap_ht40" value="on" id="ap_ht40"<?cs if:Var.ap_ht40.Value == "on" ?> checked="checked"<?cs /if ?> />
+				<label for="ap_ht40"><?cs var:Env.Var.ap_ht40.Header?></label>
+			</td>
+		</tr>
+#endif
+	</table>
+
+	<div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+
+	</form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

@@ -1,0 +1,5 @@
+::sysinit:/etc/init.d/rcS S boot
+::shutdown:/etc/init.d/rcS K stop
+::once:/etc/init.d/networks boot
+::once:/etc/init.d/services boot
+ttyS0::askfirst:-/bin/login

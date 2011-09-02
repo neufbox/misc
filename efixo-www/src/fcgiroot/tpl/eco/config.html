@@ -1,0 +1,110 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<?cs if:Var.eco_led_active.Value == "off" ?>
+<div class="warning_notice"><?cs var:Env.Var.warning_led ?></div>
+<?cs /if ?>
+
+<div class="title">
+        <h1><?cs var:Env.Section.configuration.Title ?></h1>
+</div>
+
+<div class="content">
+        <form id="form_eco_config" action="<?cs var:Env.Page.Name ?>" method="post">
+                <table id="table_eco_config">
+
+                        <tr id="choose">
+                                <th scope="row"><?cs var:Env.Var.profile.Header ?></th>
+                                <td>
+                                        <input type="radio" name="eco_profile" value="default" checked="checked" id="mode_eco_default" <?cs if:Var.eco_profile.Value == "default" ?> checked="checked" <?cs /if ?> />&nbsp;<label for="mode_eco_default"><?cs var:Env.Var.profile_standard.Value ?></label>
+                                        <input type="radio" name="eco_profile" value="custom" id="mode_eco_custom" <?cs if:Var.eco_profile.Value == "custom" ?> checked="checked" <?cs /if ?> />&nbsp;<label for="mode_eco_custom"><?cs var:Env.Var.profile_custom.Value ?></label>
+                                </td>
+                        </tr>
+
+                        <tr class="custom">
+                                <th scope="row"><?cs var:Env.Var.telephone.Header ?></th>
+                                <td><input name="eco_voip_active" id="voip_active" type="checkbox" value="off" <?cs if:Var.eco_voip_active.Value == "off" ?> checked="checked" <?cs /if ?> />&nbsp;<label for="voip_active"><?cs var:Env.Var.disabled.Value ?></label></td>
+                        </tr>
+                        <tr class="custom">
+                                <th scope="row"><?cs var:Env.Var.cpl.Header ?></th>
+                                <td><input name="eco_cpl_active" id="cpl_active" type="checkbox" value="off" <?cs if:Var.eco_cpl_active.Value == "off" ?> checked="checked" <?cs /if ?> />&nbsp;<label for="cpl_active"><?cs var:Env.Var.disabled.Value ?></label></td>
+                        </tr >
+                        <tr class="custom">
+                                <th scope="row"><?cs var:Env.Var.ethernet_pc_tv.Header ?>1</th>
+                                <td>
+                                        <select class="eco_link_lan" name="eco_link_lan1_active">
+                                                <option value="off" <?cs if:Var.eco_link_lan1_active.Value == "off" ?> selected="selected" <?cs /if ?> ><?cs var:Env.Var.disabled.Value ?></option>
+                                                <option value="10"  <?cs if:Var.eco_link_lan1_active.Value == "10" ?> selected="selected" <?cs /if ?> >10 Mbps</option>
+                                                <option value="100" <?cs if:Var.eco_link_lan1_active.Value == "100" ?> selected="selected" <?cs /if ?> >100 Mbps</option>
+                                                <option value="1000" <?cs if:Var.eco_link_lan1_active.Value == "1000" ?> selected="selected" <?cs /if ?>>1000 Mbps</option>
+                                        </select>
+                                        <input type="checkbox" name="eco_link_lan1_eee" id="eco_link_lan1_eee" <?cs if:Var.eco_link_lan1_eee.Value == "on" ?>checked="checked"<?cs /if ?> <?cs if:Var.eco_link_lan1_active.Value == "off" ?> disabled="disabled" <?cs /if ?> />&nbsp;<label for="eco_link_lan1_eee">EEE 802.3az</label>
+                                </td>
+                        </tr>
+                        <tr class="custom">
+                                <th scope="row"><?cs var:Env.Var.ethernet_pc_tv.Header ?>2</th>
+                                <td>
+                                        <select class="eco_link_lan" name="eco_link_lan2_active">
+                                                <option value="off" <?cs if:Var.eco_link_lan2_active.Value == "off" ?> selected="selected" <?cs /if ?>><?cs var:Env.Var.disabled.Value ?></option>
+                                                <option value="10" <?cs if:Var.eco_link_lan2_active.Value == "10" ?> selected="selected" <?cs /if ?> >10 Mbps</option>
+                                                <option value="100" <?cs if:Var.eco_link_lan2_active.Value == "100" ?> selected="selected" <?cs /if ?>>100 Mbps</option>
+                                                <option value="1000" <?cs if:Var.eco_link_lan2_active.Value == "1000" ?> selected="selected" <?cs /if ?>>1000 Mbps</option>
+                                        </select>
+                                        <input type="checkbox" name="eco_link_lan2_eee" id="eco_link_lan2_eee" <?cs if:Var.eco_link_lan2_eee.Value == "on" ?>checked="checked"<?cs /if ?> <?cs if:Var.eco_link_lan2_active.Value == "off" ?> disabled="disabled" <?cs /if ?>/>&nbsp;<label for="eco_link_lan2_eee">EEE 802.3az</label>
+                                </td>
+                        </tr>
+                        <tr class="custom">
+                                <th scope="row"><?cs var:Env.Var.ethernet_pc_tv.Header ?>3</th>
+                                <td>
+                                        <select class="eco_link_lan" name="eco_link_lan3_active">
+                                                <option value="off" <?cs if:Var.eco_link_lan3_active.Value == "off" ?> selected="selected" <?cs /if ?> ><?cs var:Env.Var.disabled.Value ?></option>
+                                                <option value="10" <?cs if:Var.eco_link_lan3_active.Value == "10" ?> selected="selected" <?cs /if ?> >10 Mbps</option>
+                                                <option value="100" <?cs if:Var.eco_link_lan3_active.Value == "100" ?> selected="selected" <?cs /if ?> >100 Mbps</option>
+                                                <option value="1000" <?cs if:Var.eco_link_lan3_active.Value == "1000" ?> selected="selected" <?cs /if ?>>1000 Mbps</option>
+                                        </select>
+                                        <input type="checkbox" name="eco_link_lan3_eee" id="eco_link_lan3_eee"  <?cs if:Var.eco_link_lan3_eee.Value == "on" ?>checked="checked"<?cs /if ?> <?cs if:Var.eco_link_lan3_active.Value == "off" ?> disabled="disabled" <?cs /if ?>/>&nbsp;<label for="eco_link_lan3_eee">EEE 802.3az</label>
+                                </td>
+                        </tr>
+                        <tr class="custom">
+                                <th scope="row"><?cs var:Env.Var.ethernet_pc_tv.Header ?>4</th>
+                                <td>
+                                        <select class="eco_link_lan" name="eco_link_lan4_active">
+                                                <option value="off" <?cs if:Var.eco_link_lan4_active.Value == "off" ?> selected="selected" <?cs /if ?>><?cs var:Env.Var.disabled.Value ?></option>
+                                                <option value="10" <?cs if:Var.eco_link_lan4_active.Value == "10" ?> selected="selected" <?cs /if ?>>10 Mbps</option>
+                                                <option value="100" <?cs if:Var.eco_link_lan4_active.Value == "100" ?> selected="selected" <?cs /if ?>>100 Mbps</option>
+                                                <option value="1000" <?cs if:Var.eco_link_lan4_active.Value == "1000" ?> selected="selected" <?cs /if ?>>1000 Mbps</option>
+                                        </select>
+                                        <input type="checkbox" name="eco_link_lan4_eee" id="eco_link_lan4_eee" <?cs if:Var.eco_link_lan4_eee.Value == "on" ?>checked="checked"<?cs /if ?> <?cs if:Var.eco_link_lan4_active.Value == "off" ?> disabled="disabled" <?cs /if ?>/>&nbsp;<label for="eco_link_lan4_eee">EEE 802.3az</label>
+                                </td>
+                        </tr>
+                        <tr class="custom">
+                                <th scope="row"><?cs var:Env.Var.port_ftth.Header ?></th>
+                                <td>
+                                        <select class="eco_link_lan" name="eco_link_ftth_active">
+                                                <option value="off" <?cs if:Var.eco_link_ftth_active.Value == "off" ?> selected="selected" <?cs /if ?>><?cs var:Env.Var.disabled.Value ?></option>
+                                                <option value="10" <?cs if:Var.eco_link_ftth_active.Value == "10" ?> selected="selected" <?cs /if ?>>10 Mbps</option>
+                                                <option value="100" <?cs if:Var.eco_link_ftth_active.Value == "100" ?> selected="selected" <?cs /if ?>>100 Mbps</option>
+                                                <option value="1000" <?cs if:Var.eco_link_ftth_active.Value == "1000" ?> selected="selected" <?cs /if ?>>1000 Mbps</option>
+                                        </select>
+                                        <input type="checkbox" name="eco_link_ftth_eee" id="eco_link_ftth_eee"  <?cs if:Var.eco_link_ftth_eee.Value == "on" ?>checked="checked"<?cs /if ?> <?cs if:Var.eco_link_ftth_active.Value == "off" ?> disabled="disabled" <?cs /if ?>/>&nbsp;<label for="eco_link_ftth_eee">EEE 802.3az</label>
+                                </td>
+                        </tr>
+                        <tr class="custom">
+                                <th scope="row"><?cs var:Env.Var.brightness.Header ?></th>
+                                <td>
+                                        <select name="eco_led_active">
+                                                <option value="off" <?cs if:Var.eco_led_active.Value == "off" ?> selected="selected" <?cs /if ?> ><?cs var:Env.Var.off.Value ?></option>
+                                                <option value="low" <?cs if:Var.eco_led_active.Value == "low" ?> selected="selected" <?cs /if ?> ><?cs var:Env.Var.low.Value ?></option>
+                                                <option value="half" <?cs if:Var.eco_led_active.Value == "half" ?> selected="selected" <?cs /if ?> ><?cs var:Env.Var.medium.Value ?></option>
+                                                <option value="full" <?cs if:Var.eco_led_active.Value == "full" ?> selected="selected" <?cs /if ?> ><?cs var:Env.Var.high.Value ?></option>
+                                        </select>
+                                </td>
+                        </tr>
+
+                </table>
+                <div class="button_submit"><button id="dmz_submit_btn" type="submit" name="submit" value="dmz_submit"><?cs var:Button.Submit ?></button></div>
+        </form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

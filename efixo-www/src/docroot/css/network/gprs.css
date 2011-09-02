@@ -1,0 +1,7 @@
+#form_gprs_config th, #form_gprs_config_data th, #form_gprs_config_voip th {
+    width: 170px;
+}
+
+#form_gprs_config td, #form_gprs_config_data td, #form_gprs_config_voip td {
+    min-width: 230px;
+}

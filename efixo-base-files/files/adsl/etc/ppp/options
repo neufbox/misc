@@ -1,0 +1,8 @@
+#debug
+nodetach
+nopersist
+usepeerdns
+plugin /usr/lib/pppd/2.4.4/rp-pppoe.so
+child-timeout 20
+lcp-echo-failure 3
+lcp-echo-interval 20

@@ -1,0 +1,8 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <voip>
+    <linestatus val="<?cs var:Var.voip_linestatus.Value?>" text="<?cs call:varValueH3n_d('voip_linestatus','down')?>" />
+    <hookstatus val="<?cs var:Var.voip_hookstatus.Value?>" text="<?cs call:varValueH3n_d('voip_hookstatus','unknown')?>" />
+    <access val="<?cs var:Var.voip_access.Value?>" text="<?cs call:varValueH3n('voip_access')?>" />
+  </voip>
+</rsp>

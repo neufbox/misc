@@ -1,0 +1,11 @@
+Env.Var.nat_rulename.Regex = ^[a-zA-Z0-9_-]{1,20}$
+Env.Var.nat_proto.Regex = ^(tcp|udp|both)$
+Env.Var.nat_range.Regex = ^(false|true)$
+Env.Var.nat_extport.Regex = ^[\d]{1,5}$
+Env.Var.nat_extrange_p0.Regex = ^[\d]{1,5}$
+Env.Var.nat_extrange_p1.Regex = ^[\d]{1,5}$
+Env.Var.nat_dstport.Regex = ^[\d]{1,5}$
+Env.Var.nat_dstrange_p0.Regex = ^[\d]{1,5}$
+Env.Var.nat_dstrange_p1.Regex = ^[\d]{1,5}$
+Env.Var.nat_active.Regex = ^(on|off)$
+Env.Var.upnpd_active.Regex = ^(on|off)$

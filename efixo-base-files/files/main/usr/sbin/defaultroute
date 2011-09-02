@@ -1,0 +1,119 @@
+#!/bin/sh
+
+[ "$(autoconf get mustreboot)" = "yes" ] && exit 0
+
+net_autoconf_infra_deconfigure() {
+	status set net_autoconf_status down
+	status set net_autoconf_infra unknown
+	status set net_autoconf_access 
+	status set net_autoconf_ifname 
+	status set net_autoconf_ipaddr 
+	status set net_autoconf_netmask 
+	status set net_autoconf_broadcast 
+	status set net_autoconf_gateway 
+	status set net_autoconf_dns 
+	status set net_autoconf_resolvconf
+}
+
+net_autoconf_configure() {
+	[ "$(status get net_autoconf_infra)" != "${infra}" ] && {
+		logger "default route: ${infra} infra"
+
+		status set net_autoconf_status up
+		status set net_autoconf_infra ${infra}
+		status set net_autoconf_access ${access}
+		status set net_autoconf_ifname ${ifname}
+		status set net_autoconf_ipaddr ${ipaddr}
+		status set net_autoconf_netmask ${netmask}
+		status set net_autoconf_broadcast ${broadcast}
+		status set net_autoconf_gateway ${gateway}
+		status set net_autoconf_dns ${dns}
+		status set net_autoconf_resolvconf ${resolv_conf}
+
+		ln -sf ${resolv_conf} /etc/resolv.conf
+		ip route replace default via ${gateway}
+		ip route flush cache
+
+		autoconf start
+		/etc/init.d/ntp restart
+	}
+}
+
+net_autoconf_infra_dhcpc_wan_setup() {
+	access=$(status get dhcpc_wan_access)
+	ifname=$(status get dhcpc_wan_ifname)
+	ipaddr=$(status get dhcpc_wan_ipaddr)
+	netmask=$(status get dhcpc_wan_netmask)
+	broadcast=$(status get dhcpc_wan_broadcast)
+	gateway=$(status get dhcpc_wan_gateway)
+	dns=$(status get dhcpc_wan_dns)
+	resolv_conf="/var/dhcp/resolv.conf.wan"
+	infra="${access}/routed"
+
+	net_autoconf_configure
+}
+
+net_autoconf_infra_dhcp_voip_setup() {
+	access=$(status get dhcpc_voip_access)
+	ifname=$(status get dhcpc_voip_ifname)
+	ipaddr=$(status get dhcpc_voip_ipaddr)
+	netmask=$(status get dhcpc_voip_netmask)
+	broadcast=$(status get dhcpc_voip_broadcast)
+	gateway=$(status get dhcpc_voip_gateway)
+	dns=$(status get dhcpc_voip_dns)
+	resolv_conf="/var/dhcp/resolv.conf.voip"
+	infra="${access}/dhcp"
+
+	net_autoconf_configure
+}
+
+net_autoconf_infra_ppp_adsl_setup() {
+	access=$(status get ppp_adsl_access)
+	ifname=$(status get ppp_adsl_ifname)
+	ipaddr=$(status get ppp_adsl_ipaddr)
+	netmask=$(status get ppp_adsl_netmask)
+	broadcast=$(status get ppp_adsl_broadcast)
+	gateway=$(status get ppp_adsl_gateway)
+	dns=$(status get ppp_adsl_dns)
+	resolv_conf="/var/ppp/resolv.conf.adsl"
+	infra="${access}/ppp"
+
+	net_autoconf_configure
+}
+
+net_autoconf_infra_ppp_gprs_setup() {
+	access=$(status get ppp_gprs_access)
+	ifname=$(status get ppp_gprs_ifname)
+	ipaddr=$(status get ppp_gprs_ipaddr)
+	netmask=$(status get ppp_gprs_netmask)
+	broadcast=$(status get ppp_gprs_broadcast)
+	gateway=$(status get ppp_gprs_gateway)
+	dns=$(status get ppp_gprs_dns)
+	resolv_conf="/var/ppp/resolv.conf.gprs"
+	infra="${access}/ppp"
+
+	net_autoconf_configure
+}
+
+lock /var/lock/defaultroute.lock
+
+if [ "$(status get dhcpc_wan_status)" = "up" ]
+then
+	net_autoconf_infra_dhcpc_wan_setup
+else if [ -d /etc/adsl ] && [ "$(status get dhcpc_voip_status)" = "up" ]
+then
+	net_autoconf_infra_dhcp_voip_setup
+else if [ -d /etc/adsl ] && [ "$(status get ppp_adsl_status)" = "up" ]
+then
+	net_autoconf_infra_ppp_adsl_setup
+else if [ "$(status get ppp_gprs_status)" = "up" ]
+then
+	net_autoconf_infra_ppp_gprs_setup
+else
+	net_autoconf_infra_deconfigure
+fi
+fi
+fi
+fi
+
+lock -u /var/lock/defaultroute.lock

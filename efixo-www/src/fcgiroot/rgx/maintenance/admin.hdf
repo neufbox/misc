@@ -1,0 +1,1 @@
+Env.Var.web_password.Regex = ^([!#-&(-_a-~]{5,63}|)$

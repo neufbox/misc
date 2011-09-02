@@ -1,0 +1,48 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+    <h1>CS functions test</h1>
+</div>
+
+<div class="content">
+    <h3>lanIfaceToPortName</h3>
+    
+    <table>
+	<?cs each:link = Var.links?>
+	<tr>
+	    <td>
+		<?cs var:link.name.Value ?>
+	    </td>
+	    <td>
+		<?cs call:lanIfaceToPortName(link.name.Value)?>
+	    </td>
+	</tr>
+	<?cs /each?>
+    </table>
+</div>
+
+<div class="title">
+    <h1>JS functions test</h1>
+</div>
+
+<div class="content">
+    <h3>basename</h3>
+    
+    <table>
+	<?cs each:url = Var.urls?>
+	<tr>
+	    <td>
+		<?cs var:url.value.Value ?>
+	    </td>
+	    <td>
+		<script language="javascript">
+		    document.write(basename("<?cs var:url.value.Value ?>"));
+		</script>
+	    </td>
+	</tr>
+	<?cs /each?>
+    </table>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

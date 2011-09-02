@@ -1,0 +1,28 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <lan>
+    <?cs each:iface=Var.links?>
+    <iface>
+      <name><?cs var:iface.name.Value?></name>
+      <type val="<?cs var:iface.type.Value?>" text="<?cs if:iface.type.Value=='stb'?><?cs var:Env.Var.type.Value.stb?><?cs else?><?cs var:Env.Var.type.Value.host?><?cs /if?>" />
+      <status val="<?cs var:iface.status.Value?>" text="<?cs if:iface.status.Value=='up'?><?cs var:Env.Var.LinkStatus.Value.up?><?cs else?><?cs var:Env.Var.LinkStatus.Value.down?><?cs /if?>" />
+      <speed><?cs var:iface.speed.Value?></speed>
+    </iface>
+    <?cs /each?>
+  </lan>
+#ifdef CIBOX
+  <tv>
+    <ifname><?cs var:Var.TVIfname.Value?></ifname>
+    <status val="<?cs var:Var.TVStatus.Value?>" text="<?cs call:varValueH3n_d('TVStatus','down')?>" />
+  </tv>
+#endif
+<?cs if:?Var.USBStatus.Value?>
+  <usb>
+    <status val="<?cs var:Var.USBStatus.Value?>" text="<?cs call:varValueH3n_d('USBStatus','down')?>" />
+  </usb>
+<?cs /if?>
+  <wifi>
+    <status val="<?cs var:Var.WifiStatus.Value?>" text="<?cs call:varValueH3n_d('WifiStatus','off')?>" />
+    <clientcount val="<?cs var:Var.WifiCountClient.Value?>" text="<?cs call:varValueH3n_d('WifiCountClient', 'many')?>" />
+  </wifi>
+</rsp>

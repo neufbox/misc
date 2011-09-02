@@ -1,0 +1,15 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <radio>
+    <active val="<?cs var:Var.gprs_active_data.Value?>" text="<?cs call:varValueH3n_d('gprs_active_data', 'off')?>" />
+    <device>
+      <status val="<?cs var:Var.gprs_device_state.Value?>" text="<?cs call:varValueH3n_d('gprs_device_state', 'unavailable')?>" />
+    </device>
+    <sim>
+      <status val="<?cs var:Var.gprs_sim_status.Value?>" text="<?cs call:varValueH3n_d('gprs_sim_status', 'ko')?>" />
+      <pinstatus val="<?cs var:Var.gprs_sim_pinstatus.Value?>" text="<?cs call:varValueH3n_d('gprs_sim_pinstatus', 'ko')?>" />
+      <pinremaining val="<?cs var:Var.gprs_sim_pinremaining.Value?>" text="<?cs call:varValueH3n_d('gprs_sim_pinremaining', '0')?>" />
+      <pukremaining val="<?cs var:Var.gprs_sim_pukremaining.Value?>" text="<?cs call:varValueH3n_d('gprs_sim_pukremaining', '0')?>" />
+    </sim>
+  </radio>
+</rsp>

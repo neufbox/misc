@@ -1,0 +1,52 @@
+Env.Page.Title = GPRS
+
+Env.Var.gprs_pukcode.Header = Code PUK
+Env.Var.gprs_pukcode.Error.invalid = Code PUK invalide
+
+Env.Var.gprs_newpincode.Header = Nouveau code PIN
+Env.Var.gprs_newpincode.Error.invalid = Code PIN invalide
+
+Env.Section.gprs_config.Title = GPRS
+
+Env.Var.gprs_device_state.Header = Clé GPRS
+Env.Var.gprs_device_state.Value.unavailable = Clé 3G non détectée
+Env.Var.gprs_device_state.Value.available = Clé 3G détectée
+
+Env.Var.gprs_active_data.Header = Statut GPRS
+Env.Var.gprs_active_data.Value.on = Opérationnel
+Env.Var.gprs_active_data.Value.off = Pas de connexion
+
+Env.Var.gprs_pin.Header = Code PIN
+Env.Var.gprs_pin.Error.value = Format incorrect
+
+Env.Var.gprs_apn.Header = APN
+Env.Var.gprs_apn.Error.value = Format incorrect
+
+
+
+Env.Var.gprs_sim_status.Value.ko = SIM abstente ou défaillante
+Env.Var.gprs_sim_status.Value.ok = Carte SIM présente
+
+Env.Var.gprs_sim_pinstatus.Value.ko = Code pin invalide
+Env.Var.gprs_sim_pinstatus.Value.ok = Code pin valide
+
+Env.Var.gprs_sim_pinremaining.Value.0 = SIM verrouillée suite à plusieurs erreurs du code PIN. Pour déverrouiller la carte SIM, veuillez utiliser votre code PUK et entrez votre nouveau code PIN.
+Env.Var.gprs_sim_pinremaining.Value.1 = 1 essai restant
+Env.Var.gprs_sim_pinremaining.Value.2 = 2 essais restants
+Env.Var.gprs_sim_pinremaining.Value.3 = 3 essais restants
+Env.Var.gprs_sim_pinremaining.Value.unknown = Impossible de récupérer le nombre d'essai restant pour le code PIN
+
+Env.Var.gprs_sim_pukremaining.Value.0 = Votre carte SIM est définitivement verrouillée suite à plusieurs erreurs du code PIN et du code PUK.
+Env.Var.gprs_sim_pukremaining.Value.unknown = Impossible de récupérer le nombre d'essai restant pour le code PUK
+
+Env.Var.gprs_service_data.Header = Connexion GPRS
+Env.Var.gprs_service_data.Value.on = activé
+Env.Var.gprs_service_data.Value.off = désactivé
+Env.Var.gprs_service_data.Value.auto = automatique
+Env.Var.gprs_service_data.Error.value = Format incorrect
+
+Env.Var.gprs_service_voice.Header = Téléphonie
+Env.Var.gprs_service_voice.Value.on = activé
+Env.Var.gprs_service_voice.Value.off = désactivé
+Env.Var.gprs_service_voice.Value.auto = automatique
+Env.Var.gprs_service_voice.Error.value = Format incorrect

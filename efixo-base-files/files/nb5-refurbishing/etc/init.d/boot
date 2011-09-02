@@ -1,0 +1,55 @@
+#!/bin/sh /etc/rc.common
+
+START=10
+
+system_config() {
+	hostname -F /etc/hostname
+
+	ifconfig lo 127.0.0.1
+}
+
+print_banner() {
+	[ -f /etc/banner ] && cat /etc/banner
+	echo "Kernel Version : `uname -r`"
+}
+
+mount_all() {
+	mount -a
+}
+
+load_modules() {
+	[ -d /etc/modules.d ] && {
+		cd /etc/modules.d
+		sed 's/^[^#]/insmod &/' $* | ash 2>&- || :
+	}
+}
+
+start() {
+	system_config
+
+	print_banner
+
+	mount_all
+
+	mkdir -p /var/run
+	mkdir -p /var/log
+	mkdir -p /var/state
+	mkdir -p /var/voip
+	mkdir -p /var/mnt
+	mkdir -p /var/adsl
+	mkdir -p /var/ddnsd
+	mkdir -p /var/ntp
+
+	load_modules /etc/modules.d/*
+
+	ifconfig eth0 up
+	ifconfig eth1 up
+	ifconfig eth2 up
+
+	brctl addbr br0
+	brctl addif br0 eth0
+	brctl addif br0 eth1
+	brctl addif br0 eth2
+
+	ifconfig br0 192.168.22.22 up
+}

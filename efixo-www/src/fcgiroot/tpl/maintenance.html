@@ -1,0 +1,41 @@
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.maintenance.Title ?></h1>
+</div>
+
+<div class="content">
+	<table id="system">
+		<tr>
+			<th scope="row"><?cs var:Env.Text.AccessProtect?></th>
+			<td class="<?cs if:Var.web_auth.Value != "off" ?>enabled<?cs else ?>disabled<?cs /if ?>">
+				<?cs if:Var.web_auth.Value == "passwd" ?>
+				<?cs var:Env.Text.auth_passwd?>
+				<?cs elif:Var.web_auth.Value == "button" ?>
+				<?cs var:Env.Text.auth_button?>
+				<?cs elif:Var.web_auth.Value == "all" ?>
+				<?cs var:Env.Text.auth_all?>
+				<?cs else?>
+				<?cs var:Env.Text.Desactivated?>
+				<?cs /if ?>
+			</td>
+		</tr>
+#ifndef NB5
+		<tr>
+			<th scope="row"><?cs var:Env.Text.ADSLprofil?></th>
+			<td>
+				<?cs if:Var.ADSLProfile.Value == "rescue" ?>
+				<?cs var:Env.Text.Rescue?>
+				<?cs elif:Var.ADSLProfile.Value == "manual" ?>
+				<?cs var:Env.Text.Manual?>
+				<?cs else?>
+				<?cs var:Env.Text.Auto?>
+				<?cs /if?>
+			</td>
+		</tr>
+#endif
+	</table>
+
+</div>
+
+<?cs include:"tpl/footer.html" ?>

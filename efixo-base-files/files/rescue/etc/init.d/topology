@@ -1,0 +1,93 @@
+#!/bin/sh /etc/rc.common
+
+LAN_IPADDR=192.168.1.1
+
+lan_sw_bcm() {
+
+	ifconfig eth1 up
+	brctl addif lan0 eth1
+
+	ifconfig lan0 $LAN_IPADDR
+
+}
+
+lan_sw_rtl() {
+
+	ifconfig eth0.1 up
+	brctl addif lan0 eth0.1
+
+	ifconfig lan0 $LAN_IPADDR
+
+}
+
+adsl_nb4() {
+
+	ifconfig nas_8_35 up
+	brctl addif voip0 nas_8_35
+
+	ifconfig nas_0_65 up
+	brctl addif voip0 nas_0_65
+
+	ifconfig voip0 up
+
+	ifconfig nas_8_36 up
+	brctl addif wan0 nas_8_36
+
+	ifconfig wan0 up
+}
+
+adsl_nb6() {
+
+	ifconfig mv0 up
+	brctl addif voip0 mv0
+
+	ifconfig nas_0_65 up
+	brctl addif voip0 nas_0_65
+
+	ifconfig voip0 up
+
+	ifconfig nas_8_36 up
+	brctl addif wan0 nas_8_36
+
+	ifconfig wan0 up
+}
+
+ftth_nb5() {
+
+	ifconfig eth0 up
+	brctl addif wan0 eth0
+
+	ifconfig eth2 up
+	brctl addif wan0 eth2
+
+	ifconfig wan0 up
+
+}
+
+ftth_nb6() {
+
+	ifconfig eth0.2 up
+	brctl addif wan0 eth0.2
+
+	ifconfig wan0 up
+}
+
+boot() {
+
+	case "$(hostname)" in
+		nb4)
+			lan_sw_bcm
+			adsl_nb4
+			;;
+		nb5)
+			lan_sw_bcm
+			ftth_nb5
+			;;
+		nb6)
+			lan_sw_rtl
+			adsl_nb6
+			ftth_nb6
+			;;
+	esac
+
+}

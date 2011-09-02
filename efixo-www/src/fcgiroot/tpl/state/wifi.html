@@ -1,0 +1,13 @@
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.wifi_stats.Title ?></h1>
+</div>
+
+<div class="content">
+	<pre>
+<?cs var:Var.rawstats.wifi.Value?>
+	</pre>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

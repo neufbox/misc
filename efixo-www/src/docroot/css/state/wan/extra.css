@@ -1,0 +1,30 @@
+table#sfp_infos th, table#sfp_monitoring th {
+	width: 230px;
+}
+
+table#sfp_infos td, table#sfp_monitoring td {
+	width: 256px;
+}
+
+#toggle_diag_div {
+        display:none;
+}
+.plot_place {
+        width: 600px;
+        height: 300px;
+}
+.button_submit {
+        margin-top:30px;
+}
+#plot_snr {
+        margin-left:11px;
+}
+#plot_qln {
+        width: 611px;
+}
+#plot_hlog {
+        width: 611px;
+}
+#plot_bpt {
+        width: 611px;
+}

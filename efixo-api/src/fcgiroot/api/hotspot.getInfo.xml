@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <hotspot status="<?cs var:hotspot.status ?>" enabled="<?cs var:hotspot.enabled ?>" mode="<?cs var:hotspot.mode ?>" />
+</rsp>

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+
+pse_gpio_enable () {
+	oct-linux-csr GPIO_BIT_CFG10 1
+}
+
+pse_off () {
+	oct-linux-csr GPIO_TX_SET 0x0400
+}
+
+pse_on () {
+	oct-linux-csr GPIO_TX_CLR 0x0400
+}
+
+case $1 in
+	on|ON)
+		pse_gpio_enable
+		pse_on
+		;;
+	
+	off|OFF)
+		pse_gpio_enable
+		pse_off
+		;;
+	*)
+		echo ":: usage: $0 <on|off>"
+		;;
+esac
+

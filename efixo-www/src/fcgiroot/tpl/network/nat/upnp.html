@@ -1,0 +1,54 @@
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.upnp_list_rules.Title ?></h1>
+</div>
+
+<div class="content">
+	<table id="upnp_list">
+		<thead>
+			<tr>
+				<th scope="col" class="col_number">#</th>
+				<th scope="col"><?cs call:varHeader("proto") ?></th>
+				<th scope="col"><?cs call:varHeader("extport") ?></th>
+				<th scope="col"><?cs call:varHeader("dstip") ?></th>
+				<th scope="col"><?cs call:varHeader("dstport") ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?cs each:item = Var.UpnpList ?>
+			<tr>
+				<td class="col_number">
+					<?cs var:name(item) ?>
+				</td>
+				<td>
+					<?cs if:item.Proto.Value == "tcp" ?>
+					<?cs var:Env.Var.proto.Value.tcp ?>
+					<?cs elif:item.Proto.Value == "udp" ?>
+					<?cs var:Env.Var.proto.Value.udp ?>
+					<?cs elif:item.Proto.Value == "icmp" ?>
+					<?cs var:Env.Var.proto.Value.icmp ?>
+					<?cs elif:item.Proto.Value == "all" ?>
+					<?cs var:Env.Var.proto.Value.all ?>
+					<?cs else?>
+					?
+					<?cs /if ?>
+				</td>
+				<td>
+					<?cs var:item.ExtPort.Value ?>
+				</td>
+				<td>
+					<?cs var:item.DstIP.Value ?>
+				</td>
+				<td>
+					<?cs var:item.DstPort.Value ?>
+				</td>
+			</tr>
+			<?cs /each ?>
+			
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

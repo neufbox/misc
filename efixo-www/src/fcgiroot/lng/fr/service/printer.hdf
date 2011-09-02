@@ -1,0 +1,13 @@
+Env.Page.Title = Partage d'imprimantes
+
+Env.Help.Text = Dans la rubrique <b>Partage d'imprimantes</b>, vous pouvez configurer le partage d'imprimantes.<br /><br />Le partage d'imprimantes utilise le protocole AppSocket/JetDirect. Votre imprimante sera accessible via l'IP de la $BOXNAME, port TCP 9100.<br /><br />Désactivez le mode bidirectionnel si vous rencontrez des difficultés pour imprimer.
+
+Env.Section.PrinterSharing.Title = Partage d'imprimantes
+
+Env.Var.PrinterSharingStatus.Header = Etat du service
+Env.Var.PrinterSharingStatus.Value.up = Actif
+Env.Var.PrinterSharingStatus.Value.down = Inactif
+
+Env.Var.PrinterSharingBidir.Header = Mode bidirectionnel
+Env.Var.PrinterSharingBidir.Value.on = activé
+Env.Var.PrinterSharingBidir.Value.off = désactivé

@@ -1,0 +1,34 @@
+#!/bin/sh
+
+tmpfs_union () {
+	echo "tmp union..."
+	mount tmpfs /tmp -t tmpfs -o size=10M,nosuid,nodev,mode=1777
+}
+
+usbfs_union () {
+	echo "usb union..."
+	for module in usbcore uhci ohci_hcd,ehci_hc scsi_mod sd_mod usb-storage jbd ext3 ext2; do {
+		insmod $module
+	}; done
+
+	sleep 10
+	mount /dev/sda1 /tmp || tmpfs_union
+}
+
+mount proc /proc -t proc
+mount sysfs /sys -t sysfs
+
+echo "- pre init -"
+
+usb-boot && usbfs_union || tmpfs_union
+
+mkdir -p /tmp/sto
+mount -t mini_fo -o base=/,sto=/tmp/sto / /root
+cd /root
+pivot_root . rom
+mount -o move /rom/proc /proc 2>&-
+mount -o move /rom/sys /sys 2>&-
+[ -n "`grep "/dev/sda1" /proc/mounts`" ] && mount tmpfs /tmp -t tmpfs
+
+echo "- init -"
+exec /usr/sbin/chroot . /sbin/init

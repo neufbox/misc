@@ -1,0 +1,20 @@
+Env.Page.Title = Filtering
+
+Env.Help.Text = In the <b>Filtering</b> section, you can enabled the protection of ports commonly under attack by Windows worms and viruses (135, 137, 138, 139, 445). You can also block SMTP requests which don't go through $OPERATORNAME mail servers.<br /><br />All these rules only modify the behaviour for communications which go through the $BOXNAME.
+
+Env.Section.firewall.Title = Filtering
+
+Env.Var.filter_mode.Header = Filtering
+Env.Var.filter_mode.Value.on = custom
+Env.Var.filter_mode.Value.off = disabled
+Env.Var.filter_mode.Error.value = Invalid format
+
+Env.Var.filter_simple.Header = Settings
+
+Env.Var.filter_simple_winsharedrop.Header = Protect your Windows computers from the Internet
+
+Env.Var.filter_simple_smtpdrop.Header = Allow sending mail only via $OPERATORNAME mail servers
+
+Env.Var.filter_simple_icmpdrop.Header = Block incoming ping
+
+Env.Var.filter_simple_ipv6drop.Header = Block unsolicited incoming IPv6 traffic

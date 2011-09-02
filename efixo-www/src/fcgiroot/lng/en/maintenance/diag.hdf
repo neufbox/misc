@@ -1,0 +1,114 @@
+Env.Page.Title = Diagnosis
+
+Env.Help.Text << EOM
+In the <b>Telephony diagnosis</b> section, you can start various tests in order to check that the telephony system of your $BOXNAME is correctly working.<br /><br />Just click on <i>Step 1</i> and follow the indications.<br /><br /><i>Initialization</i>: this test checks if the telephony configuration of your $BOXNAME is correct.<br /><i>Equipment</i>: this test checks the electrical circuit used by the phone system.<br /><i>Ringtone</i>: this test checks that your $BOXNAME can correctly make your phone ring.<br /><i>Dial tone</i>: this test checks that your $BOXNAME can correctly communicate with your phone.<br /><i>Numbering</i>: this test checks the actions on the keys of your phone.
+#ifndef NB5
+<br/><br/>In the <b>DSL modem diagnosis</b> section, you can proceed to an auto-test in order to check whether the DSL modem of your $BOXNAME is functional. Please check that the DSL cap is correctly plugged, otherwise the result won't be meaningful.
+#endif
+<br/><br/>In the <b>General diagnosis</b> section, by request of an $OPERATORNAME technician, you can export a diagnosis report that will be useful to the resolution of your complex technical problem.
+EOM
+
+Env.Section.DiagPhone.Title = Telephony diagnosis
+
+Env.Var.InitResult.Header = Initialization
+Env.Var.InitResult.Value.success = Done
+Env.Var.initResult.Value.not_launched = Not executed
+
+Env.Var.InitError.Value.check_hook = Error: check that your phone is correctly hung up.
+Env.Var.InitError.Value.unknown = Error
+
+Env.Var.Gr909Result.Header = Equipment
+Env.Var.Gr909Result.Value.success = Done
+Env.Var.Gr909Result.Value.error = Error
+Env.Var.Gr909Result.Value.not_launched = Not executed
+
+Env.Var.Gr909Error.Value.error_voltage = Failure: voltage error detected.
+Env.Var.Gr909Error.Value.error_resist = Failure: resistor error detected.
+Env.Var.Gr909Error.Value.error_offhook = Failure: your phone is off hook, please hang up.
+Env.Var.Gr909Error.Value.error_loadline = Failure: load error detected.
+
+Env.Var.RingResult.Header = Ringtone
+Env.Var.RingResult.Value.success = Done
+Env.Var.RingResult.Value.error = Error
+Env.Var.RingResult.Value.not_launched = Not executed
+
+Env.Var.HookntoneResult.Header = Dial tone
+Env.Var.HookntoneResult.Value.success = Done
+Env.Var.HookntoneResult.Value.error = Error
+Env.Var.HookntoneResult.Value.not_launched = Not executed
+
+Env.Var.HookntoneError.Value.pick_up = Error: pick up not detected
+Env.Var.HookntoneError.Value.hang_up = Error: hang up not detected
+Env.Var.HookntoneError.Value.ft_standard = Error: your phone doesn't follow FT standards, some issues are possible
+
+Env.Var.DtmfResult.Header = Numbering
+Env.Var.DtmfResult.Value.success = Done
+Env.Var.DtmfResult.Value.error = Error
+Env.Var.DtmfResult.Value.not_launched = Not executed
+
+Env.Var.DtmfError.Value.press_0 = Key press on 0 not detected.
+Env.Var.DtmfError.Value.release_0 = Key release of 0 not detected.
+Env.Var.DtmfError.Value.press_1 = Key press on 1 not detected.
+Env.Var.DtmfError.Value.release_1 = Key release of 1 not detected.
+Env.Var.DtmfError.Value.press_2 = Key press on 2 not detected.
+Env.Var.DtmfError.Value.release_2 = Key release of 2 not detected.
+Env.Var.DtmfError.Value.press_3 = Key press on 3 not detected.
+Env.Var.DtmfError.Value.release_3 = Key release of 3 not detected.
+Env.Var.DtmfError.Value.press_4 = Key press on 4 not detected.
+Env.Var.DtmfError.Value.release_4 = Key release of 4 not detected.
+Env.Var.DtmfError.Value.press_5 = Key press on 5 not detected.
+Env.Var.DtmfError.Value.release_5 = Key release of 5 not detected.
+Env.Var.DtmfError.Value.press_6 = Key press on 6 not detected.
+Env.Var.DtmfError.Value.release_6 = Key release of 6 not detected.
+Env.Var.DtmfError.Value.press_7 = Key press on 7 not detected.
+Env.Var.DtmfError.Value.release_7 = Key release of 7 not detected.
+Env.Var.DtmfError.Value.press_8 = Key press on 8 not detected.
+Env.Var.DtmfError.Value.release_8 = Key release of 8 not detected.
+Env.Var.DtmfError.Value.press_9 = Key press on 9 not detected.
+Env.Var.DtmfError.Value.release_9 = Key release of 9 not detected.
+
+Env.Button.Init = Start step 1
+Env.Button.ReInit = Restart step 1
+Env.Text.Init = This step checks that the telephony system of the $BOXNAME is correctly initialized.
+
+Env.Button.Gr909 = Start step 2
+Env.Button.ReGr909 = Restart step 2
+Env.Text.Gr909 = This step checks the electrical circuit used by the phone system. Do not interact with your phone during the test.
+
+Env.Button.Ring = Start step 3
+Env.Button.ReRing = Restart step 3
+Env.Text.Ring = This step checks that the $BOXNAME can correctly make your phone ring.
+
+Env.Button.Hookntone = Start step 4
+Env.Button.ReHookntone = Restart step 4
+Env.Text.Hookntone = This step checks that you can correctly hear the dial tone of your phone. Click on the button, then pick up the phone, listen for the dial tone, and finally hang up.
+
+Env.Button.Dtmf = Start step 5
+Env.Button.ReDtmf = Restart step 5
+Env.Text.Dtmf = This step checks that the actions on the keys of your phone are correctly recognized by your $BOXNAME. Click on the button, then pick up your handset receiver, press keys 0 to 9 successively in this order, and finally hang up.
+
+Env.Button.CancelAndReboot = Cancel and reboot
+Env.Text.Warning = Warning! You will have to reboot the $BOXNAME after the diagnosis for the telephony to work again.
+Env.Text.Info = The diagnosis will shut down all current phone calls.
+
+#ifndef NB5
+Env.Section.dsltest.Title = DSL modem diagnosis
+
+Env.Text.dsltest_instruction = Plug in the test cap on the "DSL" port of your $BOXNAME and click on the "Test" button. The test procedure will last for 10 seconds.
+Env.Text.dsltest_living = DSL modem test processing
+
+Env.Var.dsltest_result.Header = Test result
+Env.Var.dsltest_result.Value.OK = DSL modem OK
+Env.Var.dsltest_result.Value.NOK_HIGH = Problem with the DSL modem
+Env.Var.dsltest_result.Value.NOK_LOW = Problem with the DSL modem
+
+Env.Button.Test = Test
+
+Env.Text.not_launched = Not executed
+#endif
+
+Env.Section.DiagReport.Title = General diagnosis
+
+Env.Text.ExportDiagReport = Export diagnosis report
+
+Env.Var.pendingDiag.Value = Diagnosis in progress...

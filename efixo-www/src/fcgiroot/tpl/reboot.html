@@ -1,0 +1,24 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.reboot.Title ?></h1>
+</div>
+
+<div class="content">
+
+<?cs if:Var.IsRebooting.Value == "true" ?>
+        <div id="rebootingstatus" class="status loading"><?cs var:Env.Text.IsRebooting ?></div>
+<?cs else ?>
+
+	<p><?cs var:Env.Text.WillReboot ?></p>
+
+	<form method="post" id="form_reboot" action="<?cs var:Env.Page.Name ?>">
+		<div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Reboot ?></button></div>
+	</form>
+
+<?cs /if ?>
+
+</div>
+
+<?cs include:"tpl/footer.html" ?>

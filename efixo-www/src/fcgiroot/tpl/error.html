@@ -1,0 +1,30 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.page_not_found.Title ?></h1>
+</div>
+
+<div class="content">
+
+	<p><?cs var:Env.Text.PageNotFound ?></p>
+
+	<p>
+		<ul id="sitemap">
+		<?cs each:item = Env.Menu ?>
+			<li><a href="/<?cs var:name(item) ?>"><?cs var:item.Label ?></a>
+				<?cs if:subcount(item.SubMenu) > 0 ?>
+				<ul>
+				<?cs each:subItem = item.SubMenu ?>
+					<li><a href="/<?cs var:name(item) ?>/<?cs var:name(subItem)?>"><?cs var:subItem.Label ?></a></li>
+				<?cs /each ?>
+				</ul>
+				<?cs /if ?>
+			</li>
+		<?cs /each ?>
+		</ul>
+	</p>
+
+</div>
+
+<?cs include:"tpl/footer.html" ?>

@@ -1,0 +1,39 @@
+Env.Page.Title = Tests
+
+Env.Help.Text = In the <b>Ping</b> section, you can check that your $BOXNAME is able to communicate with the other connected computers. Type the IP address or the DNS name (ie sfr.fr) of the host, then click on <i>Start</i>. If communication is perfect, the number of packets received will be the same as the number of packets sent.<br /><br />In the <b>Traceroute</b> section, you can check the route followed by packets that you send to Internet.
+
+Env.Section.ping.Title = Ping
+
+Env.Var.ping_dest_hostname.Header = Destination address
+Env.Text.ping_sent = Packets sent
+Env.Text.ping_recv = Packets received
+Env.Text.ping_avgrtt = Average round-trip time
+
+Env.Var.ping_status.Value.living = Ping processing
+Env.Var.ping_status.Value.stop = Ping stopped
+Env.Var.ping_status.Value.starting = Starting ping
+Env.Var.ping_status.Value.stopping = Stopping ping
+Env.Var.ping_status.Value.finished = Ping finished
+Env.Var.ping_status.Value.halt = Ping halted
+Env.Var.ping_status.Value.error = Error !
+Env.Var.ping_status.Value.error_dns_host = Ping failed ! Unknown host
+Env.Var.ping_status.Value.error_dns_tempfail = Ping failed ! Temporary failure in name resolution
+
+Env.Section.traceroute.Title = Traceroute
+
+Env.Var.traceroute_dest_hostname.Header =  Destination address
+Env.Text.jump = Hop
+Env.Text.hostname = Host
+Env.Text.loop_time = Average round-trip time
+
+Env.Var.traceroute_status.Value.living = Traceroute processing
+Env.Var.traceroute_status.Value.stop = Traceroute stopped
+Env.Var.traceroute_status.Value.starting = Starting traceroute
+Env.Var.traceroute_status.Value.stopping = Stopping traceroute
+Env.Var.traceroute_status.Value.finished = Traceroute finished
+Env.Var.traceroute_status.Value.halt = Traceroute halted
+Env.Var.traceroute_status.Value.error = Error !
+Env.Var.traceroute_status.Value.error_dns_host = Traceroute failed ! Unknown host
+Env.Var.traceroute_status.Value.error_dns_tempfail = Traceroute failed ! Temporary failure in name resolution
+
+Env.Text.nojs = You must activate JavaScript in order to use this function.

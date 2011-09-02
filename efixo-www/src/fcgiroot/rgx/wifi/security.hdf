@@ -1,0 +1,2 @@
+Env.Var.wlan_wepkey.Regex.ascii = ^[\ !#-&(-_a-~]{5}$|^[\ !#-&(-_a-~]{13}$
+Env.Var.wlan_wepkey.Regex.hexa = ^[0-9a-fA-F]{10}$|^[0-9a-fA-F]{26}$

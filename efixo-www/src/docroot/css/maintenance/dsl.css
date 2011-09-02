@@ -1,0 +1,39 @@
+#adsl_configuration {
+	width: 425px;
+}
+
+#adsl_configuration th {
+	background-color: #fff;
+	padding: 0;
+}
+
+#adsl_configuration td {
+	background-color: #fff;
+	padding: 0;
+	text-align: right;
+}
+
+td#col_profile_1 {
+	width: 12%;
+}
+
+td#col_profile_2 {
+        width: 14%;
+}
+
+td#col_profile_3 {
+	width: 16%;
+}
+
+td#col_profile_4 {
+	width: 14%;
+}
+
+td#col_profile_5 {
+	width: 14%;
+}
+
+td#col_profile_6 {
+        text-align: center;
+        width: 30%;
+}

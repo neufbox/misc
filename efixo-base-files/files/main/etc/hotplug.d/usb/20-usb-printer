@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Copyright (C) 2008 Efixo
+#  dec. 2008 - Viallard Anthony <anthony.viallard@efixo.net>
+
+case "$ACTION" in
+    add)
+	# Add printer. check if all services has been
+	# launched and start p910nd 
+	[ `basename "$DEVPATH"` = 'lp0' ] \
+	&& [ -e /var/state/services ] \
+	&& nbctl async_run /etc/init.d/p910nd start
+	
+	;;
+    remove)
+	# Remove printer. check if all services has been
+	# launched and stop p910nd 
+	[ `basename "$DEVPATH"` = 'lp0' ] \
+	&& [ -e /var/state/services ] \
+	&& nbctl async_run /etc/init.d/p910nd stop
+	
+	;;
+esac	

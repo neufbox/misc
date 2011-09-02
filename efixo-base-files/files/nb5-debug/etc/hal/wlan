@@ -1,0 +1,34 @@
+#!/bin/sh
+
+BRIDGE=`nvram get lan_ifname`
+IFNAME=`nvram get wlan_ifname`
+
+
+stop() {
+	brctl delif $BRIDGE $IFNAME 
+	brctl delif $BRIDGE $IFNAME 
+	ifconfig $IFNAME down 
+}
+
+start() {
+	iwpriv $IFNAME bgscan 0 
+	iwpriv $IFNAME mode 11ng 
+	iwpriv $IFNAME countryie 1 
+	iwpriv $IFNAME doth 0 
+	iwpriv $IFNAME cwmmode 1 
+	iwpriv $IFNAME shortgi 1 
+	iwpriv $IFNAME extoffset -1 
+	iwpriv $IFNAME extprotspac 0 
+	iwpriv $IFNAME ampdu 1 
+	iwpriv $IFNAME ampdulimit 50000 
+	iwpriv $IFNAME tx_chainmask 5 
+	iwpriv $IFNAME rx_chainmask 7 
+	iwconfig $IFNAME mode master freq `nvram get wlan_channel`
+	hostapd /etc/hostapd/topology.conf -B 
+	iwpriv $IFNAME hide_ssid 0 
+	ifconfig $IFNAME up 
+	brctl addif $BRIDGE $IFNAME 
+}
+
+stop
+start

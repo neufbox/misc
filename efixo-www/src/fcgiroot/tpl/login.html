@@ -1,0 +1,105 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+	
+<div class="info_notice" id="access_lock">
+    <h1><?cs var:Env.Text.AccessLock?></h1>
+	
+    <?cs var:Env.Text.AccessLockPlus?>
+</div>
+
+<?cs if:?Var.Error.login.Value?>
+<div class="error_notice">
+    <?cs if:Var.Error.login.Value == "LOGINORPASS_INVALID"?>
+	<?cs var:Env.Error.LOGINORPASS_INVALID?>
+    <?cs elif:Var.Error.login.Value == "SESSION_INVALID"?>
+	<?cs var:Env.Error.SESSION_INVALID?>
+    <?cs elif:Var.Error.login.Value == "METHOD_NOT_ALLOWED" || Var.Error.button.Value == "METHOD_NOT_ALLOWED"?>
+	<?cs var:Env.Error.METHOD_NOT_ALLOWED?>
+    <?cs elif:Var.Error.login.Value == "AUTOLOGIN_OFF"?>
+	<?cs var:Env.Error.AUTOLOGIN_OFF?>
+    <?cs else?>
+	<?cs var:Env.Error.SYSTEM_ERROR?>
+    <?cs /if?>
+</div>
+<?cs /if?>
+
+#ifndef CIBOX
+<?cs if:Var.method.Value == "button" || Var.method.Value == "all"?>
+<div class="title">
+    <h1 class="large"><?cs var:Env.Section.web_auth_button.Title ?></h1>
+</div>
+
+<div class="content">
+#ifndef NB6
+    <img src="/img/img_led_service.png" align="right" />
+#endif
+#ifdef NB6
+    <img src="/img/img_led_service_nb6.png" align="right" />
+#endif
+    <?cs var:Env.Text.ButtonMethod?>
+        
+    <br/><br/>
+        
+    <form method="post" action="<?cs var:Env.Page.Name?>" id="form_web_button">
+		
+    <input type="hidden" name="page_ref" value="<?cs var:html_escape(Env.Page.Referer)?>" />
+    <input type="hidden" name="method" value="button" />
+		
+    <div id="div_button_continue" class="button_submit">
+        <button type="submit" 
+                id="button_continue" 
+                name="submit_button" 
+                value="<?cs var:Var.web_auth_button_status.Value?>">
+            <?cs var:Button.Continue ?>
+        </button>
+    </div>	
+    </form>
+
+    <div class="spacer"></div>
+</div>
+<?cs /if?>
+#endif /* #ifndef CIBOX */
+
+<?cs if:Var.method.Value == "passwd" || Var.method.Value == "all"?>
+<div class="title">
+    <h1 class="large"><?cs var:Env.Section.web_auth_passwd.Title ?></h1>
+</div>
+
+<div class="content">
+    <?cs var:Env.Text.PasswdMethod?>
+		
+    <br/>
+		
+    <form method="post" action="<?cs var:Env.Page.Name?>" id="form_auth_passwd">
+		
+    <input type="hidden" name="method" value="passwd" />
+    <input type="hidden" name="page_ref" value="<?cs var:html_escape(Env.Page.Referer)?>" />
+    <input type="hidden" name="zsid" id="zsid" />
+    <input type="hidden" name="hash" id="hash" />
+		
+    <table id="web_authentication">
+        <tr>
+            <th scope="row"><?cs call:varHeader("login") ?></th>
+            <td>
+                <input type="text" class="text" name="login" id="login" size="30" />
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><?cs call:varHeader("password") ?></th>
+            <td>
+                <input type="password" class="text" name="password" id="password" size="30" />
+            </td>
+        </tr>
+    </table>
+			
+    
+    <div class="button_submit">
+        <button type="submit" name="submit_button"><?cs var:Button.Submit ?></button>
+    </div>
+    
+    </form>
+</div>
+<?cs /if?>
+
+<?cs include:"tpl/footer.html" ?>

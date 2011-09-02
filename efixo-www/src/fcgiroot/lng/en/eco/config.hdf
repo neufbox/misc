@@ -1,0 +1,27 @@
+Env.Page.Title = ECO setting
+
+Env.Help.Text = In this section, you can define the profile of the ECO mode.<br /><br />Profile <b>Standard</b> means that the $BOXNAME uses the default configuration : Decrease the brightness of LEDs and Ethernet Ports at 100Mbps<br /><br />Profile <b>Custom</b> can adjust the different states of your $BOXNAME.
+
+Env.Section.configuration.Title = ECO mode setting
+
+Env.Var.warning_led = Warning! The extinction of lights in ECO mode will cause the lack of notification of missed call.
+
+Env.Var.profile.Header = Profile
+Env.Var.profile_standard.Value = Standard
+Env.Var.profile_custom.Value = Custom
+
+Env.Var.disabled.Value = Disabled
+
+Env.Var.telephone.Header = Phonegrep
+Env.Var.cpl.Header = PLC
+Env.Var.port_usb.Header = USB Port
+Env.Var.ethernet_pc_tv.Header = Ethernet PC/TV
+Env.Var.port_ftth.Header = FTTH Port
+Env.Var.brightness.Header = Brightness of LEDs
+
+Env.Var.mbps.Value = Mbps
+
+Env.Var.off.Value = Off
+Env.Var.low.Value = Low
+Env.Var.medium.Value = Medium
+Env.Var.high.Value = High

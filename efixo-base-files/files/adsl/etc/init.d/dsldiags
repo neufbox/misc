@@ -1,0 +1,16 @@
+#!/bin/sh /etc/rc.common
+
+LAN_IF=`nvram get lan_ifname`
+
+start () {
+	iptables -A INPUT -p udp -m udp -i $LAN_IF --dport 5099:5100 -m state --state NEW -j ACCEPT
+	status set adsl_diag on
+	dsldiagd
+}
+
+
+stop () {
+	killall dsldiagd
+	iptables -D INPUT -p udp -m udp -i $LAN_IF --dport 5099:5100 -m state --state NEW -j ACCEPT
+	status set adsl_off off
+}

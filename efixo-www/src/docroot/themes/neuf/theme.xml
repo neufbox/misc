@@ -1,0 +1,9 @@
+<theme>
+	<name>Classique</name>
+	<version>1.0</version>
+	<target>0.0,2.1.4</target>
+	<uuid>662f3e95-6550-4120-a697-9fc29202c5c9</uuid>
+	<description>Thème par défaut de la 9box</description>
+	<creator>9Box team</creator>
+	<homepage>http://www.neuf.fr</homepage>
+</theme>

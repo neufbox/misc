@@ -1,0 +1,34 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <status>
+    <internet>
+      <link val="<?cs var:Var.internet_status.Value?>" text="<?cs call:varValueH3n_d('internet_status','down')?>" />
+      <access val="<?cs var:Var.internet_access.Value?>" text="<?cs call:varValueH3n('internet_access')?>" />
+    </internet>
+    <voip>
+      <link val="<?cs var:Var.voip_status.Value?>" text="<?cs call:varValueH3n_d('voip_status','down')?>" />
+      <access val="<?cs var:Var.voip_access.Value?>" text="<?cs call:varValueH3n('voip_access')?>" />
+    </voip>
+    <tv>
+      <link val="<?cs var:Var.tv_status.Value?>" text="<?cs call:varValueH3n_d('tv_status','down')?>" />
+    </tv>
+#ifdef HAVE_LED_SUPPORT
+    <leds>
+      <dsl><?cs var:Var.led_dsl.Value?></dsl>
+      <traffic><?cs var:Var.led_traffic.Value?></traffic>
+      <tel><?cs var:Var.led_tel.Value?></tel>
+      <tv><?cs var:Var.led_tv.Value?></tv>
+      <wifi><?cs var:Var.led_wifi.Value?></wifi>
+      <alarm><?cs var:Var.led_alarm.Value?></alarm>
+    </leds>
+#endif
+    <system>
+      <uptime>
+        <day val="<?cs var:Var.modem_uptime.day.Value?>" posttext="<?cs var:Env.Text.dayAbbr?>" />
+        <hour val="<?cs var:Var.modem_uptime.hour.Value?>" posttext="<?cs var:Env.Text.hourAbbr?>" />
+        <min val="<?cs var:Var.modem_uptime.min.Value?>" posttext="<?cs var:Env.Text.minAbbr?>" />
+        <sec val="<?cs var:Var.modem_uptime.sec.Value?>" posttext="<?cs var:Env.Text.secAbbr?>" />
+      </uptime>
+    </system>
+  </status>
+</rsp>

@@ -1,0 +1,51 @@
+#!/bin/sh
+
+RESOLV_CONF="/var/dhcp/wan-resolv.conf"
+
+ipup() {
+	ftth=$(echo $nisdomain | sed -n '/ftth/p')
+	adsl=$(echo $nisdomain | sed -n '/fullroute/p')
+	[ -z "${ftth}${adsl}" ] && {
+		echo "dhcp wan answer [$1] ($nisdomain) DROPPED"
+		exit 0
+	}
+
+	[ -n "${ftth}" ] && echo "thd" > /var/dhcp/wan-access
+	[ -n "${adsl}" ] && echo "dsl" > /var/dhcp/wan-access
+
+	rm -f $RESOLV_CONF
+	for i in $dns
+	do
+		echo nameserver $i >> $RESOLV_CONF
+	done
+
+	echo $interface > /var/dhcp/wan-ifname
+	echo $ip > /var/dhcp/wan-ipaddr
+	echo $router > /var/dhcp/wan-gateway
+
+	[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+	[ -n "$subnet" ] && NETMASK="netmask $subnet"
+	ifconfig $interface $ip $BROADCAST $NETMASK
+	ledctl wan on
+	killall sleep
+}
+
+ipdown() {
+
+	rm -f /var/dhcp/wan-*
+	ifconfig $interface 0.0.0.0
+
+}
+
+echo "dhcp wan answer [$1] ($nisdomain)"
+
+case "$1" in
+	bound|renew)
+		ipup
+	;;
+
+	deconfig|leasefail|nak)
+		ipdown
+	;;
+esac
+

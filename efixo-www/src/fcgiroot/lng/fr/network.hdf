@@ -1,0 +1,50 @@
+Env.Page.Title = Réseau
+
+#ifdef CIBOX
+Env.Help.Text = Dans la rubrique <b>Etat des ports</b>, vous retrouvez l'état des différentes liaisons entre votre $BOXNAME et les équipements que vous possédez (ordinateur, décodeur TV, etc.), ainsi que le nombre de connexions Wifi actives.<br /><br />Dans la rubrique <b>Postes connectés</b> est affichée la liste des équipements actuellement reliés à votre $BOXNAME.<br/><br/>Dans la rubrique <b>Configuration décodeur TV</b>, vous pouvez configurer manuellement le port de la $BOXNAME sur lequel est branché le décodeur TV.
+#else
+Env.Help.Text = Dans la rubrique <b>Etat des ports</b>, vous retrouvez l'état des différentes liaisons entre votre $BOXNAME et les équipements que vous possédez (ordinateur, décodeur TV, etc.), ainsi que le nombre de connexions Wifi actives.<br /><br />Dans la rubrique <b>Postes connectés</b> est affichée la liste des équipements actuellement reliés à votre $BOXNAME.
+#endif
+
+Env.Section.lan_status.Header = Etat des ports
+
+Env.Var.TVStatus.Header = TV
+Env.Var.TVStatus.Value.up = Décodeur TV
+Env.Var.TVStatus.Value.down = Non utilisé
+
+Env.Var.LinkStatus.Value.up = Actif
+Env.Var.LinkStatus.Value.down = Non utilisé
+
+Env.Var.type.Value.stb = Décodeur TV
+Env.Var.type.Value.host = Hôte
+
+Env.Var.USBStatus.Header = USB PC
+Env.Var.USBStatus.Value.up = Actif
+Env.Var.USBStatus.Value.down = Non utilisé
+
+Env.Var.WifiStatus.Header = WiFi
+Env.Var.WifiStatus.Value.on = Activé
+Env.Var.WifiStatus.Value.off = Désactivé
+
+Env.Var.WifiCountClient.Value.0 = pas de connexion active
+Env.Var.WifiCountClient.Value.1 = 1 connexion active
+Env.Var.WifiCountClient.Value.many = connexions actives
+
+Env.Section.connected_computers.Header = Postes connectés
+
+Env.Var.hostname.Header = Nom d'hôte
+Env.Var.mac_addr.Header = Adresse MAC
+Env.Var.ip_addr.Header = Adresse IP
+Env.Var.port.Header = Port
+
+#ifdef CIBOX
+Env.Section.stbconfig.Header = Configuration décodeur TV
+
+Env.Var.stbconfig.Header = Configuration
+Env.Var.stbconfig.Value.dynamic = dynamique
+Env.Var.stbconfig.Value.static = personnalisé
+Env.Var.stbconfig.Error.value = Format incorrect
+
+Env.Var.stbconfig_iface.Header = Interface réseau
+Env.Var.stbconfig_iface.Error.value = Format incorrect
+#endif

@@ -1,0 +1,153 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.SambaServer?></h1>
+</div>
+
+<div class="content">
+	<form method="post" action="<?cs var:Env.Page.Name ?>">
+	<input type="hidden" name="action" value="editconf" />
+	
+	<table id="table_sambaconf">
+	        <tr>
+			<th scope="row"><?cs var:Env.Var.samba_status.Header?></th>
+			<td class="<?cs if:Var.samba_state.Value == "up" && Var.samba_active.Value == "on" ?>enabled<?cs else ?>disabled<?cs /if ?>" id="col_samba_status">
+			    	<?cs if:Var.samba_active.Value == "off"?>
+				     	<?cs var:Env.Var.samba_active.Value.off?>
+				<?cs else?>
+					<?cs call:varValueH3n("samba_state") ?>
+						
+					<?cs if:Var.samba_codeno.Value != ""?>
+					[ <?cs call:varValueH3n("samba_codeno")?> ]
+					<?cs /if?>
+				<?cs /if?>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("samba_active")?></th>
+			<td>
+				<input type="radio" value="on" name="samba_active" id="samba_active_on"<?cs if:Var.samba_active.Value == "on" ?> checked="checked"<?cs /if ?> />
+				<label for="samba_active_on"><?cs var:Env.Var.samba_active.Value.on?></label>
+				<input type="radio" value="off" name="samba_active" id="samba_active_off"<?cs if:Var.samba_active.Value == "off" ?> checked="checked"<?cs /if ?> />
+				<label for="samba_active_off"><?cs var:Env.Var.samba_active.Value.off?></label>
+				
+				<?cs if:?Var.samba_active.Error ?>
+			        <div class="error"><?cs var:Env.Var.samba_active.Error[Var.samba_active.Error] ?></div>
+				<?cs /if ?>
+			</td>
+		</tr>
+		<tr id="row_samba_workgroup">
+			<th scope="row"><?cs call:varHeader("samba_workgroup")?></th>
+			<td>
+				<input type="text" class="<?cs if:?Var.ftpd_user.Error?>error<?cs else ?>text<?cs /if ?>" name="samba_workgroup" value="<?cs var:Var.samba_workgroup.Value?>" />
+				
+				<?cs if:?Var.samba_workgroup.Error ?>
+			        <div class="error"><?cs var:Env.Var.samba_workgroup.Error[Var.samba_workgroup.Error] ?></div>
+				<?cs /if ?>
+			</td>
+		</tr>
+		<tr id="row_samba_name">
+			<th scope="row"><?cs call:varHeader("samba_name")?></th>
+			<td>
+				<input type="text" class="<?cs if:?Var.ftpd_user.Error?>error<?cs else ?>text<?cs /if ?>" name="samba_name" value="<?cs var:Var.samba_name.Value?>" />
+				
+				<?cs if:?Var.samba_name.Error ?>
+			        <div class="error"><?cs var:Env.Var.samba_name.Error[Var.samba_name.Error] ?></div>
+				<?cs /if ?>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="button_submit">
+		<button type="submit" name="submit"><?cs var:Button.Submit ?></button>
+	</div>
+	
+	</form>
+</div>
+
+<div class="title" id="title_samba_share">
+	<h1><?cs var:Env.Section.SambaShare?></h1>
+</div>
+
+<div class="content" id="content_samba_share">
+	<table id="table_sambashare">
+		<thead>
+			<tr>
+				<th scope="col" id="col_samba_stock_name"><?cs var:Env.Var.samba_stockage_name.Header?></th>
+				<th scope="col" id="col_samba_stock_part"><?cs var:Env.Var.samba_stockage_partition.Header?></th>
+				<th scope="col" id="col_samba_stock_dir"><?cs var:Env.Var.samba_stockage_dir.Header?></th>
+				<th class="col_action"></th>
+			</tr>
+		</thead>
+		<tbody>
+		        <?cs if:subcount(Var.samba_stockage_list) > 0?>
+			<?cs each:share = Var.samba_stockage_list?>
+			<tr>
+				<td <?cs if:share.online.Value != #1?>class="desactivated"<?cs /if?>><?cs var:share.name.Value?></td>
+				<td <?cs if:share.online.Value != #1?>class="desactivated"<?cs /if?>><?cs var:Var.stockage_list[share.uuid.Value].pname.Value?> <b> - </b> 
+					<?cs var:Var.stockage_list[share.uuid.Value].type.Value?> (<?cs var:Var.stockage_list[share.uuid.Value].capacity.Value?>)
+				</td>
+				<td <?cs if:share.online.Value != #1?>class="desactivated"<?cs /if?>>
+					<b><?cs var:share.dir.Value?></b>
+				</td>
+				<td class="col_action">
+					<form method="post" action="<?cs var:Env.Page.Name ?>">
+                                        <fieldset>
+                                            <input type="hidden" name="action" value="delshare" />
+                                            <input type="hidden" name="samba_share_idx" value="<?cs name:share?>" />
+                                            
+                                            <button class="button_remove" type="submit" name="submit"></button>
+                                        </fieldset>
+					</form>
+				</td>
+			</tr>
+			<?cs /each?>
+			<?cs else?>
+			<tr>
+			    <td colspan="3" align="center"><strong><?cs var:Env.Text.NoShare?></strong></td>
+			</tr>
+			<?cs /if?>
+
+			<?cs if:subcount(Var.disks) > 0?>
+			<form method="post" action="<?cs var:Env.Page.Name ?>">
+			<input type="hidden" name="action" value="addshare" />
+			<tr id="table_form_sambashare">
+				<td valign="top">
+					<input type="text" class="<?cs if:?Var.samba_stockage_name.Error?>error<?cs else ?>text<?cs /if ?>" name="samba_stockage_name" value="<?cs var:Var.samba_stockage_name.Value?>" />
+					
+					<?cs if:?Var.samba_stockage_name.Error ?>
+			        	<div class="error"><?cs var:Env.Var.samba_stockage_name.Error[Var.samba_stockage_name.Error] ?></div>
+					<?cs /if ?>
+				</td>
+				<td colspan="2" valign="top">
+					<select name="samba_stockage_share" id="select_samba_stock_share">
+						<?cs each:disk = Var.disks?>
+						<?cs each:part = disk.partitions?>
+						<optgroup label="Port <?cs var:disk.usb_port.Value?> // <?cs var:disk.manufacturer.Value?> <?cs var:disk.model.Value?> // <?cs var:part.fstype.Value?> <?cs var:part.capacity.Value?>">
+						<?cs each:dir = part.dirs?>
+						<option value="<?cs var:part.uuid.Value?>,<?cs var:dir.name.Value?>"><?cs var:dir.name.Value?></option>
+						<?cs /each?>
+						</optgroup>
+						<?cs /each?>
+						<?cs /each?>
+					</select>
+				</td>
+				<td class="col_action">
+					<button class="button_add" type="submit" name="submit"></button>
+				</td>
+			</tr>
+			</form>
+			<?cs /if?>
+		</tbody>
+	</table>
+
+	<?cs if:subcount(Var.disks) == 0?>
+	<div class="info_notice">
+	<?cs var:Env.Text.PlugUsbKey?>
+	</div>
+	<?cs /if?>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

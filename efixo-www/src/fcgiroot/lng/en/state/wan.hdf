@@ -1,0 +1,91 @@
+Env.Page.Title = Internet
+
+Env.Help.Text = In the <b>Internet access information</b> section, you can check the characteristics of your connection (in particular the IP address which has been given to you, and the time since your connexion is active).
+
+Env.Help.Text.DSL = In the <b>Internet connection status</b> section, you can check the technical details of your connection (in particular the IP address which has been given to you, and the time since your connexion is active).<br /><br />In the <b>DSL line information</b> section, you can check the technical details of your DSL line (in particular the synchronization rate, noise and attenuation. Warning! The rates displayed are shared between the different services provided by your $BOXNAME, and not dedicated only for Internet access).
+
+Env.Help.Text.radio = In the <b>Internet connection status</b> section, you can check the technical details of your connection (in particular the IP address which has been given to you, and the time since your connexion is active).<br /><br />In the <b>Radio connection information</b> section, you can check the technical details of your radio connection (the reception quality and the connectivity).
+
+Env.Section.wan_info.Title = Internet connection status
+
+Env.Var.infra_name.Header = Connection
+Env.Var.infra_name.Value.adsl = ADSL
+Env.Var.infra_name.Value.ftth = FTTH
+Env.Var.infra_name.Value.gprs = 3G dongle
+
+Env.Var.wan_status.Header = Access status
+Env.Var.wan_status.Value.up = Internet up
+Env.Var.wan_status.Value.down = Internet not working
+
+Env.Var.wan_ipaddr.Header = IP address
+Env.Var.wan_gateway.Header = Gateway address
+Env.Var.wan_uptime.Header = Uptime
+Env.Var.wan_dns_server.Header = DNS servers
+
+Env.Var.infra_proto.Header = Protocol
+Env.Var.infra_proto.Value.dhcp = DHCP
+Env.Var.infra_proto.Value.bridge = Bridge
+Env.Var.infra_proto.Value.bridge_dhcp = Bridge (DHCP)
+Env.Var.infra_proto.Value.pppoe = PPPoE
+Env.Var.infra_proto.Value.pppoe_dhcp = Mix (PPPoE + DHCP)
+
+Env.Section.infra_ftth_sfp_info.Title = Access 1 information (SFP)
+
+Env.Var.infra_ftth_sfp_status.Header = SFP status
+Env.Var.infra_ftth_sfp_status.Value.up = Up
+Env.Var.infra_ftth_sfp_status.Value.down = SFP not connected
+
+Env.Var.infra_ftth_sfp_speed.Header = Max rate
+Env.Var.infra_ftth_sfp_wavelength.Header = Wavelength
+Env.Var.infra_ftth_sfp_temperature.Header = Temperature
+
+Env.Text.warning_wrong_sfp = You are not using the correct SFP! The wavelength must be 1310 nm.
+Env.Link.SFPStats = Detailed SFP information
+
+Env.Section.infra_ftth_extern_info.Title = External access informations
+
+Env.Var.infra_ftth_extern_status.Header = Status
+Env.Var.infra_ftth_extern_status.Value.up = Up
+Env.Var.infra_ftth_extern_status.Value.down = Not connected
+
+Env.Var.infra_ftth_extern_speed.Header = Max rate.
+
+Env.Section.infra_dsl_info.Title = DSL line information
+
+Env.Var.infra_dsl_ratedown.Header = Downstream rate
+Env.Var.infra_dsl_rateup.Header = Upstream rate
+Env.Var.infra_dsl_noisedown.Header = Downstream noise
+Env.Var.infra_dsl_noiseup.Header = Upstream noise
+Env.Var.infra_dsl_attenuationdown.Header = Downstream attenuation
+Env.Var.infra_dsl_attenuationup.Header = Upstream attenuation
+Env.Var.infra_dsl_linemode.Header = Line mode
+Env.Var.infra_dsl_uptime.Header = DSL uptime
+
+Env.Text.DSLNoSynchro = Your gateway cannot synchronize your DSL line. It is maybe not yet active, or the cable from your phone line to your $BOXNAME is not plugged.
+Env.Link.ADSLStats = Detailed statistics
+
+Env.Section.infra_gprs_info.Title = Radio connection information
+
+Env.Var.infra_gprs_dbm.Header = Reception quality
+Env.Var.infra_gprs_connectivity.Header = Connectivity
+
+Env.Section.infra_ppp_info.Title = PPP information
+
+Env.Var.infra_ppp_ifname.Header = PPP Session name
+Env.Var.infra_ppp_session.Header = PPP Session ID
+Env.Var.infra_ppp_server.Header = PPP server name
+
+Env.Text.LinkDown = These information are not available when the connection is down.
+
+Env.Text.warning_no_wanface = Your $BOXNAME can't detect Internet connection on <b>Access 1</b> or <b>Access 2</b> port. This can be due to an incorrect wiring or a network failure.
+
+Env.Text.dayAbbr = d
+Env.Text.hourAbbr = h
+Env.Text.minAbbr = min.
+Env.Text.secAbbr = sec.
+
+Env.Section.ipv6_info.Title = Internet IPv6
+Env.Var.ipv6_status.up = Operational
+Env.Var.ipv6_status.noconnect = Not connected
+Env.Var.ipv6_status.down = Disable
+Env.Var.ipv6_prefix.Header = IPv6 prefix

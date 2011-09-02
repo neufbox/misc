@@ -1,0 +1,17 @@
+Env.Page.Title = DNS local
+
+Env.Help.Text = Sur cette page, vous avez le moyen de définir un nom d'h&ocirc;te à une adresse IP. Par exemple, vous pouvez associer un nom (<b>monpc.at.home</b>) à une adresse IP de votre réseau local.
+
+Env.Section.dns_configuration.Title = DNS local
+
+Env.Var.action.Error.value = Format incorrect
+
+Env.Var.dnshosts_ip.Header = Adresse IP
+Env.Var.dnshosts_ip.Error.value = Format incorrect
+Env.Var.dnshosts_ip.Error.invalid = Adresse IP invalide
+
+Env.Var.dnshosts_hostname.Header = Nom d'h&ocirc;te
+Env.Var.dnshosts_hostname.Error.value = Format incorrect
+
+Env.Form.Error.duplicate = Erreur, cette entrée existe déjà.
+Env.Form.Error.hostname_already_used = Erreur, le nom d'hôte est déjà attribué à une autre adresse IP

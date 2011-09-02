@@ -1,0 +1,40 @@
+Env.Page.Title = Tests
+
+Env.Help.Text = Dans la rubrique <b>Ping</b>, vous pourrez vérifier que votre $BOXNAME est capable de communiquer avec les autres ordinateurs connectés. Saisissez pour cela l'adresse IP ou le nom DNS (par exemple, google.fr) de la machine, puis cliquez sur <i>Lancer</i>. Si la communication est parfaite, le nombre de paquets émis sera équivalent au nombre de paquets reçus.<br/><br/>Dans la rubrique <b>Traceroute</b>, vous pourrez observer le chemin emprunté par les paquets que vous envoyez sur internet.
+
+Env.Section.ping.Title = Ping
+
+Env.Var.ping_dest_hostname.Header = Adresse de destination
+Env.Text.ping_sent = Paquets émis
+Env.Text.ping_recv = Paquets reçus
+Env.Text.ping_avgrtt = Temps moyen aller/retour
+
+Env.Var.ping_status.Value.living = Ping en cours
+Env.Var.ping_status.Value.stop = Ping arrêté
+Env.Var.ping_status.Value.starting = Lancement du ping
+Env.Var.ping_status.Value.stopping = Arrêt du ping
+Env.Var.ping_status.Value.finished = Ping terminé
+Env.Var.ping_status.Value.halt = Ping interrompu
+Env.Var.ping_status.Value.error = Une erreur est survenue
+Env.Var.ping_status.Value.error_dns_host = Ping impossible ! L'hôte est inconnu
+Env.Var.ping_status.Value.error_dns_tempfail = Ping impossible ! Erreur temporaire de résolution du nom
+
+Env.Section.traceroute.Title = Traceroute
+
+Env.Var.traceroute_dest_hostname.Header =  Adresse de destination
+Env.Text.jump = Saut
+Env.Text.hostname = Hôte
+Env.Text.loop_time = Temps moyen aller/retour
+
+Env.Var.traceroute_status.Value.living = Traceroute en cours
+Env.Var.traceroute_status.Value.stop = Traceroute arrêté
+Env.Var.traceroute_status.Value.starting = Lancement du traceroute
+Env.Var.traceroute_status.Value.stopping = Arrêt du traceroute
+Env.Var.traceroute_status.Value.finished = Traceroute terminé
+Env.Var.traceroute_status.Value.halt = Traceroute interrompu
+Env.Var.traceroute_status.Value.error = Une erreur est survenue
+Env.Var.traceroute_status.Value.error_dns_host = Traceroute impossible ! L'hôte est inconnu
+Env.Var.traceroute_status.Value.error_dns_tempfail = Traceroute impossible ! Erreur temporaire de résolution du nom
+
+Env.Text.nojs = Vous devez activer le javascript pour utiliser cette fonctionnalité.
+

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <p910nd status="<?cs var:p910nd.status ?>" bidir="<?cs var:p910nd.bidir?>" />
+   <smbd active="<?cs var:smbd.active ?>" state="<?cs var:smbd.state ?>" codeno="<?cs var:smbd.codeno ?>" />
+</rsp>

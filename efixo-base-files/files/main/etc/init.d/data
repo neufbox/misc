@@ -1,0 +1,168 @@
+#!/bin/sh /etc/rc.common
+
+DATA_PID_FILE=/var/run/data-wrapper.pid
+
+boot() {
+	[ -x /usr/sbin/fcctl ] && fcctl disable > /dev/null
+	[ -x /usr/sbin/fapctl ] && fapctl disable > /dev/null
+	wrapper -t data -p ${DATA_PID_FILE}
+}
+
+start() {
+	lan_ifname=$(nvram get lan_ifname)
+	lan_ipaddr=`nvram get lan_ipaddr`
+	lan_netmask=`nvram get lan_netmask`
+	eval `ipcalc -npb ${lan_ipaddr} ${lan_netmask}`
+	lan_net=${lan_ipaddr}/${PREFIX}
+	alias_ipaddr=`nvram get lan_alias_ipaddr`
+	alias_netmask=`nvram get lan_alias_netmask`
+	eval `ipcalc -npb ${alias_ipaddr} ${alias_netmask}`
+	alias_net=${alias_ipaddr}/${PREFIX}
+	hotspot_net=$(nvram get hotspot_net)
+
+	infra=$(status get net_data_infra)
+	ifname=$(status get net_data_ifname)
+	ipaddr=$(status get net_data_ipaddr)
+	gateway=$(status get net_data_gateway)
+	dns=$(status get net_data_dns)
+	resolv_conf=$(status get net_data_resolvconf)
+
+	# klduge to break establish connections
+	wrapper_pidfile=/var/run/ppp_adsl-wrapper.pid
+	if [ -e ${wrapper_pidfile} ]
+	then
+		dhcpc_voip_ifname=$(nvram get dhcpc_voip_ifname)
+		iptables -D FORWARD -o ${dhcpc_voip_ifname} -j DROP
+
+		# stop dhcpc + ppp
+		[ "${infra}" = "adsl/routed" ] && {
+			/etc/init.d/dhcpc adsl_stop
+			kill -HUP $(cat ${wrapper_pidfile})
+		}
+	fi
+
+	# filter: forward
+	iptables -A FORWARD -i ${ifname} -m state --state NEW -j WIN_FILTER
+	iptables -A FORWARD -o ${ifname} -m state --state NEW -j WIN_FILTER
+	iptables -A FORWARD -o ${ifname} -p tcp -m tcp --dport 25 -j SMTP_FILTER
+	# tcpmss
+	([ "${infra}" =  "adsl/ppp" ] || [ "${infra}" = "gprs/ppp" ]) && \
+		iptables -t mangle -I FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+
+	# filter: output
+	#iptables -A OUTPUT -o ${ifname} -p icmp --icmp-type port-unreachable -j LOG
+	iptables -A OUTPUT -o ${ifname} -p icmp --icmp-type port-unreachable -j DROP
+
+	# nat: postrouting
+	iptables -t nat -A POSTROUTING -o ${ifname} -s ${lan_net} -j SNAT --to ${ipaddr}
+	iptables -t nat -A POSTROUTING -o ${ifname} -s ${alias_net} -j SNAT --to ${ipaddr}
+	iptables -t nat -A POSTROUTING -o ${ifname} -s ${hotspot_net} -j SNAT --to ${ipaddr}
+
+	# nat: prerouting
+	iptables -t nat -A PREROUTING -i ${ifname} -j USER_NAT
+	iptables -t nat -A PREROUTING -i ${ifname} -j MINIUPNPD
+	iptables -t nat -A PREROUTING -i ${ifname} -m pkttype --pkt-type unicast -j DMZ
+
+	# setup rule from lan net
+	ip route add default via ${gateway} table lan_t
+	# setup rule from internet
+	ip route add ${lan_net} dev ${lan_ifname} table data_t
+	ip route add ${alias_net} dev ${lan_ifname} table data_t
+	ip route add default via ${gateway} table data_t
+	ip rule add from ${ipaddr} table data_t
+	# dns route
+	for dns in ${dns}
+	do
+		ip route add ${dns} via ${gateway}
+	done
+
+	ln -sf ${resolv_conf} /tmp/resolv.conf.lan
+
+	# start upnp, yaddns wakeup
+	/etc/init.d/miniupnpd start
+        if [ "${infra}" = "gprs/ppp" ]; then
+            # stop yaddns because doesn't works in the 3g network
+            /etc/init.d/yaddns stop
+        else
+            # try to reload yaddns. if doesn't started, it will be
+	    /etc/init.d/yaddns reload
+        fi
+
+	wrapper_pidfile=/var/run/tvservices-wrapper.pid
+	[ -e ${wrapper_pidfile} ] && kill -HUP $(cat ${wrapper_pidfile})
+	wrapper_pidfile=/var/run/ipv6-wrapper.pid
+	[ -e ${wrapper_pidfile} ] && kill -HUP $(cat ${wrapper_pidfile})
+}
+
+stop() {
+	lan_ifname=$(nvram get lan_ifname)
+	lan_ipaddr=`nvram get lan_ipaddr`
+	lan_netmask=`nvram get lan_netmask`
+	eval `ipcalc -npb ${lan_ipaddr} ${lan_netmask}`
+	lan_net=${lan_ipaddr}/${PREFIX}
+	alias_ipaddr=`nvram get lan_alias_ipaddr`
+	alias_netmask=`nvram get lan_alias_netmask`
+	eval `ipcalc -npb ${alias_ipaddr} ${alias_netmask}`
+	alias_net=${alias_ipaddr}/${PREFIX}
+	hotspot_net=$(nvram get hotspot_net)
+
+	infra=$(status get net_data_infra)
+	ifname=$(status get net_data_ifname)
+	ipaddr=$(status get net_data_ipaddr)
+	gateway=$(status get net_data_gateway)
+	dns=$(status get net_data_dns)
+
+	# cleanup rule from lan net
+	ip route del default via ${gateway} table lan_t
+	# cleanup rule from internet
+	ip route del default via ${gateway} table data_t
+	ip route del ${alias_net} dev ${lan_ifname} table data_t
+	ip route del ${lan_net} dev ${lan_ifname} table data_t
+	ip rule del from ${ipaddr} table data_t
+	# dns route
+	for dns in ${dns}
+	do
+		ip route del ${dns} via ${gateway}
+	done
+
+	# klduge to break establish connections
+	wrapper_pidfile=/var/run/ppp_adsl-wrapper.pid
+	if [ -e ${wrapper_pidfile} ]
+	then
+		dhcpc_voip_ifname=$(nvram get dhcpc_voip_ifname)
+		iptables -A FORWARD -o ${dhcpc_voip_ifname} -j DROP
+
+		# start dhcpc + ppp
+		[ "${infra}" = "adsl/routed" ] && {
+			/etc/init.d/dhcpc adsl_start
+			kill -HUP $(cat ${wrapper_pidfile})
+		}
+	fi
+
+	# dns
+	rm -f /tmp/resolv.conf.lan
+
+	# nat: postrouting
+	iptables -t nat -D POSTROUTING -o ${ifname} -s ${lan_net} -j SNAT --to ${ipaddr}
+	iptables -t nat -D POSTROUTING -o ${ifname} -s ${alias_net} -j SNAT --to ${ipaddr}
+	iptables -t nat -D POSTROUTING -o ${ifname} -s ${hotspot_net} -j SNAT --to ${ipaddr}
+
+	# nat: prerouting
+	iptables -t nat -D PREROUTING -i ${ifname} -j USER_NAT
+	iptables -t nat -D PREROUTING -i ${ifname} -j MINIUPNPD
+	iptables -t nat -D PREROUTING -i ${ifname} -m pkttype --pkt-type unicast -j DMZ
+
+	# filter: output
+	#iptables -D OUTPUT -o ${ifname} -p icmp --icmp-type port-unreachable -j LOG
+	iptables -D OUTPUT -o ${ifname} -p icmp --icmp-type port-unreachable -j DROP
+
+	# filter: forward
+	iptables -D FORWARD -i ${ifname}  -m state --state NEW -j WIN_FILTER
+	iptables -D FORWARD -o ${ifname} -m state --state NEW -j WIN_FILTER
+	iptables -D FORWARD -o ${ifname} -p tcp -m tcp --dport 25 -j SMTP_FILTER
+	# tcpmss
+	iptables -t mangle -D FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+
+	# stop upnp
+	/etc/init.d/miniupnpd stop
+}

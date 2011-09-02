@@ -1,0 +1,50 @@
+Env.Page.Title = GPRS
+
+Env.Var.gprs_pukcode.Header = PUK code
+Env.Var.gprs_pukcode.Error.invalid = Invalid puk code
+
+Env.Var.gprs_newpincode.Header = New PIN code
+Env.Var.gprs_newpincode.Error.invalid = Invalid pin code
+
+Env.Section.gprs_config.Title = GPRS
+
+Env.Var.gprs_device_state.Header = GPRS dongle
+Env.Var.gprs_device_state.Value.unavailable = 3G dongle unavailable
+Env.Var.gprs_device_state.Value.available = 3G dongle available
+
+Env.Var.gprs_active_data.Header = GPRS status
+Env.Var.gprs_active_data.Value.on = Active
+Env.Var.gprs_active_data.Value.off = Not working
+
+Env.Var.gprs_pin.Header = PIN code
+Env.Var.gprs_pin.Error.value = Invalid format
+
+Env.Var.gprs_apn.Header = APN
+Env.Var.gprs_apn.Error.value = Invalid format
+
+Env.Var.gprs_sim_status.Value.ko = SIM failure
+Env.Var.gprs_sim_status.Value.ok = SIM ready
+
+Env.Var.gprs_sim_pinstatus.Value.ko = Invalid pin code
+Env.Var.gprs_sim_pinstatus.Value.ok = Valid pin code
+
+Env.Var.gprs_sim_pinremaining.Value.0 = Your SIM card is locked after several mistakes PIN code. To unlock the SIM card, enter your PUK code and the new PIN code .
+Env.Var.gprs_sim_pinremaining.Value.1 = 1 remaining test
+Env.Var.gprs_sim_pinremaining.Value.2 = 2 remaining tests
+Env.Var.gprs_sim_pinremaining.Value.3 = 3 remaining tests
+Env.Var.gprs_sim_pinremaining.Value.unknown = Unable to retrieve the number of remaining test for the PIN code
+
+Env.Var.gprs_sim_pukremaining.Value.0 = Your SIM card is permanently locked after several errors of PIN code and PUK code.
+Env.Var.gprs_sim_pukremaining.Value.unknown = Unable to retrieve the number of remaining test for the PUK code
+
+Env.Var.gprs_service_data.Header = GPRS connection
+Env.Var.gprs_service_data.Value.on = enabled
+Env.Var.gprs_service_data.Value.off = disabled
+Env.Var.gprs_service_data.Value.auto = automatic
+Env.Var.gprs_service_data.Error.value = Invalid format
+
+Env.Var.gprs_service_voice.Header = Telephony
+Env.Var.gprs_service_voice.Value.on = enabled
+Env.Var.gprs_service_voice.Value.off = disabled
+Env.Var.gprs_service_voice.Value.auto = automatic
+Env.Var.gprs_service_voice.Error.value = Invalid format

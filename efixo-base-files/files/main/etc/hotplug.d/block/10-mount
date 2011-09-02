@@ -1,0 +1,247 @@
+#!/bin/sh
+
+# Copyright (C) 2008 Efixo
+#  dec. 2008 - Viallard Anthony <anthony.viallard@efixo.net>
+#  mars 2009 - Viallard Anthony <anthony.viallard@efixo.net>
+#  janv 2010 - Viallard Anthony <anthony.viallard@efixo.net>
+#      Make it more asynchronizable
+#
+# Explanations
+# ------------
+#
+# Goals:
+#     - Mount/Umount available partitions when plugin/plugout usb device
+#     - and finally, restart usb dependent services (ushare, samba, webui, ...)
+#
+# Algo for adding:
+#     - The first block get a flag file which say is the master
+#       and lock/create the mount file
+#     - Each block append his dev name (/dev/sda1, ..) and mnt point 
+#       in one file named /var/run/sd(a|b).mount
+#     - The master wait XX seconds, unfreeze the flag file, lock mount file,
+#       try to mount blocks which are declared in the file, remove mount file 
+#       and unlock mount file
+#
+# Algo for removing:
+#     - same thing that add but umount instead of mount
+#
+# NB: - When pluggin or plugout usb key, hotplug events triggers  
+#       the hotplug scripts but it's not serialized. Hotplug doesn't
+#       wait the end of hotplug script to triggers the next event.
+#       ---------- IT'S ASYNCHRONOUS ----------
+#     - Why freeze/unfreeze flag ? if one block comes after the mount 
+#       executions, the process of freezing/creating file with dev 
+#       name/unfreezing/mounting and restarting usb dependent service can be 
+#       relaunched.
+#       
+
+[ "$MAJOR" != "8" ] && exit 0
+
+UID_NOBODY=`cat /etc/passwd |grep nobody|cut -d ':' -f 3`
+GID_NOBODY=`cat /etc/passwd |grep nobody|cut -d ':' -f 3`
+
+DEVICE=`basename $DEVPATH`
+DEVROOT=`echo $DEVPATH | sed 's|.*/block/\(sd.\).*|\1|'`
+
+MASTER_FLAG=0
+RESTART_FLAG=0
+
+MOUNT_FILE="/var/run/$DEVROOT.mount"
+UMOUNT_FILE="/var/run/$DEVROOT.umount"
+
+DEV_POINT="/dev/${DEVICE}";
+MNT_POINT="/mnt/usb/${DEVICE}"
+
+FL_RESTART=0
+
+# $1 => $n: the line command for mounting
+mount_helper() {
+    cmd="$@"
+
+    ${cmd}
+    
+    ret=$?
+    if [ $ret -eq 0 ]; then
+ 	logger "hotplug[$$]: $* success !"
+    fi
+
+    return $ret
+}
+
+restart_services() {
+    while [ ! -e /var/state/services ]; do
+        # prevent launching services before services init
+	sleep 1
+    done
+    
+    kill -SIGHUP `cat /var/run/fastcgi.pid`
+    logger "hotplug[$$]: SIGHUP fastcgi (ret=$?)"
+    sambactl restart
+    logger "hotplug[$$]: sambactl restart (ret=$?)"
+    usharectl restart
+    logger "hotplug[$$]: usharectl restart (ret=$?)"
+}
+
+# logger "hotplug[$$]: trigger with [$ACTION] [$DEVPATH] [$DEVICE] [$DEV_POINT] [$MNT_POINT]"
+
+case "$ACTION" in
+    add)
+        # { begin critical section
+        lock /var/lock/mount_$DEVROOT.lock
+
+        # we need a master which do mounts and service restart
+        if [ ! -e $MOUNT_FILE ]; then
+            touch $MOUNT_FILE
+            
+            MASTER_FLAG=1
+        fi
+        
+        # push dev point in mount file
+        echo "${DEV_POINT} ${MNT_POINT}" >> $MOUNT_FILE
+        
+        qcount=$(wc -l $MOUNT_FILE | awk '{print $1}')
+	logger "hotplug[$$]: add dev name ${DEV_POINT} to mount queue ($qcount) ..."
+	
+        lock -u /var/lock/mount_$DEVROOT.lock
+        # } end critical section
+
+        # the master is the master
+        if [ $MASTER_FLAG -eq 1 ]; then
+            logger "hotplug[$$]: The mount queue is popped in 2 seconds ...wait..."
+            sleep 2
+
+            # { begin critical section
+            lock /var/lock/mount_$DEVROOT.lock
+            
+            qcount=$(wc -l $MOUNT_FILE | awk '{print $1}')
+            logger "hotplug[$$]: proceed mount queue ($qcount) ..."
+            
+            oldIFS=$IFS
+            IFS=$'\n'
+            for line in $(cat $MOUNT_FILE); do
+                U_DEV_POINT=$(echo "$line" | awk '{print $1}')
+                U_MNT_POINT=$(echo "$line" | awk '{print $2}')
+
+                # mkdir mount point
+	        if [ ! -d "$U_MNT_POINT" ]; then
+	            mkdir -p "$U_MNT_POINT"
+	        fi
+                
+	        logger "hotplug[$$]: mounting ${U_DEV_POINT} to ${U_MNT_POINT} ..."
+                
+                # VFAT, NTFS-3g rw, NTFS-3g ro, other part types rw, 
+                # other part types ro
+                mount_helper mount "${U_DEV_POINT}" "${U_MNT_POINT}" -t vfat -o noatime,uid=${UID_NOBODY},gid=${UID_NOBODY},umask=000,utf8 || 
+                mount_helper ntfs-3g "${U_DEV_POINT}" "${U_MNT_POINT}" -o uid=${UID_NOBODY},gid=${GID_NOBODY},umask=000,force || 
+                mount_helper ntfs-3g "${U_DEV_POINT}" "${U_MNT_POINT}" -o uid=${UID_NOBODY},gid=${GID_NOBODY},force,ro || 
+                mount_helper mount "${U_DEV_POINT}" "${U_MNT_POINT}" -o noatime,uid=${UID_NOBODY},gid=${GID_NOBODY},umask=000 ||
+                mount_helper mount "${U_DEV_POINT}" "${U_MNT_POINT}"
+
+                ret=$?
+                if [ $ret -eq 0 ]; then
+                    RESTART_FLAG=1
+                else
+                    logger "hotplug[$$]: failed to mount ${U_DEV_POINT} to ${U_MNT_POINT}"
+                    rmdir "${U_MNT_POINT}"
+                fi
+            done
+            
+            IFS=$oldIFS
+            
+            if [ $RESTART_FLAG -eq 1 ]; then
+                logger "hotplug[$$]: restart USB dependent services"
+                
+                restart_services
+            else
+                logger "hotplug[$$]: all mount failed. No restart USB dependent services"
+            fi
+
+            rm -f $MOUNT_FILE
+
+            logger "hotplug[$$]: master has finished its work"
+            
+	    lock -u /var/lock/mount_$DEVROOT.lock
+            # } end critical section
+
+            exit 0
+        fi
+        
+	;;
+    remove)
+        # { begin critical section
+        lock /var/lock/umount_$DEVROOT.lock
+        
+        # we need a master which do umounts and service restart
+        if [ ! -e $UMOUNT_FILE ]; then
+            touch $UMOUNT_FILE
+            
+            MASTER_FLAG=1
+        fi
+        
+        # push mnt point in umount file
+        echo "${MNT_POINT}" >> $UMOUNT_FILE
+        
+        qcount=$(wc -l $UMOUNT_FILE | awk '{print $1}')
+	logger "hotplug[$$]: add mnt point ${MNT_POINT} to umount queue ($qcount) ..."
+	
+        lock -u /var/lock/umount_$DEVROOT.lock
+        # } end critical section
+
+        # the master is the master
+        if [ $MASTER_FLAG -eq 1 ]; then
+            logger "hotplug[$$]: The umount queue is popped in 2 seconds ...wait..."
+            sleep 2
+
+            # { begin critical section
+            lock /var/lock/umount_$DEVROOT.lock
+            
+            qcount=$(wc -l $UMOUNT_FILE | awk '{print $1}')
+            logger "hotplug[$$]: proceed umount queue ($qcount) ..."
+            
+            oldIFS=$IFS
+            IFS=$'\n'
+            for line in $(cat $UMOUNT_FILE); do
+                U_MNT_POINT=$(echo "$line" | awk '{print $1}')
+                
+	        logger "hotplug[$$]: umounting ${U_MNT_POINT} ..."
+
+                # check if mounted
+	        if [ -z "`cat /proc/mounts |grep \"${U_MNT_POINT}\"|cut -d \" \" -f 1`" ]; then
+	            logger "hotplug[$$]: ${U_MNT_POINT} isn't mounted"
+                else
+	            umount -l "${U_MNT_POINT}"
+                    ret=$?
+                    if [ $ret -eq 0 ]; then
+	                logger "hotplug[$$]: umount ${U_MNT_POINT} success"
+
+                        RESTART_FLAG=1
+                    else
+                        logger "hotplug[$$]: failed to umount ${U_MNT_POINT}"
+                    fi
+                    
+                    rmdir "${U_MNT_POINT}"
+                fi
+            done
+            
+            IFS=$oldIFS
+            
+            if [ $RESTART_FLAG -eq 1 ]; then
+                logger "hotplug[$$]: restart USB dependent services"
+                
+                restart_services
+            else
+                logger "hotplug[$$]: no umount was done, so no restart USB dependent services"
+            fi
+
+            rm -f $UMOUNT_FILE
+            
+            logger "hotplug[$$]: master has finished its work"
+            
+	    lock -u /var/lock/umount_$DEVROOT.lock
+            # } end critical section
+
+            exit 0
+        fi
+
+	;;
+esac

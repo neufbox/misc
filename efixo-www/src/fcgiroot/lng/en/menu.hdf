@@ -1,0 +1,102 @@
+#ifdef page_state
+Env.Menu.state.Label                     = Status
+#ifdef page_state_wan
+Env.Menu.state.SubMenu.wan.Label         = Internet
+#endif
+#ifdef page_state_voip
+Env.Menu.state.SubMenu.voip.Label        = Telephony
+#endif
+#ifdef page_state_lan
+Env.Menu.state.SubMenu.lan.Label         = Local network
+#endif
+#ifdef page_state_device
+Env.Menu.state.SubMenu.device.Label      = Peripherals
+#endif
+#endif
+
+#ifdef page_network
+Env.Menu.network.Label                   = Network
+#ifdef page_network_wan
+Env.Menu.network.SubMenu.wan.Label       = WAN
+#endif
+#ifdef page_network_ddns
+Env.Menu.network.SubMenu.ddns.Label      = DynDNS
+#endif
+#ifdef page_network_dns
+Env.Menu.network.SubMenu.dns.Label       = DNS
+#endif
+#ifdef page_network_dhcp
+Env.Menu.network.SubMenu.dhcp.Label      = DHCP
+#endif
+#ifdef page_network_nat
+Env.Menu.network.SubMenu.nat.Label       = NAT
+#endif
+#ifdef page_network_route
+Env.Menu.network.SubMenu.route.Label     = Route
+#endif
+#ifdef page_network_firewall
+Env.Menu.network.SubMenu.firewall.Label  = Filtering
+#endif
+#endif
+
+#ifdef page_wifi
+Env.Menu.wifi.Label                      = Wifi
+#ifdef page_wifi_config
+Env.Menu.wifi.SubMenu.config.Label       = Configuration
+#endif
+#ifdef page_wifi_security
+Env.Menu.wifi.SubMenu.security.Label     = Encryption
+#endif
+#ifdef page_wifi_macfiltering
+Env.Menu.wifi.SubMenu.macfiltering.Label = MAC filtering
+#endif
+#endif
+
+#ifdef page_hotspot
+Env.Menu.hotspot.Label                   = Hotspot
+#ifdef page_hotspot_config
+Env.Menu.hotspot.SubMenu.config.Label    = Configuration
+#endif
+#endif
+
+#ifdef page_service
+Env.Menu.service.Label                   = Applications
+#ifdef page_service_samba
+Env.Menu.service.SubMenu.samba.Label     = File sharing
+#endif
+#ifdef page_service_printer
+Env.Menu.service.SubMenu.printer.Label   = Printer sharing
+#endif
+#ifdef page_service_upnpav
+Env.Menu.service.SubMenu.upnpav.Label    = Multimedia server
+#endif
+#endif
+
+#ifdef page_maintenance
+Env.Menu.maintenance.Label               = Maintenance
+#ifdef page_maintenance_system
+Env.Menu.maintenance.SubMenu.system.Label = System
+#endif
+#ifdef page_maintenance_admin
+Env.Menu.maintenance.SubMenu.admin.Label = Management
+#endif
+#ifdef page_maintenance_webui
+Env.Menu.maintenance.SubMenu.webui.Label = Customization
+#endif
+#ifdef page_maintenance_dsl
+Env.Menu.maintenance.SubMenu.dsl.Label   = DSL line
+#endif
+#ifdef page_maintenance_diag
+Env.Menu.maintenance.SubMenu.diag.Label  = Diagnosis
+#endif
+#ifdef page_maintenance_tests
+Env.Menu.maintenance.SubMenu.tests.Label = Tests
+#endif
+#endif
+
+#ifdef page_eco
+Env.Menu.eco.Label                       = Eco
+#ifdef page_maintenance_system
+Env.Menu.eco.SubMenu.config.Label = Configuration
+#endif
+#endif

@@ -1,0 +1,10 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+
+boot() {
+	# erase bootcounter and config
+	echo "TODO erase all conf"
+	cat /dev/zero > /dev/mtdblock-bootcfg 2>/dev/null
+	flash_eraseall -j /dev/mtd-config 1>/dev/console 2>&1
+}

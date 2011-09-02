@@ -1,0 +1,37 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.PrinterSharing.Title ?></h1>
+</div>
+
+<div class="content">
+
+	<form method="post" action="<?cs var:Env.Page.Name ?>">
+	
+	<table id="printer_sharing">
+		<tr>
+			<th scope="row"><?cs var:Env.Var.PrinterSharingStatus.Header ?></th>
+			<td id="PrinterSharingStatus" class="<?cs if:Var.PrinterSharingStatus.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>">
+				<?cs if:Var.PrinterSharingStatus.Value == "up" ?><?cs var:Env.Var.PrinterSharingStatus.Value.up ?><?cs else ?><?cs var:Env.Var.PrinterSharingStatus.Value.down ?><?cs /if ?>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs var:Env.Var.PrinterSharingBidir.Header ?></th>
+			<td>
+				<input type="radio" value="on" name="printer_sharing_bidir" id="printer_sharing_bidir_on"<?cs if:Var.PrinterSharingBidir.Value == "on" ?> checked="checked"<?cs /if ?> />
+				<label for="printer_sharing_bidir_on"><?cs var:Env.Var.PrinterSharingBidir.Value.on ?></label>
+				<input type="radio" value="off" name="printer_sharing_bidir" id="printer_sharing_bidir_off"<?cs if:Var.PrinterSharingBidir.Value == "off" ?> checked="checked"<?cs /if ?> />
+				<label for="printer_sharing_bidir_off"><?cs var:Env.Var.PrinterSharingBidir.Value.off ?></label>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+
+	</form>
+	
+</div>
+
+<?cs include:"tpl/footer.html" ?>

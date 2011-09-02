@@ -1,0 +1,1 @@
+Env.Var.rootfs.Regex = ^(flash|nfs)$

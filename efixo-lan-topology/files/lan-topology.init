@@ -1,0 +1,6 @@
+#!/bin/sh /etc/rc.common
+
+boot() {
+	ip neigh flush all
+	lan-topology
+}

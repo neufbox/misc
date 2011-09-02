@@ -1,0 +1,107 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs set:js = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+#ifdef NB5
+
+<?cs if:Var.sfp_status.Value != "up"?>
+<div class="error_notice">
+	<?cs var:Env.Text.warning_no_sfp ?>
+</div>
+<?cs elif:Var.sfp_wavelength.Value != #1310?>
+<div class="error_notice">
+	<?cs var:Env.Text.warning_wrong_sfp?>
+</div>
+<?cs else?>
+
+<div class="title">
+	<h1 class="large"><?cs var:Env.Section.SFP_infos.Title ?></h1>
+</div>
+
+<div class="content">	
+	<table id="sfp_infos">
+		<tr>
+			<th scope="row"><?cs call:varHeader("sfp_vendor_name") ?></th>
+			<td><?cs var:Var.sfp_vendor_name.Value ?></td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("sfp_vendor_pn") ?></th>
+			<td><?cs var:Var.sfp_vendor_pn.Value ?> (rev. <?cs var:Var.sfp_vendor_rev.Value?>)</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("sfp_extended_serial_number") ?></th>
+			<td><?cs var:Var.sfp_extended_serial_number.Value ?></td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("sfp_wavelength") ?></th>
+			<td><?cs var:Var.sfp_wavelength.Value ?> nm</td>
+		</tr>
+	</table>
+</div>
+
+<div class="title">
+	<h1 class="large"><?cs var:Env.Section.SFP_monitoring.Title ?></h1>
+</div>
+
+<div class="content">	
+	<table id="sfp_monitoring">
+		<tr>
+			<th scope="row"><?cs call:varHeader("sfp_monitoring_temperature") ?></th>
+			<td><?cs var:Var.sfp_monitoring_temperature.Value ?> &deg;C</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("sfp_monitoring_vcc") ?></th>
+			<td><?cs var:Var.sfp_monitoring_vcc.Value ?> Volt</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("sfp_monitoring_bias") ?></th>
+			<td><?cs var:Var.sfp_monitoring_bias.Value ?> mA</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("sfp_monitoring_tx_power") ?></th>
+			<td><?cs var:Var.sfp_monitoring_tx_power.Value ?> mW</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("sfp_monitoring_rx_power") ?></th>
+			<td><?cs var:Var.sfp_monitoring_rx_power.Value ?> mW</td>
+		</tr>
+	</table>
+</div>
+
+<?cs /if?>
+
+#else
+
+<div class="title">
+	<h1 class="large"><?cs var:Env.Section.ADSLStat.Title ?></h1>
+</div>
+
+<div class="content">
+	<pre><?cs each:part = Var.ADSLStats ?><?cs var:part.Value?><?cs /each?></pre>
+</div>
+
+<?cs if:?Var.LineVoltage.Value?>
+<div class="title">
+	<h1 class="large"><?cs var:Env.Section.ADSLVoltage.Title ?></h1>
+</div>
+
+<div class="content">
+	<pre><?cs if:Var.LineVoltage.Value == 0?><?cs var:Env.Text.NoLine?><?cs else?><?cs var:Var.LineVoltage.Value?> Volt<?cs /if?></pre>
+</div>
+<?cs /if?>
+
+<div class="title">
+	<h1 class="large"><?cs var:Env.Section.ADSLDiag.Title ?></h1>
+</div>
+
+<div class="content">
+
+        <div class="button_submit" id="toggle_diag_div">
+		<button id="toggle_diag" type="button"><?cs var:Env.Btn.ShowHideDump.Value ?></button>
+	</div>
+	<pre id="diag_dump"><?cs each:part = Var.ADSLLineDiag ?><?cs var:part.Value?><?cs /each?></pre>
+</div>
+
+#endif
+
+<?cs include:"tpl/footer.html" ?>

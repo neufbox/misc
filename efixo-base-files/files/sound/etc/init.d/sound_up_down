@@ -1,0 +1,43 @@
+#!/bin/sh
+
+IPTABLES=iptables
+LAN_IFACE=`nvram get lan_ifname`
+MPD=`ls /mnt/sd*/sd*/mpd.static |cut -d ' ' -f 1`
+MPD_CONF=`ls /mnt/sd*/sd*/mpd.conf | cut -d ' ' -f 1`
+
+start () {
+	logger -s -t sound -p daemon.debug "sound up"
+	[ -z "$MPD" ] && exit 0
+	logger -s -t sound -p daemon.debug "mpd.static is present [$MPD]"
+	[ -z "$MPD_CONF" ] && exit 0
+	logger -s -t sound -p daemon.debug "mpd.conf is present [$MPD_CONF]"
+	[ ! -z `ps -C mpd.static -o pid=` ] && exit 0
+	logger -s -t sound -p daemon.debug "checking md5"
+	[ "7527ee5b78fc1b4667bcec8071dbe1e8" != `md5sum $MPD|cut -d ' ' -f 1` ] && exit 0
+	logger -s -t sound -p daemon.debug "launching [$MPD $MPD_CONF]"
+	$IPTABLES -I INPUT -m tcp -p tcp -i $LAN_IFACE  -m state --state NEW --dport 6600 -j ACCEPT
+	$MPD $MPD_CONF
+}
+
+stop () {
+	logger -s -t sound -p daemon.debug "sound down"
+	$IPTABLES -D INPUT -m tcp -p tcp -i $LAN_IFACE -m state --state NEW --dport 6600 -j ACCEPT
+	killall mpd.static
+	killall -9 mpd.static
+
+}
+
+case "$1" in
+
+	start)
+		start
+	;;
+	stop)
+		stop
+	;;
+	restart)
+		stop
+		sleep 2
+		start
+	;;
+esac

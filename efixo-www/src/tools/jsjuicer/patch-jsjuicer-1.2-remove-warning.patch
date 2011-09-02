@@ -1,0 +1,60 @@
+--- jsjuicer_1_2.cpp	2007-03-16 16:25:43.000000000 +0100
++++ jsjuicer.cpp	2009-11-20 15:08:09.332821640 +0100
+@@ -39,7 +39,7 @@
+ //	lexical analysis  ->  minimize_character
+ //	parsing           ->  minimize_file (Has an LR(1) BNF equivalent.)
+ 
+-
++#include <stdlib.h>
+ #include <stdio.h>
+ #include <map>
+ #include <vector>
+@@ -57,9 +57,9 @@ public:
+ 	void enable_minimize( bool enabled );           // delete unnesicary characters
+ 	void enable_obfuscation( bool enabled );        // rename identifiers starting with '$'
+ 
+-	void set_output_file( char* write_file_name );  // defaults to stdout
+-	void process_file( char* read_file_name );      // NULL implies stdin
+-	void insert_comment( char* text );
++	void set_output_file( const char* write_file_name );  // defaults to stdout
++	void process_file( const char* read_file_name );      // NULL implies stdin
++	void insert_comment( const char* text );
+ 
+ private:
+ 	// Minimization operations.
+@@ -94,7 +94,7 @@ private:
+ 	// file handling
+ 	FILE*             m_read_file;
+ 	FILE*             m_write_file;
+-	char*             m_read_file_name;
++        const char*       m_read_file_name;
+ 	int               m_read_file_line;
+ 
+ 	// stripping
+@@ -169,7 +169,7 @@ void JavaScript_Juicer::enable_obfuscati
+ 
+ // --------------------------------------------------------------------------
+ 
+-void JavaScript_Juicer::set_output_file( char* write_file_name )
++void JavaScript_Juicer::set_output_file( const char* write_file_name )
+ {
+ 	m_write_file = fopen( write_file_name, "w" );
+ 	if( m_write_file == NULL )
+@@ -181,7 +181,7 @@ void JavaScript_Juicer::set_output_file(
+ 
+ // --------------------------------------------------------------------------
+ 
+-void JavaScript_Juicer::process_file( char* read_file_name )
++void JavaScript_Juicer::process_file( const char* read_file_name )
+ {
+ 	if( read_file_name != NULL )
+ 	{
+@@ -225,7 +225,7 @@ void JavaScript_Juicer::process_file( ch
+ 
+ // --------------------------------------------------------------------------
+ 
+-void JavaScript_Juicer::insert_comment( char* text )
++void JavaScript_Juicer::insert_comment( const char* text )
+ {
+ 	// Add the '//'s just to be safe.
+ 	fprintf( m_write_file, "// %s\n", text );

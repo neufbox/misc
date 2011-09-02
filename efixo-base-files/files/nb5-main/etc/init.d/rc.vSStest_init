@@ -1,0 +1,13 @@
+#!/bin/sh
+# TODO: one day this will have to move in rcc somehow
+PIDFILE="/var/run/voip-wrapper.pid"
+
+status set voip_mode diag
+
+if [ -e "$PIDFILE" ]
+then
+    kill -HUP `cat "$PIDFILE"`
+fi
+
+sleep 10
+insmod voiceSubSys_tst

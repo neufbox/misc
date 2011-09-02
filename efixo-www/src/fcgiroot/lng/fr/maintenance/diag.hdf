@@ -1,0 +1,114 @@
+Env.Page.Title = Diagnostic
+
+Env.Help.Text << EOM
+Dans la rubrique <b>Diagnostic téléphonie</b> vous pourrez lancer une série de tests afin de vérifier le bon fonctionnement de la partie téléphonie de votre $BOXNAME.<br /><br />Pour cela cliquez sur <i>Etape 1</i> et suivez les indications.<br /><br /><i>Initialisation</i>: avec ce test, vérifiez la bonne configuration téléphonique de votre $BOXNAME.<br /><i>Matériel</i>: avec ce test, vérifiez le bon état du circuit électrique utilisé dans la $BOXNAME.<br /><i>Sonnerie</i>: avec ce test, vérifiez que votre $BOXNAME fait sonner votre poste téléphonique.<br /><i>Tonalité</i>: avec ce test, vérifiez que votre $BOXNAME communique avec votre poste téléphonique.<br /><i>Numérotation</i>: avec ce test, vérifiez le bon fonctionnement des touches de votre poste téléphonique.
+#ifndef NB5
+<br/><br/>Dans la rubrique <b>Diagnostic modem ADSL</b>, vous pourrez procéder à un diagnostic automatique pour vérifier si le modem ADSL de votre $BOXNAME est opérationnel. Veillez à bien brancher le bouchon ADSL pour avoir un résultat pertinent.
+#endif
+<br/><br/>Dans la rubrique <b>Diagnostic général</b>, sur demande d'un technicien $OPERATORNAME vous pouvez générer ici un rapport d'état utile à la résolution de problème technique complexe.
+EOM
+
+Env.Section.DiagPhone.Title = Diagnostic téléphonie
+
+Env.Var.InitResult.Header = Initialisation
+Env.Var.InitResult.Value.success = Effectué
+Env.Var.initResult.Value.not_launched = Non effectué
+
+Env.Var.InitError.Value.check_hook = Erreur : vérifiez que votre téléphone est bien raccroché
+Env.Var.InitError.Value.unknown = Erreur
+
+Env.Var.Gr909Result.Header = Matériel
+Env.Var.Gr909Result.Value.success = Effectué
+Env.Var.Gr909Result.Value.error = Erreur
+Env.Var.Gr909Result.Value.not_launched = Non effectué
+
+Env.Var.Gr909Error.Value.error_voltage = Echec: défaillance de tension détectée.
+Env.Var.Gr909Error.Value.error_resist = Echec: défaillance de resistance détectée.
+Env.Var.Gr909Error.Value.error_offhook = Erreur: votre téléphone est décroché, veuillez le raccrocher.
+Env.Var.Gr909Error.Value.error_loadline = Erreur: problème de charge sur la ligne.
+
+Env.Var.RingResult.Header = Sonnerie
+Env.Var.RingResult.Value.success = Effectué
+Env.Var.RingResult.Value.error = Erreur
+Env.Var.RingResult.Value.not_launched = Non effectué
+
+Env.Var.HookntoneResult.Header = Tonalité
+Env.Var.HookntoneResult.Value.success = Effectué
+Env.Var.HookntoneResult.Value.error = Erreur
+Env.Var.HookntoneResult.Value.not_launched = Non effectué
+
+Env.Var.HookntoneError.Value.pick_up = Erreur: décroché non détecté
+Env.Var.HookntoneError.Value.hang_up = Erreur: raccroché non détecté
+Env.Var.HookntoneError.Value.ft_standard = Erreur: votre combiné ne respecte pas les normes FT, des dysfonctionnements sont possibles
+
+Env.Var.DtmfResult.Header = Numérotation
+Env.Var.DtmfResult.Value.success = Effectué
+Env.Var.DtmfResult.Value.error = Erreur
+Env.Var.DtmfResult.Value.not_launched = Non effectué
+
+Env.Var.DtmfError.Value.press_0 = Appui sur la touche 0 non détecté.
+Env.Var.DtmfError.Value.release_0 = Relache de la touche 0 non détecté.
+Env.Var.DtmfError.Value.press_1 = Appui sur la touche 1 non détecté.
+Env.Var.DtmfError.Value.release_1 = Relache de la touche 1 non détecté.
+Env.Var.DtmfError.Value.press_2 = Appui sur la touche 2 non détecté.
+Env.Var.DtmfError.Value.release_2 = Relache de la touche 2 non détecté.
+Env.Var.DtmfError.Value.press_3 = Appui sur la touche 3 non détecté.
+Env.Var.DtmfError.Value.release_3 = Relache de la touche 3 non détecté.
+Env.Var.DtmfError.Value.press_4 = Appui sur la touche 4 non détecté.
+Env.Var.DtmfError.Value.release_4 = Relache de la touche 4 non détecté.
+Env.Var.DtmfError.Value.press_5 = Appui sur la touche 5 non détecté.
+Env.Var.DtmfError.Value.release_5 = Relache de la touche 5 non détecté.
+Env.Var.DtmfError.Value.press_6 = Appui sur la touche 6 non détecté.
+Env.Var.DtmfError.Value.release_6 = Relache de la touche 6 non détecté.
+Env.Var.DtmfError.Value.press_7 = Appui sur la touche 7 non détecté.
+Env.Var.DtmfError.Value.release_7 = Relache de la touche 7 non détecté.
+Env.Var.DtmfError.Value.press_8 = Appui sur la touche 8 non détecté.
+Env.Var.DtmfError.Value.release_8 = Relache de la touche 8 non détecté.
+Env.Var.DtmfError.Value.press_9 = Appui sur la touche 9 non détecté.
+Env.Var.DtmfError.Value.release_9 = Relache de la touche 9 non détecté.
+
+Env.Button.Init = Lancer l'étape 1
+Env.Button.ReInit = Relancer l'étape 1
+Env.Text.Init = Cette étape permet de vérifier que la téléphonie de la $BOXNAME est correctement initialisée.
+
+Env.Button.Gr909 = Lancer l'étape 2
+Env.Button.ReGr909 = Relancer l'étape 2
+Env.Text.Gr909 = Cette étape permet de vérifier le circuit électrique utilisé pour la téléphonie. N'interagissez pas avec votre combiné téléphonique en cours de test.
+
+Env.Button.Ring = Lancer l'étape 3
+Env.Button.ReRing = Relancer l'étape 3
+Env.Text.Ring = Cette étape permet de vérifier que la $BOXNAME fait correctement sonner votre poste téléphonique.
+
+Env.Button.Hookntone = Lancer l'étape 4
+Env.Button.ReHookntone = Relancer l'étape 4
+Env.Text.Hookntone = Cette étape permet de vérifier que vous entendez correctement la tonalité de votre poste téléphonique. Cliquez sur le bouton, puis décrochez votre combiné, écoutez la tonalité, et enfin raccrochez.
+
+Env.Button.Dtmf = Lancer l'étape 5
+Env.Button.ReDtmf = Relancer l'étape 5
+Env.Text.Dtmf = Cette étape permet de vérifier que les actions sur les touches de votre poste téléphonique sont correctement reconnues par la $BOXNAME. Cliquez sur le bouton, puis décrochez votre combiné, appuyez sur les touches de 0 à 9 dans l'ordre et enfin raccrochez.
+
+Env.Button.CancelAndReboot = Annuler et redémarrer
+Env.Text.Warning = Attention ! Vous devrez redémarrer votre $BOXNAME après le diagnostic pour que la téléphonie fonctionne normalement.
+Env.Text.Info = Le diagnostic coupera toute communication téléphonique en cours.
+
+#ifndef NB5
+Env.Section.dsltest.Title = Diagnostic modem ADSL
+
+Env.Text.dsltest_instruction = Branchez le bouchon de test sur le port "DSL" de votre $BOXNAME et cliquez sur le bouton "Tester". La procédure de test dure 10 secondes.
+Env.Text.dsltest_living = Test modem adsl en cours
+
+Env.Var.dsltest_result.Header = Résultat du test
+Env.Var.dsltest_result.Value.OK = Modem ADSL OK
+Env.Var.dsltest_result.Value.NOK_HIGH = Problème sur le modem ADSL
+Env.Var.dsltest_result.Value.NOK_LOW = Problème sur le modem ADSL
+
+Env.Button.Test = Tester
+
+Env.Text.not_launched = Non effectué
+#endif
+
+Env.Section.DiagReport.Title = Diagnostic général
+
+Env.Text.ExportDiagReport = Exporter le rapport de diagnostic
+
+Env.Var.pendingDiag.Value = Diagnostic en cours...

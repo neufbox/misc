@@ -1,0 +1,287 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.nat_config.Title ?></h1>
+</div>
+
+<div class="content">
+	<form method="post" id="form_nat" action="<?cs var:Env.Page.Name ?>">
+        <input type="hidden" name="port_list_tcp" value=":<?cs each:item = Var.List ?><?cs if:((item.Proto.Value == "tcp") || (item.Proto.Value == "both")) ?><?cs var:item.ExtPort.Value ?>:<?cs /if ?><?cs /each ?>" />
+	<input type="hidden" name="port_list_udp" value=":<?cs each:item = Var.List ?><?cs if:((item.Proto.Value == "udp") || (item.Proto.Value == "both")) ?><?cs var:item.ExtPort.Value ?>:<?cs /if ?><?cs /each ?>" />
+	<table id="nat_config">
+		<thead>
+			<tr>
+				<th scope="col" class="col_number">#</th>
+				<th scope="col"><?cs call:varHeader("nat_rulename") ?></th>
+				<th scope="col"><?cs call:varHeader("nat_proto") ?></th>
+				<th scope="col"><?cs call:varHeader("nat_range") ?></th>
+				<th scope="col"><?cs call:varHeader("nat_extport") ?></th>
+				<th scope="col"><?cs call:varHeader("nat_dstip") ?></th>
+				<th scope="col"><?cs call:varHeader("nat_dstport") ?></th>
+				<th scope="col"><?cs call:varHeader("nat_active") ?></th>
+				<th scope="col" class="col_action" colspan="2"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?cs each:item = Var.List ?>
+			<tr>
+				<td class="col_number<?cs if:item.Activated.Value == "off"?> desactivated"<?cs /if?>">
+					<?cs var:name(item) ?>
+				</td>
+				<td <?cs if:item.Activated.Value == "off"?>class="desactivated"<?cs /if?>>
+					<?cs var:item.RuleName.Value ?>
+				</td>
+				<td <?cs if:item.Activated.Value == "off"?>class="desactivated"<?cs /if?>>
+					<?cs if:item.Proto.Value == "tcp" ?>
+					<?cs var:Env.Var.nat_proto.Value.tcp ?>
+					<?cs elif:item.Proto.Value == "udp" ?>
+					<?cs var:Env.Var.nat_proto.Value.udp ?>
+					<?cs elif:item.Proto.Value == "both" ?>
+					<?cs var:Env.Var.nat_proto.Value.both ?>
+					<?cs /if ?>
+				</td>
+				<td <?cs if:item.Activated.Value == "off"?>class="desactivated"<?cs /if?>>
+					<?cs if:string.find(item.ExtPort.Value, "-") == -1 ?>
+					<?cs var:Env.Var.nat_range.Value.false ?>
+					<?cs else ?>
+					<?cs var:Env.Var.nat_range.Value.true ?>
+					<?cs /if ?>
+				</td>
+				<td <?cs if:item.Activated.Value == "off"?>class="desactivated"<?cs /if?>><?cs var:item.ExtPort.Value ?></td>
+				<td <?cs if:item.Activated.Value == "off"?>class="desactivated"<?cs /if?>><?cs var:item.DstIP.Value ?></td>
+				<td <?cs if:item.Activated.Value == "off"?>class="desactivated"<?cs /if?>><?cs var:item.DstPort.Value ?></td>
+				<td class="col_activated<?cs if:item.Activated.Value == "off"?> desactivated"<?cs /if?>">
+                                        <input type="submit" name="action_<?cs if:item.Activated.Value == "on"?>disable<?cs else?>enable<?cs /if?>.<?cs name:item ?>" value="<?cs if:item.Activated.Value == "on"?><?cs var:Env.Text.Disable?><?cs else?><?cs var:Env.Text.Enable?><?cs /if?>" />
+				</td>
+				<td class="col_action">
+                                        <input type="image" name="action_remove.<?cs name:item ?>" src="/img/button_remove.png" />
+				</td>
+			</tr>
+			<?cs /each ?>
+			
+			
+			<tr>
+				
+				
+				<td class="col_number">
+					<?cs var:subcount(Var.List) + #1 ?>
+				</td>
+				<td>
+					<input type="text" id="nat_rulename" name="nat_rulename" class="<?cs if:?Var.nat_rulename.Error ?>error<?cs else ?>text<?cs /if ?>" value="<?cs var:Var.nat_rulename.Value?>" size="10" maxlength="20" />
+					
+					<?cs if:?Var.nat_rulename.Error ?>
+					<div class="error">
+					<?cs var:Env.Var.nat_rulename.Error[Var.nat_rulename.Error] ?>
+					</div>
+					<?cs /if ?>
+				</td>
+				<td>
+					<select name="nat_proto" id="nat_proto" class="<?cs if:?Var.nat_proto.Error ?>error<?cs else ?>text<?cs /if ?>">
+						<option value="tcp" <?cs if:Var.nat_proto.Value == "tcp"?>selected="selected"<?cs /if?>>
+							<?cs var:Env.Var.nat_proto.Value.tcp ?>
+							</option>
+						<option value="udp" <?cs if:Var.nat_proto.Value == "udp"?>selected="selected"<?cs /if?>>
+							<?cs var:Env.Var.nat_proto.Value.udp ?>
+							</option>
+						<option value="both" <?cs if:Var.nat_proto.Value == "both"?>selected="selected"<?cs /if?>>
+							<?cs var:Env.Var.nat_proto.Value.both ?>
+							</option>
+					</select>
+					
+					<?cs if:?Var.nat_proto.Error ?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_proto.Error[Var.nat_proto.Error] ?>
+					</div>
+					<?cs /if ?>
+				</td>
+				<td>
+					<select name="nat_range" id="nat_range" class="<?cs if:?Var.nat_range.Error ?>error<?cs else ?>text<?cs /if ?>">
+						<option value="false" <?cs if:Var.nat_range.Value == "false"?>selected="selected"<?cs /if?>>
+							<?cs var:Env.Var.nat_range.Value.false ?>
+							</option>
+						<option value="true" <?cs if:Var.nat_range.Value == "true"?>selected="selected"<?cs /if?>>
+							<?cs var:Env.Var.nat_range.Value.true ?>
+							</option>
+					</select>
+
+					<?cs if:?Var.nat_range.Error ?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_range.Error[Var.nat_range.Error] ?>
+					</div>
+					<?cs /if ?>
+				</td>
+				<td id="col_nat_extport" <?cs if:Var.nat_range.Value == "true"?>style="display: none;"<?cs /if?>>
+					<input type="text" id="nat_extport" name="nat_extport" class="<?cs if:?Var.nat_extport.Error ?>error<?cs else ?>text<?cs /if ?>" value="<?cs var:Var.nat_extport.Value?>" size="5" maxlength="5" />
+					
+					<?cs if:?Var.nat_extport.Error ?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_extport.Error[Var.nat_extport.Error] ?>
+					</div>
+					<?cs /if ?>
+				</td>
+				<td id="col_nat_extrange" <?cs if:Var.nat_range.Value == "false" || !?Var.nat_range.Value?>style="display: none;"<?cs /if?>>
+					<input type="text" id="nat_extrange_p0" name="nat_extrange_p0" class="<?cs if:?Var.nat_extrange.Error || ?Var.nat_extrange_p0.Error || ?Var.nat_extrange_p1.Error ?>error<?cs else ?>text<?cs /if ?>" value="<?cs var:Var.nat_extrange_p0.Value?>" size="5" maxlength="5" />-<input type="text" id="nat_extrange_p1" name="nat_extrange_p1" class="<?cs if:?Var.nat_extrange.Error || ?Var.nat_extrange_p1.Error || ?Var.nat_extrange_p0.Error ?>error<?cs else ?>text<?cs /if ?>" value="<?cs var:Var.nat_extrange_p1.Value?>" size="5" maxlength="5" />
+					
+					<?cs if:?Var.nat_extrange.Error?>
+					<div class="error">
+						<?cs var:Env.Var.nat_extrange.Error[Var.nat_extrange.Error] ?>
+					</div>
+					<?cs elif:?Var.nat_extrange_p0.Error?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_extrange_p0.Error[Var.nat_extrange_p0.Error] ?>
+					</div>
+					<?cs elif:?Var.nat_extrange_p1.Error ?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_extrange_p1.Error[Var.nat_extrange_p1.Error] ?>
+					</div>
+					<?cs /if ?>
+				</td>
+				<td id="nat_dstip">
+					<input type="text" id="nat_dstip_p0" name="nat_dstip_p0" class="readonly" size="3" maxlength="3" value="<?cs var:Var.DstIPPart1.Value ?>" readonly="readonly" />&nbsp;.
+					<input type="text" id="nat_dstip_p1" name="nat_dstip_p1" class="readonly" size="3" maxlength="3" value="<?cs var:Var.DstIPPart2.Value ?>" readonly="readonly" />&nbsp;.
+					<input type="text" id="nat_dstip_p2" name="nat_dstip_p2" class="readonly" size="3" maxlength="3" value="<?cs var:Var.DstIPPart3.Value ?>" readonly="readonly" />&nbsp;.
+					<input type="text" id="nat_dstip_p3" name="nat_dstip_p3" class="<?cs if:?Var.nat_dstip.Error ?>error<?cs else ?>text<?cs /if ?>" size="3" maxlength="3" value="<?cs var:Var.nat_dstip_p3.Value?>" />
+
+					<?cs if:?Var.nat_dstip.Error ?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_dstip.Error[Var.nat_dstip.Error] ?>
+					</div>
+					<?cs /if ?>
+				</td>
+				<td id="col_nat_dstport" <?cs if:Var.nat_range.Value == "true"?>style="display: none;"<?cs /if?>>
+					<input type="text" id="nat_dstport" name="nat_dstport" class="<?cs if:?Var.nat_dstport.Error ?>error<?cs else ?>text<?cs /if ?>" value="<?cs var:Var.nat_dstport.Value?>" size="5" maxlength="5" />
+
+					<?cs if:?Var.nat_dstport.Error ?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_dstport.Error[Var.nat_dstport.Error] ?>
+					</div>
+					<?cs /if ?>
+				</td>
+				<td id="col_nat_dstrange" <?cs if:Var.nat_range.Value == "false" || !?Var.nat_range.Value?>style="display: none;"<?cs /if?>>
+					<input type="text" id="nat_dstrange_p0" name="nat_dstrange_p0" class="<?cs if:?Var.nat_dstrange_p0.Error || ?Var.nat_dstrange.Error || ?Var.nat_dstrange_p1.Error ?>error<?cs else ?>text<?cs /if ?>" value="<?cs var:Var.nat_dstrange_p0.Value?>" size="5" maxlength="5" />-<input type="text" id="nat_dstrange_p1" name="nat_dstrange_p1" class="<?cs if:?Var.nat_dstrange_p1.Error || ?Var.nat_dstrange.Error || ?Var.nat_dstrange_p0.Error ?>error<?cs else ?>text<?cs /if ?>" value="<?cs var:Var.nat_dstrange_p1.Value?>" size="5" maxlength="5" />
+					
+					<?cs if:?Var.nat_dstrange.Error ?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_dstrange.Error[Var.nat_dstrange.Error] ?>
+					</div>
+					<?cs elif:?Var.nat_dstrange_p0.Error ?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_dstrange_p0.Error[Var.nat_dstrange_p0.Error] ?>
+					</div>
+					<?cs elif:?Var.nat_dstrange_p1.Error ?>
+				        <div class="error">
+						<?cs var:Env.Var.nat_dstrange_p1.Error[Var.nat_dstrange_p1.Error] ?>
+					</div>
+					<?cs /if ?>
+				</td>
+				<td class="col_activated">
+					<input type="checkbox" id="nat_active" name="nat_active" value="on" <?cs if:Var.nat_active.Value == "on" || !(?Var.nat_active.Value)?>checked="checked"<?cs /if?> /> <label for="nat_active"><?cs var:Env.Text.Enable?></label>
+				</td>
+				<td class="col_action" colspan="2">
+                                        <input type="image" name="action_add" src="/img/button_add.png" />
+				</td>
+				
+			</tr>
+		</tbody>
+	</table>
+        </form>
+	
+<?cs if:Var.env.errors.nat_config.msg.Value?>
+<div class="error_notice">
+	<?cs var:Var.env.errors.nat_config.msg.Value?>
+</div>
+<?cs /if?>
+
+<?cs if:subcount(Var.PrivatePortList) > 0?>
+<div class="error_notice">
+	<?cs var:Env.Text.PrivatePortListError?> :
+	<ul id="privateport_list">
+		<?cs each:item = Var.PrivatePortList?>
+		<li><?cs var:item.Port.Value?></li>
+		<?cs /each?>
+	</ul>
+</div>
+<?cs /if?>
+</div>
+
+<div class="title">
+	<h1><?cs var:Env.Section.upnpd_config.Title ?></h1>
+</div>
+
+<div class="content">
+	
+	<form id="form_upnpd_config" method="post" action="<?cs var:Env.Page.Name ?>">
+	
+	<table id="upnpd_config">
+		<tr>
+			<th scope="row"><?cs call:varHeader("upnpd_active") ?></th>
+			<td>
+				<input type="radio" value="on" name="upnpd_active" id="upnpd_active_on"<?cs if:Var.upnpd_active.Value == "on" ?> checked="checked"<?cs /if ?> />
+				<label for="upnpd_active_on"><?cs var:Env.Var.upnpd_active.Value.on ?></label>
+				<input type="radio" value="off" name="upnpd_active" id="upnpd_active_off"<?cs if:Var.upnpd_active.Value == "off" ?> checked="checked"<?cs /if ?> />
+				<label for="upnpd_active_off"><?cs var:Env.Var.upnpd_active.Value.off ?></label>
+			<div class="error"><?cs if:?Var.upnpd_active.Error ?><?cs var:Env.Var.upnpd_active.Error.regex ?><?cs /if ?></div>
+			</td>
+		</tr>
+		<tr id="row_upnp_nat_rules"<?cs if:Var.upnpd_active.Value == "off" ?> style="display: none;"<?cs /if?>>
+			<th scope="row"><?cs call:varHeader("upnpd_nat_rules") ?></th>
+			<td>
+				<?cs if:Var.upnpd_rules_count.Value > 0?><a href="/network/nat/upnp"><?cs /if?>
+				<?cs var:Var.upnpd_rules_count.Value?> <?cs if:Var.upnpd_rules_count.Value > 1?><?cs var:Env.Text.rules?><?cs else?><?cs var:Env.Text.rule?><?cs /if?>
+	                        <?cs if:Var.upnpd_rules_count.Value > 0?></a><?cs /if?>
+			</td>
+		</tr>
+	</table>
+
+	
+        <div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+        <input type="hidden" name="action" value="upnpd_submit"  />
+        
+        </form>
+
+</div>
+
+
+<div class="title"><h1><?cs var:Env.Section.dmz_config.Title ?></h1></div>
+<div class="content">
+        <form id="form_dmz_config" method="post" action="<?cs var:Env.Page.Name ?>">
+                <table id="dmz_config">
+                        <tr>
+                                <th scope="row"><?cs var:Env.Var.dmz_active.Header ?></th>
+                                <td>
+                                        <input type="radio" value="on" name="dmz_active" id="dmz_active_on"<?cs if:Var.dmz_active.Value == "on" ?> checked="checked"<?cs /if ?> />
+                                               <label for="dmz_active_on"><?cs var:Env.Var.dmz_active.Value.on ?></label>
+                                        <input type="radio" value="off" name="dmz_active" id="dmz_active_off"<?cs if:Var.dmz_active.Value == "off" ?> checked="checked"<?cs /if ?> />
+                                               <label for="dmz_active_off"><?cs var:Env.Var.dmz_active.Value.off ?></label>
+
+                                        <div class="error"><?cs if:?Var.dmz_active.Error ?><?cs var:Env.Var.dmz_active.Error.regex ?><?cs /if ?></div>
+                                </td>
+                                <td colspan="2" class="col_action" scope="col"></td>
+                        </tr>
+                        <tr id="row_dmz_ip" <?cs if:Var.dmz_active.Value == "off" ?> style="display: none;"<?cs /if?>>
+                            <th scope="row"><?cs var:Env.Var.dmz_ip.Header ?></th>
+                                <td>
+                                        <input  id="dmz_ip0" type="text" name="dmz_ip0" class="text ip readonly"  maxlength="3" size="3" value="<?cs var:Var.dmz_ip0.Value ?>" readonly="readonly" />
+                                        .<input id="dmz_ip1" type="text" name="dmz_ip1" class="text ip readonly" maxlength="3" size="3" value="<?cs var:Var.dmz_ip1.Value ?>" readonly="readonly"/>
+                                        .<input id="dmz_ip2" type="text" name="dmz_ip2" class="text ip readonly" maxlength="3" size="3" value="<?cs var:Var.dmz_ip2.Value ?>" readonly="readonly"/>
+                                        .<input id="dmz_ip3" type="text" name="dmz_ip3" class="text ip <?cs if:?Var.dmz_ip3.Error ?>error<?cs /if ?>" maxlength="3" size="3" value="<?cs var:Var.dmz_ip3.Value ?>" />
+
+                                        <?cs if:?Var.dmz_ip3.Error ?>
+                                        <div class="error">
+                                                <?cs var:Env.Var.dmz_ip3.Error.regex ?>
+                                        </div>
+                                        <?cs /if ?>
+                                </td>
+                                <td class="col_action">
+                                        <button id="button_network" class="button_network" type="button"></button>
+                                </td>
+                        </tr>
+                </table>
+                <div class="button_submit"><button id="dmz_submit_btn" type="submit" name="submit" value="dmz_submit"><?cs var:Button.Submit ?></button></div>
+                <input type="hidden" name="action" value="dmz_submit"  />
+        </form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

@@ -1,0 +1,24 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+        <h1><?cs var:Env.Section.eco.Title ?></h1>
+</div>
+
+<div class="content">
+        <table id="table_eco">
+                <tr>
+                        <th scope="row"><?cs var:Env.Var.eco_status.Header ?></th>
+                        <td id="eco_status" class="<?cs if:Var.eco_status.Value == "down" ?>disabled<?cs else ?>enabled<?cs /if ?>"><?cs if:Var.eco_status.Value == "down" ?><?cs var:Env.Var.eco_status.Value.down?><?cs else ?><?cs var:Env.Var.eco_status.Value.up?><?cs /if ?></td>
+                </tr>
+                
+                <tr>
+                        <th scope="row"><?cs var:Env.Var.eco_profile.Header ?></th>
+                        <td><?cs if:Var.eco_profile.Value == "default" ?><?cs var:Env.Var.eco_profile.Value.default ?><?cs else ?><?cs var:Env.Var.eco_profile.Value.custom ?><?cs /if ?></td>
+                </tr>
+
+        </table>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

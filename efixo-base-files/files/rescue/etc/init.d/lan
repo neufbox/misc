@@ -1,0 +1,10 @@
+#!/bin/sh /etc/rc.common
+
+LAN_IPADDR=192.168.1.1
+
+boot() {
+
+	ip link set lan0 up
+       	ip addr add "$LAN_IPADDR/24" dev lan0
+
+}

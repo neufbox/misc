@@ -1,0 +1,39 @@
+Env.Page.Title = Multimedia server
+
+Env.Help.Text = In the <b>UPnP-AV service</b> section, you can enable or disable the UPnP-AV service of your $BOXNAME. When UPnP-AV is active, your $BOXNAME becomes a &ldquo;MediaServer&rdquo;. Thus, you can share multimedia content (photos, videos, music) on your local network with compatible UPnP-AV clients. <br /><br />In the <b>Shared folders</b> section, you can manage your shared folders.
+
+Env.Text.Desactivated = Disabled
+Env.Text.PlugUsbKey = Plug in a thumb drive on port 1 or 2 of your $BOXNAME to share folders
+Env.Text.NoShare = No shared folder
+
+Env.Section.UpnpAVServer = UPnP-AV service
+
+Env.Var.upnpav_status.Header = UPnP-AV service
+Env.Var.upnpav_status.Value.starting = Starting
+Env.Var.upnpav_status.Value.stopping = Stopping
+Env.Var.upnpav_status.Value.up = Started
+Env.Var.upnpav_status.Value.down = Stopped
+
+Env.Var.upnpav_sharedcount.Value.single = shared media file found
+Env.Var.upnpav_sharedcount.Value.multiple = shared media files found
+
+Env.Var.upnpav_errno.Value.internal = Internal error
+Env.Var.upnpav_errno.Value.noshare = No share
+
+Env.Var.upnpav_active.Header = UPnP-AV service activation
+Env.Var.upnpav_active.Value.on = enable
+Env.Var.upnpav_active.Value.off = disable
+Env.Var.upnpav_active.Error.value = Invalid value
+
+Env.Var.upnpav_name.Header = Service name
+Env.Var.upnpav_name.Error.value = Invalid value
+
+Env.Section.UpnpAVShare = Shared folders
+
+Env.Var.upnpav_share_idx.Error.value = Invalid value
+
+Env.Var.action.Error.value = Invalid value
+
+Env.Var.upnpav_stockage_partition.Header = Partition
+Env.Var.upnpav_stockage_dir.Header = Folder
+Env.Var.upnpav_stockage_share.Error.value = Invalid value

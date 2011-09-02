@@ -1,0 +1,108 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.global_status.Title ?></h1>
+</div>
+
+<div class="content">
+	<table id="global_status">
+
+		<tr>
+			<th scope="row"><?cs call:varHeader("internet_status") ?></th>
+			<td class="<?cs if:Var.internet_status.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>" id="internet_status">
+				<?cs if:Var.internet_status.Value == "up" ?>
+					<?cs var:Env.Var.internet_status.Value.up ?>
+				<?cs else ?>
+					<?cs var:Env.Var.internet_status.Value.down ?>
+				<?cs /if ?>
+
+                                <?cs if:Var.internet_access.Value == "gprs" ?>
+                                        (<?cs var:Env.Var.internet_access.Value.gprs ?>)
+                                <?cs /if ?>
+			</td>
+		</tr>
+
+
+#ifdef HAVE_IPV6_SUPPORT
+                <?cs if:Var.ipv6_enable.Value == "on" || Var.ipv6_lock.Value == "on" ?>
+                        <?cs if:Var.ipv6_status.Value == "up" ?>
+                                <?cs set:ipv6_status = "enabled" ?>
+                        <?cs else ?>
+                                <?cs set:ipv6_status = "unused" ?>
+                        <?cs /if ?>
+                <?cs else ?>
+                        <?cs set:ipv6_status = "disabled" ?>
+                <?cs /if ?>
+                <tr>
+                        <th scope="row"><?cs var:Env.Section.ipv6_info.Title ?></th>
+                        <td class="<?cs var:ipv6_status ?>" id="internet_status_v6">
+                                <?cs if:ipv6_status == "enabled" ?><?cs var:Env.Var.ipv6_status.up ?><?cs /if ?>
+                                <?cs if:ipv6_status == "unused" ?><?cs var:Env.Var.ipv6_status.noconnect ?><?cs /if ?>
+                                <?cs if:ipv6_status == "disabled" ?><?cs var:Env.Var.ipv6_status.down ?><?cs /if ?>
+                        </td>
+                </tr>
+#endif
+
+
+
+#ifndef NB5
+	<?cs if:Var.internet_status.Value == "noppp" ?>
+		<tr>
+                        <td colspan="2"><a href="/network/wan"><?cs var:Env.Text.NoPPP?></a></td>
+                </tr>
+	<?cs elif:Var.internet_status.Value == "nodsl" ?>
+
+		<tr>
+			<td colspan="2"><?cs var:Env.Text.NoDSL ?></td>
+		</tr>
+	<?cs /if ?>
+#endif
+
+	<?cs if:Var.internet_status.Value == "noftth" ?>
+
+		<tr>
+			<td colspan="2"><?cs var:Env.Text.NoFTTH ?></td>
+		</tr>
+
+	<?cs /if ?>
+
+		<tr>
+			<th scope="row"><?cs call:varHeader("voip_status") ?></th>
+			<td class="<?cs if:Var.voip_status.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>" id="voip_status">
+				<?cs if:Var.voip_status.Value == "up" ?>
+					<?cs var:Env.Var.voip_status.Value.up ?>
+				<?cs else ?>
+					<?cs var:Env.Var.voip_status.Value.down ?>
+				<?cs /if ?>
+
+                                <?cs if:Var.voip_access.Value == "gprs" ?>
+                                        (<?cs var:Env.Var.voip_access.Value.gprs ?>)
+                                <?cs /if ?>
+			</td>
+		</tr>
+
+		<tr>
+			<th scope="row"><?cs call:varHeader("tv_status") ?></th>
+			<td class="<?cs if:Var.tv_status.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>" id="tv_status">
+				<?cs if:Var.tv_status.Value == "up" ?>
+					<?cs var:Env.Var.tv_status.Value.up ?>
+				<?cs else ?>
+					<?cs var:Env.Var.tv_status.Value.down ?>
+				<?cs /if ?>
+			</td>
+		</tr>
+
+	</table>
+</div>
+
+<?cs if:Var.gruiks.0.Value ?>
+<ul id="gruiks">
+        <?cs each:item = Var.gruiks ?>
+        <li id="<?cs var:item.Value ?>"><b><?cs var:Env.Var.gruiks[item.Value].Title ?></b> : <?cs var:Env.Var.gruiks[item.Value].Info ?> <a href="<?cs var:Env.Var.gruiks[item.Value].Url ?>"><?cs var:Env.Var.gruiks.configuration.Text ?>...</a></li>
+        <?cs /each ?>
+</ul>
+<?cs /if ?>
+
+<?cs include:"tpl/footer.html" ?>

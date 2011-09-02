@@ -1,0 +1,39 @@
+Env.Page.Title = Hotspot
+
+Env.Help.Text = In the <b>Hotspot</b> section, you can manage your hotspot (WiFi access point): its status, the WiFi name which is broadcasted and the mode.<br /><br />In the <b>Connected hosts</b> section, you can check the list of all the equipments connected to your hotspot.
+
+Env.Section.hotspot_info.Title = Hotspot
+
+Env.Var.hotspot_enable.Value.false = The hotspot service isn't available.
+Env.Var.hotspot_enable.Value.true = The hotspot service is available.
+
+Env.Var.hotspot_active.Value.on = enabled
+Env.Var.hotspot_active.Value.off = disabled
+
+Env.Var.hotspot_status.Header = Status
+Env.Var.hotspot_status.Value.off = Disabled
+Env.Var.hotspot_status.Value.up = Started
+Env.Var.hotspot_status.Value.down = Stopped
+Env.Var.hotspot_status.Value.starting = Starting
+Env.Var.hotspot_status.Value.stopping = Stopping
+Env.Var.hotspot_status.Value.error_maxup = Stopped: upload rate too low
+Env.Var.hotspot_status.Value.error_maxdown = Stopped: upload rate too low
+Env.Var.hotspot_status.Value.error_conf = Internal error
+Env.Var.hotspot_status.Value.error_wandown = Error: Internet not working
+Env.Var.hotspot_status.Value.error_pppdown = Error: Internet not working
+Env.Var.hotspot_status.Value.error_adsldown = Error: Internet not working
+Env.Var.hotspot_status.Value.error_wifidown = Error: WiFi disabled
+
+Env.Var.hotspot_mode.Header = Mode
+Env.Var.hotspot_mode.Value.sfr = $OPERATORNAME WiFi Community
+Env.Var.hotspot_mode.Value.sfr_fon = $OPERATORNAME WiFi Community and FON
+Env.Var.hotspot_mode.Value.unavailable = Unavailable
+
+Env.Var.hotspot_ssid.Header = SSID
+
+Env.Section.hotspot_assoc.Title = Connected hosts
+
+Env.Var.hotspot_assoclist_mac.Header = MAC address
+Env.Var.hotspot_assoclist_ip.Header = IP address
+
+Env.Text.NoConnectedClients = No connected host

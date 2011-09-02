@@ -1,0 +1,13 @@
+Env.Page.Title = ECO mode
+
+Env.Help.Text = In the category <b>ECO mode</b> you find the status and profile mode "energy saving" of the $BOXNAME.
+
+Env.Section.eco.Title = ECO mode
+
+Env.Var.eco_status.Header = State
+Env.Var.eco_status.Value.up = ECO Mode Enabled
+Env.Var.eco_status.Value.down = ECO Mode Disabled
+
+Env.Var.eco_profile.Header = Profile
+Env.Var.eco_profile.Value.default = Standard
+Env.Var.eco_profile.Value.custom = Custom

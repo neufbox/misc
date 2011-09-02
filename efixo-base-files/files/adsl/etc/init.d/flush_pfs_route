@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ip rule show | grep "from .\+ lookup tv_t" \
+	| while read PRIO RULE; do
+	ip rule del prio ${PRIO%%:*} $( echo $RULE  )
+	done
+
+

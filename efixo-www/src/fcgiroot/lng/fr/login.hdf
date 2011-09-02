@@ -1,0 +1,34 @@
+Env.Page.Title = Authentification
+
+#ifdef CIBOX
+Env.Help.Text = <em>Identification par mot de passe :</em> Saisissez votre identifiant et votre mot de passe pour accéder à l'interface d'administration de votre $BOXNAME.
+#else
+Env.Help.Text = <em>Identification par mot de passe :</em> Saisissez votre identifiant et votre mot de passe pour accéder à l'interface d'administration de votre $BOXNAME. Par défaut, l'identifiant est <strong>admin</strong> et le mot de passe est <strong>le code WiFi (WPA-PSK)</strong> se trouvant derrière votre $BOXNAME.<br/><br/><em>Identification par bouton service :</em> Appuyez sur ce bouton pendant quelques secondes jusqu'à ce qu'il clignote puis cliquez sur <strong>Continuer</strong>.
+#endif /* #ifdef CIBOX */
+
+Env.Text.AccessLock = Accès verrouillé
+Env.Text.AccessLockPlus = Pour vous identifier, suivez les instructions ci-dessous :
+
+Env.Error.SESSION_INVALID = Session invalide ! Veuillez réessayer.
+Env.Error.SYSTEM_ERROR = Problème système, veuillez réessayer.
+Env.Error.LOGINORPASS_INVALID = L'identifiant et/ou le mot de passe est invalide !
+Env.Error.METHOD_NOT_ALLOWED = Méthode d'authentification non authorisé !
+Env.Error.AUTOLOGIN_OFF = Le bouton n'a pas été appuyé.
+
+Env.Section.web_auth_passwd.Title = Identification par mot de passe
+
+Env.Text.challenge_error = Une erreur interne s'est produite. Veuillez réessayer.
+
+Env.Text.PasswdMethod = Saisissez votre identifiant et votre mot de passe puis cliquez sur le bouton <strong>Valider</strong>.
+
+Env.Var.login.Header = Identifiant
+
+Env.Var.password.Header = Mot de passe
+
+#ifndef CIBOX
+Env.Section.web_auth_button.Title = Identification par bouton service
+
+Env.Text.ButtonMethod = <strong>Appuyez environ 5 secondes</strong> sur le bouton service de votre $BOXNAME jusqu'à ce qu'il clignote et cliquez sur le bouton <strong>Continuer</strong>.
+
+Button.Continue = Continuer
+#endif /* #ifndef CIBOX */

@@ -1,0 +1,7 @@
+#reboot th, #config_user th, #adsl_configuration th, #diagnostic_report th, #extended_infos th {
+    width: 282px;
+}
+
+#reboot td, #config_user td, #adsl_configuration td, #diagnostic_report td {
+    width: 461px;
+}

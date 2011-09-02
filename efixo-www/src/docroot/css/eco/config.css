@@ -1,0 +1,10 @@
+#table_eco_config th {
+    width: 160px;
+}
+
+#table_eco_config td {
+    width: 210px;
+}
+#table_eco_config .custom select {
+        margin-right: 10px;
+}

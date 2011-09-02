@@ -1,0 +1,1 @@
+Env.Var.devpath.Regex = ^/dev/sd[ab]$

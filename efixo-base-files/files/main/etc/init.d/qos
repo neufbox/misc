@@ -1,0 +1,160 @@
+#!/bin/sh /etc/rc.common
+
+EXTRA_COMMANDS="o3 o3_stop o3_voice_start o3_voice_stop fon fon_stop show"
+
+logger -p daemon.info "[QoS] $$ $action"
+
+TC=tc
+
+DATA_IFNAME=$(status get net_data_ifname)
+HOTSPOT_IFNAME=$(nvram get hotspot_ifname)
+HOTSPOT_ACTIVE=$(nvram get hotspot_active)
+OPTION=$(autoconf get option)
+
+PHONE_MIN_UP="110"
+PHONE_MAX_UP="128"
+
+NET_DATA_INFRA=$(status get net_data_infra)
+([ "${NET_DATA_INFRA}" = "adsl/routed" ] || [ "${NET_DATA_INFRA}" = "adsl/ppp" ]) && ADSL="TRUE"
+
+if [ -n "${ADSL}" ]
+then
+	MAX_UP=$(dsl get adsl_rate_up)
+	MAX_DOWN=$(dsl get adsl_rate_down)
+else
+	MAX_UP=1280
+	MAX_DOWN=20000
+fi
+
+if [ ! -z "$MAX_UP" ]
+then
+	# IP bw is 80% of ATM showtime
+	MAX_UP_IP=$(( ($MAX_UP * 80) / 100 ))
+	# FON bw is 30% of IP bw
+	MAX_FON_UP=$((( $MAX_UP_IP * 30) / 100))
+	MIN_FON_UP=$(( $MAX_FON_UP / 3 ))
+	# min data bw is MAX_UP_IP - phone bw - fon bw
+	MIN_UP=$(( $MAX_UP_IP - $MAX_FON_UP - $PHONE_MIN_UP))
+	[ "$MIN_UP" -lt "10" ] && MIN_UP=10
+	# max data bw when voice is on is MAX_UP_IP - phone bw
+	MAX_DATA_WHEN_VOICE=$(( $MAX_UP_IP - $PHONE_MIN_UP ))
+fi
+
+if [ ! -z "$MAX_DOWN" ]
+then
+	# IP bw is 80% of ATM showtime
+	MAX_DOWN=$(( ($MAX_DOWN * 80) / 100 ))
+	# FON bw is 30% of IP bw
+	MAX_FON_DOWN=$((( $MAX_DOWN * 30) / 100))
+fi
+
+boot() {
+	insmod sch_htb
+	insmod sch_sfq
+	insmod sch_dsmark
+	insmod sch_prio
+}
+
+start() {
+	[ -z "${ADSL}" ] && return 0
+
+	[ -e /var/state/qos ] && return 0
+
+	if [ $HOTSPOT_ACTIVE = "on" ] || [ $OPTION = "3" ]
+	then
+		$TC qdisc add dev $DATA_IFNAME handle 1: root htb default 20
+		$TC class add dev $DATA_IFNAME parent 1: classid 1:1 htb rate ${MAX_UP}kbit
+		$TC class add dev $DATA_IFNAME parent 1:1 classid 1:20 htb prio 2 rate ${MIN_UP}kbit ceil ${MAX_UP}kbit
+		touch /var/state/qos
+	fi
+}
+
+stop() {
+	[ ! -e /var/state/qos ] && return 0
+
+	rm -f /var/state/qos
+	$TC qdisc del dev $DATA_IFNAME root
+}
+
+o3() {
+	[ $OPTION != "3" ] && exit 0
+
+	# Check if qos went stop or was not yet start => start
+	start
+	$TC class add dev $DATA_IFNAME parent 1:1 classid 1:10 htb prio 1 rate ${PHONE_MIN_UP}kbit ceil ${MAX_UP}kbit
+	# Creating SFQ queue to assure a rigth bw sharing
+	$TC qdisc add dev $DATA_IFNAME parent 1:10 handle 110: sfq perturb 10
+	$TC qdisc add dev $DATA_IFNAME parent 1:20 handle 120: sfq perturb 10
+	# now filtering
+	$TC filter add dev $DATA_IFNAME protocol ip parent 1: prio 1 u32 match ip tos 0xB4 0xff flowid 1:10
+}
+
+o3_stop() {
+	[ $OPTION != "3" ] && exit 0
+
+	# Deleting SFQ queue to assure a rigth bw sharing
+	$TC qdisc del dev $DATA_IFNAME parent 1:10 handle 110: sfq perturb 10
+	$TC qdisc del dev $DATA_IFNAME parent 1:20 handle 120: sfq perturb 10
+	# Deleting filters
+	$TC filter del dev $DATA_IFNAME protocol ip parent 1: prio 1 u32 match ip tos 0xB4 0xff flowid 1:10
+	# Deleting htb classes
+	$TC class del dev $DATA_IFNAME parent 1:1 classid 1:10 htb prio 1 rate ${PHONE_MIN_UP}kbit ceil ${MAX_UP}kbit
+}
+
+o3_voice_start() {
+	[ $OPTION != "3" ] && exit 0
+
+	# Check if qos is not yet ready for option 3
+	[ -z "`$TC filter show dev $DATA_IFNAME|grep b4`" ] && o3
+	$TC class del dev $DATA_IFNAME parent 1:1 classid 1:20 htb prio 2 rate ${MIN_UP}kbit ceil ${MAX_UP}kbit
+	$TC class add dev $DATA_IFNAME parent 1:1 classid 1:20 htb prio 2 rate ${MAX_DATA_WHEN_VOICE}kbit ceil ${MAX_DATA_WHEN_VOICE}kbit
+}
+
+o3_voice_stop() {
+	[ $OPTION != "3" ] && exit 0
+	
+	$TC class del dev $DATA_IFNAME parent 1:1 classid 1:20 htb prio 2 rate ${MAX_DATA_WHEN_VOICE}kbit ceil ${MAX_DATA_WHEN_VOICE}kbit
+	$TC class add dev $DATA_IFNAME parent 1:1 classid 1:20 htb prio 2 rate ${MIN_UP}kbit ceil ${MAX_UP}kbit
+}
+
+fon() {
+	[ "$HOTSPOT_ACTIVE" != "on" ] && exit 0
+
+	if [ -n "${ADSL}" ]
+	then
+		# Check if qos went stop or was not yet start => start
+		start
+		$TC qdisc add dev $HOTSPOT_IFNAME handle 1: root htb default 10
+		$TC class add dev $HOTSPOT_IFNAME parent 1:1 classid 1:10 htb prio 1 rate ${MAX_FON_DOWN}kbit
+		$TC class add dev $DATA_IFNAME parent 1:1 classid 1:40 htb rate ${MIN_FON_UP}kbit ceil ${MAX_FON_UP}kbit prio 3
+		# Creating SFQ queue to assure a rigth bw sharing
+		$TC qdisc add dev $DATA_IFNAME parent 1:40 handle 120: sfq perturb 10
+		# now filtering
+		$TC filter add dev $DATA_IFNAME protocol ip parent 1: prio 2 u32 match ip tos 0x2 0xff flowid 1:40
+	else
+		$TC qdisc add dev $HOTSPOT_IFNAME handle 1: root htb default 10
+		$TC class add dev $HOTSPOT_IFNAME parent 1:1 classid 1:10 htb prio 1 rate ${MAX_FON_DOWN}kbit
+		$TC qdisc add dev $HOTSPOT_IFNAME handle ffff: ingress
+		$TC filter add dev $HOTSPOT_IFNAME parent ffff: protocol ip prio 50 u32 match ip src 0.0.0.0/0 police rate ${MAX_FON_UP}kbit burst 50k drop flowid :1
+	fi
+}
+
+fon_stop() {
+	$TC qdisc del dev $HOTSPOT_IFNAME root
+	# Deleting SFQ queue to assure a rigth bw sharing
+	$TC qdisc del dev $DATA_IFNAME parent 1:40 handle 120: sfq perturb 10
+	# Deleting filters
+	$TC filter del dev $DATA_IFNAME protocol ip parent 1: prio 2 u32 match ip tos 0x02 0xff flowid 1:40
+	# Deleting htb classes
+	$TC class del dev $DATA_IFNAME parent 1:1 classid 1:40 htb rate ${MIN_FON_UP}kbit ceil ${MAX_FON_UP}kbit prio 3
+}
+
+show() {
+	$TC -s qdisc show dev $DATA_IFNAME
+	$TC -s class show dev $DATA_IFNAME
+	$TC -s filter show dev $DATA_IFNAME
+
+	$TC -s qdisc show dev $HOTSPOT_IFNAME
+	$TC -s class show dev $HOTSPOT_IFNAME
+	$TC -s filter show dev $HOTSPOT_IFNAME
+}

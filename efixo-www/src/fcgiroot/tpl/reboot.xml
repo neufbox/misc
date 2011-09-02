@@ -1,0 +1,4 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <status>alive</status>
+</rsp>

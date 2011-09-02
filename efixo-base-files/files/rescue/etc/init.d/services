@@ -1,0 +1,19 @@
+#!/bin/sh /etc/rc.common
+
+wait_networks() {
+	while [ ! -e /var/state/networks ]; do
+		sleep 1
+	done
+}
+
+boot() {
+	services='autoconf'
+
+	wait_networks
+
+	for i in $services; do
+		[ -x /etc/init.d/$i ] && /etc/init.d/$i boot 2>&1
+	done
+
+	touch /var/state/services
+}

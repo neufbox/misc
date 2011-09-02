@@ -1,0 +1,34 @@
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.rootfs.Title ?></h1>
+</div>
+
+<div class="content">
+
+	<form method="post" action="<?cs var:Env.Page.Name ?>">
+
+	<table id="rootfs_configuration">
+		<tr>
+			<th scope="row"><label for="rootfs"><?cs call:varHeader("rootfs") ?></label></th>
+			<td>
+				<select id="rootfs" name="rootfs" >
+	  <?cs each:rootfs = Env.Var.rootfs.Value?>
+	  <option value="<?cs var:rootfs?>"<?cs if:Var.rootfs_choose.Value == rootfs?> selected="selected"<?cs /if?>>
+	    <?cs var:rootfs?>
+	  </option>
+	  <?cs /each?>
+				</select>
+			</td>
+		</tr>
+	</table>
+
+	<div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+
+	</form>
+
+	
+
+</div>
+
+<?cs include:"tpl/footer.html" ?>

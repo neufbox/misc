@@ -1,0 +1,259 @@
+# Webui configuration
+
+menu "Pimp my webui"
+
+depends on PACKAGE_efixo-www
+
+config WEBUI_USB_SUPPORT
+       bool "USB storage device support"
+       default y
+
+config WEBUI_LED_SUPPORT
+       bool "LED support"
+       default y
+
+config WEBUI_IPV6_SUPPORT
+       bool "IPV6 support"
+       default y
+
+config WEBUI_HOTSPOT_FON_SUPPORT
+       bool "Hotspot FON support"
+       default y
+
+config WEBUI_BACKUP_3G_SUPPORT
+       bool "Backup 3G support"
+       default y
+
+config WEBUI_THEME
+	string "Theme"
+	default "sfr"
+
+config WEBUI_OPERATOR_NAME
+	string "Operator name"
+	default "SFR"
+
+config WEBUI_BOX_NAME 
+	string "Box name"
+	default "neufbox"
+
+config WEBUI_HOTSPOT_CONDITIONS_URL
+	string "Hotspot conditions url"
+	default "http://docs.neuf.fr/htm/CPdoublessid.htm"
+
+config efixo-www-kit
+       bool "Enable KIT interface"
+       default n
+
+config efixo-www-stb
+       bool "Enable STB interface"
+       default y
+
+config efixo-www-wdg
+       bool "Enable WDG interface"
+       default n
+
+menuconfig efixo-www-page-state
+       bool "State pages"
+       default y
+
+config efixo-www-page-state_device
+       bool "Devices status"
+       depends on efixo-www-page-state
+       default y
+
+config efixo-www-page-state_device_plug
+       bool "Plugs status extra"
+       depends on efixo-www-page-state_device
+       default y
+
+config efixo-www-page-state_lan
+       bool "Lan status"
+       depends on efixo-www-page-state
+       default y
+
+config efixo-www-page-state_lan_extra
+       bool "Lan status extra"
+       depends on efixo-www-page-state_lan
+       default y
+
+config efixo-www-page-state_voip
+       bool "Voip status"
+       depends on efixo-www-page-state
+       default y
+
+config efixo-www-page-state_wan
+       bool "Wan status"
+       depends on efixo-www-page-state
+       default y
+
+config efixo-www-page-state_wan_extra
+       bool "Wan extra status"
+       depends on efixo-www-page-state_wan
+       default y
+
+config efixo-www-page-state_wifi
+       bool "Wifi status"
+       depends on efixo-www-page-state
+       default y
+
+menuconfig efixo-www-page-network
+       bool "Network pages"
+       default y
+
+config efixo-www-page-network_ddns
+       bool "Dyndns page"
+       depends on efixo-www-page-network
+       default y
+
+config efixo-www-page-network_dns
+       bool "Dns page"
+       depends on efixo-www-page-network
+       default y
+
+config efixo-www-page-network_firewall
+       bool "Firewall page"
+       depends on efixo-www-page-network
+       default y
+
+config efixo-www-page-network_accesscontrol
+       bool "Access Control Manager page"
+       depends on efixo-www-page-network
+       default n
+
+config efixo-www-page-network_gprs
+       bool "Gprs page"
+       depends on efixo-www-page-network
+       default y
+
+config efixo-www-page-network_dhcp
+       bool "Dhcp configuration page"
+       depends on efixo-www-page-network
+       default y
+
+config efixo-www-page-network_lan
+       bool "Lan configuration page"
+       depends on efixo-www-page-network
+       default y
+
+config efixo-www-page-network_nat
+       bool "Nat page"
+       depends on efixo-www-page-network
+       default y
+
+config efixo-www-page-network_nat_upnp
+       bool "Upnp nat page"
+       depends on efixo-www-page-network_nat
+       default y
+
+config efixo-www-page-network_route
+       bool "Route page"
+       depends on efixo-www-page-network
+       default y
+
+config efixo-www-page-network_wan
+       bool "Wan page"
+       depends on efixo-www-page-network
+       default y
+
+menuconfig efixo-www-page-wifi
+       bool "Wifi pages"
+       default y
+
+config efixo-www-page-wifi_config
+       bool "Wifi config page"
+       depends on efixo-www-page-wifi
+       default y
+
+config efixo-www-page-wifi_macfiltering
+       bool "Wifi macfiltering page"
+       depends on efixo-www-page-wifi
+       default y
+
+config efixo-www-page-wifi_security
+       bool "Wifi security page"
+       depends on efixo-www-page-wifi
+       default y
+
+menuconfig efixo-www-page-hotspot
+       bool "Hotspot pages"
+       default y
+
+config efixo-www-page-hotspot_config
+       bool "Hotspot config page"
+       depends on efixo-www-page-hotspot
+       default y
+
+menuconfig efixo-www-page-service
+       bool "Service pages"
+       default y
+
+config efixo-www-page-service_printer
+       bool "Printer sharing page"
+       depends on efixo-www-page-service
+       default y
+
+config efixo-www-page-service_samba
+       bool "Samba page"
+       depends on efixo-www-page-service
+       default y
+
+config efixo-www-page-service_upnpav
+       bool "Upnpav page"
+       depends on efixo-www-page-service
+       default y
+
+menuconfig efixo-www-page-maintenance
+       bool "Maintenance pages"
+       default y
+
+config efixo-www-page-maintenance_admin
+       bool "Admin maintenance"
+       depends on efixo-www-page-maintenance
+       default y
+
+config efixo-www-page-maintenance_diag
+       bool "Diag maintenance"
+       depends on efixo-www-page-maintenance
+       default y
+
+config efixo-www-page-maintenance_dsl
+       bool "Dsl maintenance page"
+       depends on efixo-www-page-maintenance
+       default y
+
+config efixo-www-page-maintenance_dsl_config
+       bool "Dsl advanced config page"
+       depends on efixo-www-page-maintenance_dsl
+       default y
+
+config efixo-www-page-maintenance_system
+       bool "System maintenance"
+       depends on efixo-www-page-maintenance
+       default y
+
+config efixo-www-page-maintenance_tests
+       bool "Tests maintenance"
+       depends on efixo-www-page-maintenance
+       default y
+
+config efixo-www-page-maintenance_webui
+       bool "Webui maintenance"
+       depends on efixo-www-page-maintenance
+       default y
+
+menuconfig efixo-www-page-eco
+       bool "Webui eco"
+       default n
+
+config efixo-www-page-eco_config
+       bool "Webui eco config page"
+       depends on efixo-www-page-eco
+       default y
+endmenu
+
+
+
+config efixo-www-extracmn-nbl_adsl
+       bool
+       depends on efixo-www-page-state_wan_extra && efixo-www-page-maintenance_dsl && efixo-www-page-maintenance_dsl_config
+       default y

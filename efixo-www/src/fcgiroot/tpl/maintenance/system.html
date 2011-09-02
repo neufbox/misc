@@ -1,0 +1,82 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.reboot.Title?></h1>
+</div>
+
+<div class="content">
+	<form method="post" action="<?cs var:Env.Page.Name ?>">
+		
+	<table id="reboot">
+		<tr>
+			<th scope="row"><?cs call:varHeader("rebootbox")?></th>
+			<td>
+				<input type="hidden" name="action" value="reboot" />
+				<span class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></span>
+			</td>
+		</tr>
+	</table>
+	
+	</form>
+</div>
+
+<div class="title">
+	<h1><?cs var:Env.Section.Params.Title?></h1>
+</div>
+
+<div class="content">
+	<table id="config_user">
+		<tr>
+			<th scope="row"><?cs call:varHeader("paramexport")?></th>
+			<td>
+				<form method="post" action="<?cs var:Env.Page.Name ?>">
+				
+				<input type="hidden" name="action" value="config_user_export" />
+				<span class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></button></span>
+				
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("paramimport")?></th>
+			<td>
+				<form method="post" enctype="multipart/form-data" action="<?cs var:Env.Page.Name ?>">
+				
+				<input type="hidden" name="action" value="config_user_import" />
+				<input type="file" name="config_user_file" size="30" />
+				<span class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></button></span>
+				
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("paramrestore")?></th>
+			<td>
+				<form method="post" action="<?cs var:Env.Page.Name ?>">
+				
+				<input type="hidden" name="action" value="config_user_reset" />
+				<span class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></button></span>
+				
+				</form>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="title">
+	<h1><?cs var:Env.Section.extended_infos.Title?></h1>
+</div>
+
+<div class="content">
+	<table id="extended_infos">
+		<tr>
+			<th scope="row"><?cs call:varHeader("webui_version")?></th>
+			<td>
+				<?cs var:Var.webui_version.Value?>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

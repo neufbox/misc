@@ -1,0 +1,248 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+    <h1><?cs var:Env.Section.StockPeripheral.Title?></h1>
+</div>
+
+<div class="content">
+    <?cs if:subcount(Var.Disks) > #0?>
+    <table id="disks">
+        <thead>
+            <tr>
+                <th scope="col"><?cs var:Env.Var.disks.Header?></th>
+                <th scope="col"><?cs var:Env.Var.partitions.Header?></th>
+                <th scope="col" class="col_action"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?cs each:disk = Var.Disks ?>
+            <tr valign="top">
+                <td>
+                    <table class="periphview">
+                        <tr>
+                            <td>
+                                <p>
+                                    <img src="/img/icon_usbkey.png" /><br/>
+                                    <b><?cs var:Env.Text.port?> <?cs var:disk.usb_port.Value?></b>
+                                </p>
+                            </td>
+                            <td>
+                                <span><b><?cs var:Env.Var.disk_manufacturer.Header?> :</b> <?cs var:disk.manufacturer.Value ?></span><br/>
+                                <span><b><?cs var:Env.Var.disk_model.Header?> :</b> <?cs var:disk.model.Value ?></span><br/>
+                                <span>
+                                    <b><?cs var:Env.Var.disk_capacity.Header?> :</b> 
+                                    <?cs var:disk.capacity.Value ?>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+                <td>
+                    <?cs if:subcount(disk.partitions) == 0?>
+                        <?cs var:Env.Text.NoCompatiblePartitionAvailable?>
+                    <?cs elif:disk.ejected.Value == "1"?>
+                        <?cs var:Env.Text.UmountedDisk?>
+                    <?cs else?>
+                    <?cs each:partition = disk.partitions?>
+                    <div class="partition<?cs if:partition.mounted.Value == '0'?> unavailable<?cs /if?>">
+                        <span><b><?cs var:Env.Var.partition_fstype.Header?> :</b> <?cs var:partition.fstype.Value?></span>
+                        <span><b><?cs var:Env.Var.partition_capacity.Header?> :</b>
+                        <?cs var:partition.capacity.Value ?>
+                        </span>
+                        
+                        <?cs if:partition.mounted.Value != "0"?>
+
+                        <span><b><?cs var:Env.Var.partition_used_capacity.Header?> :</b>
+                        <?cs var:partition.capacity_used.Value ?>
+                        </span>
+                        
+                        <?cs else?>
+
+                        <span class="error">
+                               <?cs var:Env.Text.Unmounted?>
+                        </span>
+                        
+                        <?cs /if?>
+                        
+                        <br/>
+                        
+                        <img class="percentbar" style="background-position: <?cs if:partition.mounted.Value != '0'?><?cs var:1 - partition.x_bar.Value?>px<?cs else?>-349px<?cs /if?> 0px;"
+                        <?cs if:partition.mounted.Value != "0"?>alt="<?cs var:Env.Text.PercentBar?>"<?cs /if?> src="/img/img_percent.gif" />
+                        
+                        <?cs if:partition.mounted.Value != "0"?>
+                        <span><?cs var:partition.pcrt_used.Value?> %</span>
+                        <?cs /if?>
+                    </div>
+                    
+                    <?cs /each?>
+                    <?cs /if?>
+                </td>
+                
+                <td class="col_action">
+                    <?cs if:disk.ejected.Value != "1"?>
+                    
+                    <form action="<?cs var:Env.Page.Name?>" method="post">
+                    <input type="hidden" name="devpath" value="<?cs var:disk.devpath.Value?>" />
+                    <input type="hidden" name="action" value="umount" />
+                    <div class="button_submit"><button type="submit" name="submit"><?cs var:Env.Text.Umount ?></button></div>
+                    </form>
+                    
+                    <?cs if:Var.devpathbusy.Value == disk.devpath.Value ?>
+                    <form action="<?cs var:Env.Page.Name?>" method="post">
+                    <input type="hidden" name="devpath" value="<?cs var:disk.devpath.Value?>" />
+                    <input type="hidden" name="action" value="umountforce" />
+                    <div class="button_submit"><button type="submit" name="submit"><?cs var:Env.Text.UmountForce ?></button></div>
+                    </form>
+                    <?cs /if ?>
+                    
+                    <?cs /if?>
+                </td>
+            </tr>
+            <?cs /each ?>
+        </tbody>
+    </table>
+    <?cs else ?>
+    <?cs var:Env.Text.NoUsbKey?>	
+    <?cs /if ?>
+</div>
+	
+<div class="title">
+    <h1><?cs var:Env.Section.Printers.Header?></h1>
+</div>
+
+<div class="content">
+    <?cs if:subcount(Var.Printers) > 0?>
+    <table id="printers">
+        <thead>
+            <tr>
+                <th scope="col"><?cs var:Env.Var.printers.Header?></th>
+                <th scope="col"><?cs var:Env.Var.ink_level.Header?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?cs each:printer = Var.Printers?>
+            <tr>
+                <td>
+                    
+                    <table class="periphview">
+                        <tr>
+                            
+                            <td>
+                                <p>
+                                    <img src="/img/icon_printer.png" /><br/>
+                                    <b><?cs var:Env.Text.port ?> <?cs var:printer.usb_port.Value?></b>
+                                </p>
+                            </td>
+                            
+                            <td>
+                                <span><b><?cs var:Env.Var.printer_manufacturer.Header?> :</b> <?cs alt:printer.manufacturer.Value ?> ?? <?cs /alt?></span><br/>
+                                <span><b><?cs var:Env.Var.printer_model.Header?> :</b> <?cs alt:printer.product.Value ?> ?? <?cs /alt?></span><br/>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                </td>
+                
+                <td class="cartridge">
+                    <?cs each:cartridge = printer.cartridges?>
+                    
+                    <div class="container_cartridge">
+                        <div class="cartridge">
+                            <div class="percentbar" style="top: <?cs var:cartridge.34top.Value?>px; height: <?cs var:cartridge.34height.Value?>px; background-color: <?cs var:Env.Var.cartridges.types[cartridge.type.Value].htmlcolor?>; ">
+                            <span style="width: 32px; margin: auto; position: relative; top: <?cs var:cartridge.34pcrt.Value?>px; color: <?cs var:Env.Var.cartridges.types[cartridge.type.Value].htmlcolor.neg?>; ">
+                            <?cs var:cartridge.level.Value?>%
+                            </span>
+                            </div>
+                        </div>
+                        <p>
+                            <b><?cs var:Env.Var.cartridges.types[cartridge.type.Value]?></b>
+                        </p>
+                    </div>
+            
+                    <?cs /each?>
+                </td>
+            </tr>
+            <?cs /each?>
+        </tbody>
+    </table>
+    <?cs else ?>
+    <?cs var:Env.Text.NoPrinter?>
+    <?cs /if ?>
+    
+</div>
+
+<?cs def:getDbmBarColor(dbm)?>
+  <?cs if:dbm <= #-50 && dbm > #-80?>
+    lightgreen
+  <?cs elif:dbm <= #-80 && dbm > #-90?>
+    orange
+  <?cs elif:dbm <= #-90 && dbm > #-100?>
+    darkorange
+  <?cs else?>
+    red
+  <?cs /if?>
+<?cs /def?>
+
+<?cs def:getDbmBarWidth(dbm)?>
+  <?cs if:dbm <= #-50 && dbm > #-80?>
+    90%
+  <?cs elif:dbm <= #-80 && dbm > #-90?>
+    60%
+  <?cs elif:dbm <= #-90 && dbm > #-100?>
+    30%
+  <?cs else?>
+    10%
+  <?cs /if?>
+<?cs /def?>
+
+#ifdef HAVE_BACKUP_3G_SUPPORT
+<div class="title">
+    <h1><?cs var:Env.Section.3g_dongle.Title?></h1>
+</div>
+
+<div class="content">
+<?cs if:Var.gprs_device_state.Value == "available"?>
+    <table id="3g_dongle">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col"><?cs var:Env.Var.3g_dongle.Header?></th>
+                <th scope="col"><?cs var:Env.Var.3g_dongle_rssi.Header?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <img src="/img/icon_usbkey.png" />
+                </td>
+                <td>
+                    <span><b><?cs var:Env.Var.3g_dongle_pcb.Header?> :</b> <?cs alt:Var.gprs_device_pcb.Value ?> ?? <?cs /alt?></span><br/>
+                    <span><b><?cs var:Env.Var.3g_dongle_fw.Header?> :</b> <?cs alt:Var.gprs_device_fw.Value ?> ?? <?cs /alt?></span><br/>
+                    <span><b><?cs var:Env.Var.3g_dongle_imei.Header?> :</b> <?cs alt:Var.gprs_device_imei.Value ?> ?? <?cs /alt?></span><br/>
+                </td>
+                <td>
+                    <?cs if:Var.gprs_signal_dbm.Value=="" || Var.gprs_signal_rssi.Value == -1?>
+                    <?cs var:Env.Text.UnknownDbm?>
+                    <?cs else?>
+                    <div class="rssidb">
+                        &nbsp; <?cs var:Var.gprs_signal_dbm.Value ?> dBm
+                    </div>
+                    <div class="rssibar">
+                        <div style="width: <?cs call:getDbmBarWidth(Var.gprs_signal_dbm.Value )?>; background-color: <?cs call:getDbmBarColor(Var.gprs_signal_dbm.Value )?>;">
+                        &nbsp;
+                        </div>
+                    </div>
+                    <?cs /if?>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<?cs else?>
+    <?cs var:Env.Text.No3GDongle?>
+<?cs /if?>
+</div>
+#endif
+
+<?cs include:"tpl/footer.html" ?>

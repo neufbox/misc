@@ -1,0 +1,11 @@
+#!/bin/sh /etc/rc.common
+
+PRODUCTID="$(cat /proc/productid)"
+FIRMWARE=$E
+VENDORID=neufbox_${PRODUCTID}_${FIRMWARE}_IN_RESCUE
+
+boot() {
+	echo "udhcpc starting ..."
+	udhcpc -b -V ${VENDORID} -C -i wan0 -s /etc/dhcp/wan.script
+	udhcpc -b -V ${VENDORID} -C -i voip0 -s /etc/dhcp/voip.script
+}

@@ -1,0 +1,16 @@
+Env.Page.Title = LAN
+
+Env.Help.Text = Sur cette page, vous pouvez modifier l'adresse IP privée de la $BOXNAME<br/><br/>Les adresses IP des règles NAT, des règles de routage et la configuration de la plage d'adresses IP fournie par le service DHCP seront automatiquement mis à jour en fonction de cette nouvelle adresse IP.
+
+Env.Section.lan_configuration.Title = LAN
+
+Env.Var.lan_ipaddr.Header = IP $BOXNAME
+Env.Var.lan_ipaddr.Error.value = Format incorrect
+Env.Var.lan_ipaddr.Error.invalid_ip = IP invalide
+Env.Var.lan_ipaddr.Error.ip_is_broadcast = L'adresse IP de la $BOXNAME doit être différente de l'adresse ip broadcast du réseau.
+Env.Var.lan_ipaddr.Error.ip_is_network = L'adresse IP de la $BOXNAME doit être différente de l'adresse ip du réseau.
+Env.Var.lan_ipaddr.Error.ip_is_in_hotspot_net = L'adresse IP de la $BOXNAME ne doit pas être dans le réseau hotspot (192.168.2.0).
+
+Env.Var.lan_netmask.Header = Netmask
+Env.Var.lan_netmask.Error.value = Format incorrect
+Env.Var.lan_netmask.Error.invalid_netmask = Netmask invalide

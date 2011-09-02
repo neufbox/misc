@@ -1,0 +1,26 @@
+#!/bin/sh
+
+echo "Setting on "$IFNAME > /dev/console
+
+status set ipv6_link up 
+
+# update status
+status set ppp_ipv6_session "NC"
+status set ppp_ipv6_server "NC"
+status set ppp_ipv6_ifname "$IFNAME"
+status set ppp_ipv6_status "up"
+
+logger -s -t PPP_STATUS -p local1.info "ppp/ipv6 UP :)"
+
+[ -d /etc/ppp/ip-up.d ] && {
+	for SCRIPT in /etc/ppp/ip-up.d/*
+	do
+		[ -x "$SCRIPT" ] && "$SCRIPT" "$@"
+	done
+}
+
+
+# launch dhcpv6
+logger -s -t PPP_STATUS -p local1.info "now launch dhcpv6"
+/etc/init.d/ipv6 dhcpv6_config
+/etc/init.d/ipv6 dhcpv6_start

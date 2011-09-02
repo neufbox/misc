@@ -1,0 +1,19 @@
+#!/bin/sh /etc/rc.common
+
+wait_nbd_ready() {
+	while [ ! -e /var/run/nbd.socket ] ; do
+		sleep 1
+	done
+}
+
+boot() {
+	networks='firewall miniupnpd phy qos switch vlan adsl topology data ppp lan wan route ipv6'
+
+	wait_nbd_ready
+
+	for i in $networks; do
+		[ -x /etc/init.d/$i ] && /etc/init.d/$i boot 2>&1
+	done
+
+	touch /var/state/networks
+}

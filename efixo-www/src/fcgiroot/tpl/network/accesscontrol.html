@@ -1,0 +1,124 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+
+<div class="title">
+        <h1>Gestion du Controle d'Accès</h1>
+</div>
+<div class="content">
+        <form name="acme_policy" method="post" action="<?cs var:Env.Page.Name ?>">
+                <table border="0" cellspacing="0" cellpadding="8">
+                        <tbody>
+                                <tr>
+                                        <th>Activation</th>
+                                        <td>
+                                                <input type="radio" value="off" name="acm_active" id="acm_active_off" <?cs if:Var.acm_active.Value == "off" ?>checked="checked"<?cs /if ?> /><label for="acm_active_off">Désactivé</label>
+                                                &nbsp;
+                                                <input type="radio" value="on" name="acm_active" id="acm_active_on" <?cs if:Var.acm_active.Value == "on" ?>checked="checked"<?cs /if ?> /><label for="acm_active_on">Activé</label>
+                                        </td>
+                                </tr>
+                        </tbody>
+                </table>
+                <div class="button_submit"><button name="acm_active_submit" type="submit" value="acm_active_submit">Valider</button></div>
+        </form>
+</div>
+
+
+<div class="title" <?cs if:Var.acm_active.Value == "off" ?>style="display:none;"<?cs /if ?>>
+        <h1>Application des règles</h1>
+</div>
+<div class="content" <?cs if:Var.acm_active.Value == "off" ?>style="display:none;"<?cs /if ?>>
+     <form name="acme_host" method="post" action="<?cs var:Env.Page.Name ?>">
+                <table border="0" cellspacing="0" cellpadding="8" style="text-align:center; width: 100%;" >
+                        <thead>
+                                <tr>
+                                        <th>#</th>
+                                        <th>MAC</th>
+                                        <th>Application horaire du Contrôle d'Accès</th>
+                                        <th>Comportement</th>
+                                        <th>Activation</th>
+                                        <th class="col_action" colspan="2" scope="col">&nbsp;</th>
+
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <?cs each:item = Var.acm_host ?>
+                                <tr>
+                                        <td class="<?cs if:item.active.Value == "off" ?>desactivated<?cs /if ?>"><?cs var:name(item) ?></td>
+                                        <td class="<?cs if:item.active.Value == "off" ?>desactivated<?cs /if ?>"><?cs var:item.macaddress.Value ?></td>
+                                        <td class="<?cs if:item.active.Value == "off" ?>desactivated<?cs /if ?>">De <?cs var:item.timestart.Value ?> à <?cs var:item.timestop.Value ?></td>
+                                        <td class="<?cs if:item.active.Value == "off" ?>desactivated<?cs /if ?>">
+                                                <?cs if:item.behavior.Value=="denyall" ?>
+                                                Tout bloquer
+                                                <?cs /if ?>
+                                                <?cs if:item.behavior.Value=="denyrules" ?>
+                                                Bloquer à partir de la liste
+                                                <?cs /if ?>
+                                        </td>
+                                        <td>
+                                                <?cs if:item.active.Value == "on" ?>
+                                                <button type="submit" name="action_disabled" value="<?cs var:name(item) ?>">Désactiver</button>
+                                                <?cs else ?>
+                                                <button type="submit" name="action_enabled" value="<?cs var:name(item) ?>">Activer</button>
+                                                <?cs /if ?>
+                                        </td>
+                                        <td class="col_action"><input type="image" class="btn_remove" src="/img/button_remove.png" name="action_acm_rmv" value="<?cs var:name(item) ?>" /></td>
+                                </tr>
+                                <?cs /each ?>
+
+                                <tr>
+                                        <td>#</td>
+                                        <td>
+                                                <input type="text" id="macaddress" name="macaddress" value="" />
+                                                <button id="button_network" class="button_network" type="button" src="/img/button_network.png"></button>
+                                        </td>
+                                        <td><p>De <input class="timepick" type="text" size="5" name="timestart" autocomplete="off" /> à  <input name="timestop" class="timepick" type="text" size="5" autocomplete="off" /><!--<br /><input type="checkbox"  />Lun <input type="checkbox"  />Mar <input type="checkbox"  />Mer <input type="checkbox"  />Jeu <input type="checkbox"  />Ven <input type="checkbox"  />Sam <input type="checkbox"  />Dim --></p></td>
+                                        <td><select name="behavior">
+                                                    <option value="denyall" <?cs if:Var:item.behavior.Value == "denyall" ?>selected="selected"<?cs /if ?> >Tout bloquer</option>
+                                                    <option value="denyrules" <?cs if:Var:item.behavior.Value == "denyrules" ?>selected="selected"<?cs /if ?> >Bloquer à partir d'une liste</option>
+                                            </select></td>
+                                        <td><input type="checkbox" value="on" name="active" checked="checked" /></td>
+                                        <td class="col_action" colspan="2"><input class="btn_add" type="image" src="/img/button_add.png" name="action_acm_add" value="add" /></td>
+
+                                </tr>
+                        </tbody>
+                </table>
+        </form>
+</div>
+
+
+
+
+
+
+
+<div class="title" <?cs if:Var.acm_active.Value == "off" ?>style="display:none;"<?cs /if ?>>
+        <h1>Liste</h1>
+</div>
+<div class="content" <?cs if:Var.acm_active.Value == "off" ?>style="display:none;"<?cs /if ?>>
+        <form name="acme_policy" method="post" action="<?cs var:Env.Page.Name ?>">
+                <table border="0" cellspacing="0" cellpadding="8">
+                        <thead>
+                                <tr>
+                                        <th>Adresses internet</th>
+                                        <th>Bloqué ?</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+
+                                <?cs each:item = Var.acm_except ?>
+                                <tr>
+                                        <td><input type="input" value="<?cs var:item.url.Value ?>" name="url_<?cs var:name(item) ?>" /></td>
+                                        <td><input type="checkbox" value="on" name="active_<?cs var:name(item) ?>" <?cs if:item.active.Value=="on" ?>checked="checked"<?cs /if ?> /></td>
+                                </tr>
+                                <?cs /each ?>
+                        </tbody>
+                </table>
+                
+                <div class="button_submit"><button name="action_except_submit" type="submit" value="action_except_submit">Valider</button></div>
+
+        </form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

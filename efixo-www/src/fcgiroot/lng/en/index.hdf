@@ -1,0 +1,38 @@
+Env.Page.Title = Home
+
+Env.Help.Text = You can find here the status of the different services provided by your $BOXNAME: Internet connection, telephony and television. You can use the main navigation menu to go to the various configuration sections, and the submenu to go to subsections.
+
+Env.Section.global_status.Title = Services status
+
+Env.Var.internet_status.Header = Internet
+Env.Var.internet_status.Value.up = Internet active
+Env.Var.internet_status.Value.down = No Internet connection
+
+Env.Var.internet_access.Value.gprs = 3G dongle connection
+
+Env.Var.voip_status.Header = Telephony
+Env.Var.voip_status.Value.up = Telephony active
+Env.Var.voip_status.Value.down = Telephony not working
+
+Env.Var.voip_access.Value.gprs = 3G dongle connection
+
+Env.Var.tv_status.Header = Television
+Env.Var.tv_status.Value.up = Television connected
+Env.Var.tv_status.Value.down = Television not connected
+
+#ifndef NB5
+Env.Text.NoDSL = Your gateway failed to synchronize your DSL line. It is maybe still not set up, or the cable from your telephone plug to your gateway is not correctly plugged in.
+Env.Text.NoPPP = Please check your connection login and password after clicking here
+#endif
+
+Env.Text.NoFTTH = Please check that your gateway is correctly plugged.
+
+Env.Var.gruiks.configuration.Text = View configuration
+Env.Var.gruiks.GPRS_PINCODE_INVALID.Title = 3G error
+Env.Var.gruiks.GPRS_PINCODE_INVALID.Info = Pin code invalid
+Env.Var.gruiks.GPRS_PINCODE_INVALID.Url = /network/gprs
+
+Env.Section.ipv6_info.Title = Internet IPv6
+Env.Var.ipv6_status.up = Operational
+Env.Var.ipv6_status.noconnect = Not connected
+Env.Var.ipv6_status.down = Disable

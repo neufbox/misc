@@ -1,0 +1,39 @@
+Env.Page.Title = Hotspot
+
+Env.Help.Text = Dans la rubrique <b>Hotspot</b>, vous trouverez la configuration actuelle de votre Hotspot (borne WiFi): son état, le nom du réseau WiFi diffusé et son mode de fonctionnement.<br /><br />Dans la rubrique <b>Postes connectés</b>, vous trouverez l'ensemble des équipements actuellement connectés sur votre Hotspot.
+
+Env.Section.hotspot_info.Title = Hotspot
+
+Env.Var.hotspot_enable.Value.false = Le service hotspot n'est pas disponible.
+Env.Var.hotspot_enable.Value.true = Le service hotspot est disponible.
+
+Env.Var.hotspot_active.Value.on = Activé
+Env.Var.hotspot_active.Value.off = Désactivé
+
+Env.Var.hotspot_status.Header = Etat
+Env.Var.hotspot_status.Value.off = Désactivé
+Env.Var.hotspot_status.Value.up = Démarré
+Env.Var.hotspot_status.Value.down = Arrêté
+Env.Var.hotspot_status.Value.starting = Démarrage en cours
+Env.Var.hotspot_status.Value.stopping = Arrêt en cours
+Env.Var.hotspot_status.Value.error_maxup = Désactivé (débit montant trop faible)
+Env.Var.hotspot_status.Value.error_maxdown = Désactivé (débit descendant trop faible)
+Env.Var.hotspot_status.Value.error_conf = Erreur (erreur interne)
+Env.Var.hotspot_status.Value.error_wandown = Erreur (Internet non opérationnel)
+Env.Var.hotspot_status.Value.error_pppdown = Erreur (Internet non opérationnel)
+Env.Var.hotspot_status.Value.error_adsldown = Erreur (Internet non opérationnel)
+Env.Var.hotspot_status.Value.error_wifidown = Erreur (WiFi désactivé)
+
+Env.Var.hotspot_mode.Header = Mode
+Env.Var.hotspot_mode.Value.sfr = Réseau WiFi communautaire $OPERATORNAME
+Env.Var.hotspot_mode.Value.sfr_fon = Réseau WiFi communautaire $OPERATORNAME & FON
+Env.Var.hotspot_mode.Value.unavailable = Indisponible
+
+Env.Var.hotspot_ssid.Header = SSID
+
+Env.Section.hotspot_assoc.Title = Postes connectés
+
+Env.Var.hotspot_assoclist_mac.Header = Adresse MAC
+Env.Var.hotspot_assoclist_ip.Header = Adresse IP
+
+Env.Text.NoConnectedClients = Aucun poste connecté.

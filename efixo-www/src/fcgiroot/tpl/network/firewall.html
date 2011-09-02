@@ -1,0 +1,90 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.firewall.Title ?></h1>
+</div>
+
+<div class="content">
+	<form method="post" action="<?cs var:Env.Page.Name ?>" id="form_filter">
+
+	<table id="filter_configuration">
+		<tr>
+			<th scope="row">
+				<?cs call:varHeader("filter_mode") ?>
+			</th>
+			<td>
+				<input type="radio" 
+					value="simple" 
+					name="filter_mode" 
+					id="filter_mode_on"<?cs if:Var.filter_mode.Value == "simple" ?> checked="checked"<?cs /if ?> />
+  
+				<label for="filter_mode_on"><?cs var:Env.Var.filter_mode.Value.on ?></label>
+
+
+				<input type="radio" 
+					value="off" 
+					name="filter_mode" 
+					id="filter_mode_off"<?cs if:Var.filter_mode.Value == "off" ?> checked="checked"<?cs /if ?> />
+
+				<label for="filter_mode_off"><?cs var:Env.Var.filter_mode.Value.off ?></label>
+
+				<?cs if:?Var.filter_mode.Error ?>
+				<div class="error">
+					<?cs var:Env.Var.filter_mode.Error[Var.filter_mode.Error] ?>
+				</div>
+				<?cs /if ?>
+			</td>
+		</tr>
+
+		<tr id="filter_simple" <?cs if:Var.filter_mode.Value == "off"?>style="display: none;"<?cs /if?>>
+			<th scope="row" valign="top">
+				<?cs call:varHeader("filter_simple") ?>
+			</th>
+			<td>
+				<input type="checkbox"
+					value="on"
+					name="filter_simple_winsharedrop"
+					id="filter_simple_winsharedrop" <?cs if:Var.filter_simple_winsharedrop.Value == "on" ?> checked="checked"<?cs /if ?> />
+				
+				<label for="filter_simple_winsharedrop"><?cs var:Env.Var.filter_simple_winsharedrop.Header ?></label>
+				
+				<br/>
+				
+				<input type="checkbox"
+					value="on"
+					name="filter_simple_smtpdrop"
+					id="filter_simple_smtpdrop" <?cs if:Var.filter_simple_smtpdrop.Value == "on" ?> checked="checked"<?cs /if ?> />
+				
+				<label for="filter_simple_smtpdrop"><?cs var:Env.Var.filter_simple_smtpdrop.Header ?></label>
+				
+				<br/>
+				
+				<input type="checkbox"
+					value="on"
+					name="filter_simple_icmpdrop"
+					id="filter_simple_icmpdrop" <?cs if:Var.filter_simple_icmpdrop.Value == "on" ?> checked="checked"<?cs /if ?> />
+				
+				<label for="filter_simple_icmpdrop"><?cs var:Env.Var.filter_simple_icmpdrop.Header ?></label>
+
+                                <br/>
+
+				<input type="checkbox"
+					value="on"
+					name="filter_simple_ipv6drop"
+					id="filter_simple_ipv6drop" <?cs if:Var.filter_simple_ipv6drop.Value == "on" ?> checked="checked"<?cs /if ?> />
+
+				<label for="filter_simple_ipv6drop"><?cs var:Env.Var.filter_simple_ipv6drop.Header ?></label>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="button_submit">
+		<button type="submit" name="submit"><?cs var:Button.Submit ?></button>
+	</div>
+	
+        </form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

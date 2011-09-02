@@ -1,0 +1,15 @@
+#!/bin/sh /etc/rc.common
+
+start() {
+	if [ "`nvram get nfs_active`" = "on" ]
+	then
+		mkdir -p /mnt/nfs
+		mount -t nfs `nvram get nfs_options` `nvram get nfs_server` /mnt/nfs
+	fi
+}
+
+stop() {
+	umount /mnt/nfs
+	rmdir /mnt/nfs
+}
+

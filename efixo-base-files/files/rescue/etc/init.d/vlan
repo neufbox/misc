@@ -1,0 +1,61 @@
+#!/bin/sh /etc/rc.common
+
+VLAN1=1
+PORTS1="port1 port2 port3 port4"
+VLAN2=2
+PORTS2="port0"
+IFNAME=eth0
+
+
+start() {
+	case "$(hostname)" in
+		nb6)
+			;;
+		*)
+			exit 0
+	esac
+
+	# realtek switch
+	rtk-switch vlan init
+	rtk-switch vlan add ${VLAN1} members ${PORTS1} cpu untags ${PORTS1} fid 0
+	for port in ${PORTS1}; do
+		rtk-switch pvlan ${port} ${VLAN1}
+	done
+	rtk-switch vlan add ${VLAN2} members ${PORTS2} cpu untags ${PORTS2} fid 1
+	for port in ${PORTS2}; do
+		rtk-switch pvlan ${port} ${VLAN2}
+	done
+
+	# broadcom switch
+	ethswctl -c swctrl -t 1 -v 1
+	ethswctl -c vlan -v ${VLAN1} -f 0x1ff -u 0x000
+	ethswctl -c vlan -v ${VLAN2} -f 0x1ff -u 0x000
+
+	# linux vlan
+	ip link set ${IFNAME} up
+	ip link add link ${IFNAME} name "${IFNAME}.${VLAN1}" noqueue type vlan id ${VLAN1}
+	ip link add link ${IFNAME} name "${IFNAME}.${VLAN2}" noqueue type vlan id ${VLAN2}
+}
+
+stop() {
+	case "$(hostname)" in
+		nb6)
+			;;
+		*)
+			exit 0
+	esac
+
+	# linux vlan
+	ip link del "${IFNAME}.${VLAN2}"
+	ip link del "${IFNAME}.${VLAN1}"
+	ip link set ${IFNAME} down
+
+	# broadcom switch
+	ethswctl -c vlan -v ${VLAN2} -f 0x000 -u 0x000
+	ethswctl -c vlan -v ${VLAN1} -f 0x000 -u 0x000
+	ethswctl -c swctrl -t 1 -v 0
+
+	# realtek switch
+	rtk-switch vlan del ${VLAN2}
+	rtk-switch vlan del ${VLAN1}
+}

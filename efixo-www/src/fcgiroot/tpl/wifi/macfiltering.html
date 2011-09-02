@@ -1,0 +1,144 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.MACFiltering.Title ?></h1>
+</div>
+
+<div class="content">
+	<form method="post" action="<?cs var:Env.Page.Name ?>" id="form_mac_filtering_activation">
+	<input type="hidden" id="show_add_my_workstation" name="show_add_my_workstation" value="<?cs var:Var.ShowAddMyWorkstation.Value ?>" />
+    
+	<table id="mac_filtering_activation">
+		<tr>
+			<th scope="row"><?cs var:Env.Var.MACFiltering.Header ?></th>
+			<td>
+				<input type="radio" value="off" name="mac_filtering" id="mac_filtering_off"<?cs if:Var.MACFiltering.Value == "off" ?> checked="checked"<?cs /if ?> />
+				<label for="mac_filtering_off"><?cs var:Env.Var.MACFiltering.Value.off ?></label>
+				<input type="radio" value="whitelist" name="mac_filtering" id="mac_filtering_whitelist"<?cs if:Var.MACFiltering.Value == "whitelist" ?> checked="checked"<?cs /if ?> />
+				<label for="mac_filtering_whitelist"><?cs var:Env.Var.MACFiltering.Value.whitelist ?></label>
+#ifdef CIBOX
+				<input type="radio" value="blacklist" name="mac_filtering" id="mac_filtering_blacklist"<?cs if:Var.MACFiltering.Value == "blacklist" ?> checked="checked"<?cs /if ?> />
+				<label for="mac_filtering_blacklist"><?cs var:Env.Var.MACFiltering.Value.blacklist ?></label>
+#endif
+			</td>
+		</tr>
+	</table>
+	
+	<?cs if:subcount(Var.List) == 0 && Var.MACFiltering.Value == "off"?>
+	<div class="warning_notice">
+	    <?cs var:Env.Text.WarningMacFiltering?>
+	</div>
+	<?cs /if?>
+	
+	<span class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></span>
+	
+	</form>
+</div>
+
+<div class="title" id="title_maclist">
+	<h1><?cs var:Env.Section.MACWhiteList.Title ?></h1>
+</div>
+
+<div class="content" id="content_maclist">
+	<table id="mac_address_list">
+		<thead>
+			<tr>
+				<th scope="col" class="col_number">#</th>
+				<th scope="col"><?cs var:Env.Var.mac_address.Header ?></th>
+				<th scope="col" class="col_action" colspan="2"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?cs each:item = Var.List ?>
+			<tr>
+				<td class="col_number">
+					<?cs name:item ?>
+				</td>
+				<td>
+					<?cs var:item.Value ?>
+				</td>
+				<td class="col_action">
+					<form method="post" action="<?cs var:Env.Page.Name ?>">
+					<input type="hidden" name="action" value="remove" />
+					<input type="hidden" name="mac_address" value="<?cs var:item.Value ?>" />
+					<button class="button_remove" type="submit" name="submit"></button>
+					</form>
+				</td>
+			</tr>
+			<?cs /each ?>
+			<tr>
+				<form method="post" action="<?cs var:Env.Page.Name ?>" id="form_mac_addresses_list">
+				
+				<td class="col_number">
+					<?cs var:subcount(Var.List) + #1 ?>
+				</td>
+				<td>
+					<input type="text" 
+					       name="mac_address_p0"
+					       id="mac_address_p0" 
+					       autocomplete="off" 
+					       size="2" 
+					       maxlength="2" 
+					       value="<?cs var:Var.mac_address_p0.Value?>"  
+					       class="<?cs if:?Var.mac_address.Error ?>error<?cs else?>text<?cs /if?>" />&nbsp;:
+					<input type="text" 
+					       name="mac_address_p1" 
+					       id="mac_address_p1" 
+					       autocomplete="off" 
+					       size="2" 
+					       maxlength="2" 
+					       value="<?cs var:Var.mac_address_p1.Value?>" 
+					       class="<?cs if:?Var.mac_address.Error ?>error<?cs else?>text<?cs /if?>" />&nbsp;:
+					<input type="text" 
+					       name="mac_address_p2" 
+					       id="mac_address_p2" 
+					       autocomplete="off" 
+					       size="2" 
+					       maxlength="2" 
+					       value="<?cs var:Var.mac_address_p2.Value?>" 
+					       class="<?cs if:?Var.mac_address.Error ?>error<?cs else?>text<?cs /if?>" />&nbsp;:
+					<input type="text"
+					       name="mac_address_p3"
+					       id="mac_address_p3"
+					       autocomplete="off"
+					       size="2"
+					       maxlength="2"
+					       value="<?cs var:Var.mac_address_p3.Value?>"
+					       class="<?cs if:?Var.mac_address.Error ?>error<?cs else?>text<?cs /if?>" />&nbsp;:
+					<input type="text" 
+					       name="mac_address_p4" 
+					       id="mac_address_p4"
+					       autocomplete="off"
+					       size="2"
+					       maxlength="2"
+					       value="<?cs var:Var.mac_address_p4.Value?>"
+					       class="<?cs if:?Var.mac_address.Error ?>error<?cs else?>text<?cs /if?>" />&nbsp;:
+					<input type="text" 
+					       name="mac_address_p5"
+					       id="mac_address_p5" 
+					       autocomplete="off" 
+					       size="2" 
+					       maxlength="2" 
+					       value="<?cs var:Var.mac_address_p5.Value?>"
+					       class="<?cs if:?Var.mac_address.Error ?>error<?cs else?>text<?cs /if?>" />
+
+					<?cs if:?Var.mac_address.Error ?>
+					<div class="error">
+					    <?cs var:Env.Var.mac_address.Error[Var.mac_address.Error] ?>
+					</div>
+					<?cs /if ?>
+				</td>
+				<td class="col_action">
+					<input type="hidden" name="action" value="add" />
+					<button class="button_add" type="submit" name="submit"></button>
+				</td>
+				
+				</form>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

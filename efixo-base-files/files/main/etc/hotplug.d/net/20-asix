@@ -1,0 +1,28 @@
+#!/bin/sh
+
+[ -z "$(echo $DEVPATH | sed -n -e "/usb/p")" ] && exit 0
+[ "${INTERFACE}" = "usb0" ] && exit 0
+
+lan_ifname=$(nvram get lan_ifname)
+
+addif() {
+	brctl addif ${lan_ifname} ${INTERFACE}
+	ip link set ${INTERFACE} address $(nbctl mac 30)
+	sysctl -w "net.ipv6.conf.${INTERFACE}.disable_ipv6=1"
+	ip link set ${INTERFACE} up
+}
+
+delif() {
+	ip link set ${INTERFACE} down
+	brctl delif ${lan_ifname} ${INTERFACE}
+}
+
+case "$ACTION" in
+	add)
+		addif
+	;;
+	remove)
+		delif
+	;;
+esac
+

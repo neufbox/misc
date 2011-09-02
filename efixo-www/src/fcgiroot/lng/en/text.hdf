@@ -1,0 +1,46 @@
+
+Env.Page.Pretitle = $BOXNAME -&nbsp; 
+Env.Page.Index.Title = Home
+Env.Help.Title = Help
+
+Env.Form.Error.unknown = An error has occurred !
+Env.Form.Error.system = An system error has occured !
+Env.Form.Success.default = Settings have been applied successfully.
+
+Env.Var.Sys.FirmwareVersion.Header = Version
+Env.Var.Sys.MACAddress.Header = MAC address
+Env.Var.Sys.IPAddress.Header = IP address
+
+Env.Var.Sys.NetInfraExtra.Header = Access profile
+Env.Var.Sys.NetInfraExtra.Value.adsl = $BOXNAME ADSL
+Env.Var.Sys.NetInfraExtra.Value.adslgprs = ADSL/3G mix
+Env.Var.Sys.NetInfraExtra.Value.gprsadsl = ADSL/3G mix
+Env.Var.Sys.NetInfraExtra.Value.ftth = $BOXNAME FTTH
+Env.Var.Sys.NetInfraExtra.Value.ftthgprs = FTTH/3G mix
+Env.Var.Sys.NetInfraExtra.Value.gprsftth = FTTH/3G mix
+Env.Var.Sys.NetInfraExtra.Value.gprs = 3G connection
+Env.Var.Sys.NetInfraExtra.Value.unknown = unknown
+
+Button.Signoff = Log out
+Button.Submit = Apply
+Button.Reboot = Restart
+Button.Launch = Start
+Button.Relaunch = Restart
+Button.Stop = Stop
+
+Env.Text.General = General
+Env.Text.UnknownError = Unknown Error
+Env.Text.InternalError = Internal error!
+Env.Text.UnknownValue = Unknown value!
+Env.Text.InvalidValue = Invalid value
+
+Env.Var.voip_slicerrnum.Value.14 = Generic slic error
+Env.Var.voip_slicerrnum.Value.15 = Loading register values failed
+Env.Var.voip_slicerrnum.Value.16 = Simple read on reset values failed
+Env.Var.voip_slicerrnum.Value.17 = Wrong chip id read
+Env.Var.voip_slicerrnum.Value.18 = VBAT didn't reach expected Voltage. DC DC power timed out
+Env.Var.voip_slicerrnum.Value.19 = DC DC calibration timed out
+Env.Var.voip_slicerrnum.Value.20 = Auto calibration timed out
+Env.Var.voip_slicerrnum.Value.21 = Phone was off hook during calibration
+Env.Var.voip_slicerrnum.Value.22 = Auto calibration 2 timed out
+Env.Var.voip_slicerrnum.Value.23 = Foreign voltage is detected

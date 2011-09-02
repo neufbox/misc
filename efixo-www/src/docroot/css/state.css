@@ -1,0 +1,97 @@
+@import url(state.ie6.css);
+
+#leds_configuration th, #services_status th, #modem_infos th {
+    width: 205px;
+}
+
+#leds_configuration td, #services_status td, #modem_infos td {
+    min-width: 230px;
+}
+
+#leds_configuration select {
+    width: 230px;
+}
+
+.on, .off {
+    display: -moz-inline-box;
+    display: inline-block;
+    padding-left: 10px;
+}
+
+#led_dsl {
+    width: 49px;
+    height: 44px;
+}
+
+#led_dsl.on {
+    background: transparent url(/img/led_dsl_on.png) no-repeat left top;
+}
+
+#led_dsl.off {
+    background: transparent url(/img/led_dsl_off.png) no-repeat left top;
+}
+
+#led_traffic {
+    width: 49px;
+    height: 44px;
+}
+
+#led_traffic.on {
+    background: transparent url(/img/led_traffic_on.png) no-repeat left top;
+}
+
+#led_traffic.off {
+    background: transparent url(/img/led_traffic_off.png) no-repeat left top;
+}
+
+#led_tel {
+    width: 27px;
+    height: 44px;
+}
+
+#led_tel.on {
+    background: transparent url(/img/led_tel_on.png) no-repeat left top;
+}
+
+#led_tel.off {
+    background: transparent url(/img/led_tel_off.png) no-repeat left top;
+}
+
+#led_tv {
+    width: 25px;
+    height: 44px;
+}
+
+#led_tv.on {
+    background: transparent url(/img/led_tv_on.png) no-repeat left top;
+}
+
+#led_tv.off {
+    background: transparent url(/img/led_tv_off.png) no-repeat left top;
+}
+
+#led_wifi {
+    width: 33px;
+    height: 44px;
+}
+
+#led_wifi.on {
+    background: transparent url(/img/led_wifi_on.png) no-repeat left top;
+}
+
+#led_wifi.off {
+    background: transparent url(/img/led_wifi_off.png) no-repeat left top;
+}
+
+#led_alarm {
+    width: 60px;
+    height: 44px;
+}
+
+#led_alarm.on {
+    background: transparent url(/img/led_alarm_on.png) no-repeat left top;
+}
+
+#led_alarm.off {
+    background: transparent url(/img/led_alarm_off.png) no-repeat left top;
+}

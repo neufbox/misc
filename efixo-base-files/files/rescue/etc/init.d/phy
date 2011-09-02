@@ -1,0 +1,19 @@
+#!/bin/sh /etc/rc.common
+
+boot() {
+	case "$(hostname)" in
+	"nb4")
+		insmod bcm53xx
+		insmod bcm_enet
+		;;
+	"nb5")
+		insmod bcm53xx
+		insmod bcm54xx
+		insmod cavium-ethernet
+		;;
+	"nb6")
+		insmod rtl8367r
+		insmod bcm_enet
+		;;
+esac
+}

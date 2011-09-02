@@ -1,0 +1,89 @@
+Env.Page.Title = Téléphonie
+
+#ifdef NB6
+Env.Help.Text = Dans la rubrique <b>Téléphonie sur IP</b> est affiché l'état de votre ligne téléphonique VoIP $BOXNAME (sous réserve d'être abonné à ce service).<br/><br/> Dans la rubrique <b>Historique d'appel</b>, vous pouvez activer/désactiver l'historique et visualiser la liste des appels passés/reçus. <b>Les durées des appels sont données à titre indicatif</b>.<br/><br/>Dans la <b>rubrique Notification d'appel manqué</b>, vous pouvez activer/désactiver la notification d'appel manqué (clignotement de la LED Tel lors d'un appel manqué). Une pression sur le bouton service stoppera son clignotement.
+#else
+Env.Help.Text = Dans la rubrique <b>Téléphonie sur IP</b> est affiché l'état de votre ligne téléphonique VoIP $BOXNAME (sous réserve d'être abonné à ce service).<br/><br/> Dans la rubrique <b>Historique d'appel</b>, vous pouvez activer/désactiver l'historique et visualiser la liste des appels passés/reçus. <b>Les durées des appels sont données à titre indicatif</b>.<br/><br/>Dans la rubrique <b>Notification d'appel manqué</b>, vous pouvez activer/désactiver la notification d'appel manqué (clignotement vert de la LED service lors d'un appel manqué). Une pression sur cette même LED service stoppera son clignotement.
+#endif
+
+Env.Var.warning_led = Attention ! L'extinction des voyants en mode ECO provoquera l'absence de la notification d'appel manqué.
+
+Env.Section.voip_status.Title = Téléphonie sur IP
+
+Env.Var.voip_linestatus.Header = Etat de la ligne
+Env.Var.voip_linestatus.Value.up = Téléphonie active
+Env.Var.voip_linestatus.Value.down = Téléphonie non fonctionnelle
+
+Env.Var.voip_access.Value.gprs = connexion clé 3G
+Env.Var.voip_access.Value.adsl = connexion ADSL
+
+Env.Var.voip_hookstatus.Header = Etat du combiné
+Env.Var.voip_hookstatus.Value.onhook = Raccroché
+Env.Var.voip_hookstatus.Value.offhook = Décroché
+Env.Var.voip_hookstatus.Value.unknown = Non disponible
+
+Page.Link.VoipDiag = Diagnostic téléphonie
+
+Env.Section.voip_history.Title = Historique d'appel
+
+Env.Var.voip_call_type.Header = Type
+Env.Var.voip_call_type.Value.pstn = Pstn
+Env.Var.voip_call_type.Value.voip = Voip
+Env.Var.voip_call_type.Value.radio = 3G
+
+Env.Var.voip_call_direction.Header = Sens
+Env.Var.voip_call_direction.Value.missedIncoming = Appel manqué
+Env.Var.voip_call_direction.Value.incoming = Appel entrant
+Env.Var.voip_call_direction.Value.outgoing = Appel sortant
+
+Env.Var.voip_call_number.Header = Numéro de téléphone
+
+Env.Var.voip_call_length.Header = Durée approximative
+
+Env.Var.voip_call_date.Header = Date
+
+Env.Var.callhistory_active.Header = Activation historique d'appel
+Env.Var.callhistory_active.Value.on = activé
+Env.Var.callhistory_active.Value.off = désactivé
+
+Env.Section.voip_led_notification.Title = Notification d'appel manqué
+
+Env.Var.led_notification_active.Header = Activation notification d'appel
+Env.Var.led_notification_active.Value.on = activé
+Env.Var.led_notification_active.Value.off = désactivé
+
+Env.Text.Weekday.0 = Dimanche
+Env.Text.Weekday.1 = Lundi
+Env.Text.Weekday.2 = Mardi
+Env.Text.Weekday.3 = Mercredi
+Env.Text.Weekday.4 = Jeudi
+Env.Text.Weekday.5 = Vendredi
+Env.Text.Weekday.6 = Samedi
+
+Env.Text.Month.0 = Janvier
+Env.Text.Month.1 = Février
+Env.Text.Month.2 = Mars
+Env.Text.Month.3 = Avril
+Env.Text.Month.4 = Mai
+Env.Text.Month.5 = Juin
+Env.Text.Month.6 = Juillet
+Env.Text.Month.7 = Août
+Env.Text.Month.8 = Septembre
+Env.Text.Month.9 = Octobre
+Env.Text.Month.10 = Novembre
+Env.Text.Month.11 = Décembre
+
+Env.Text.MissedCall = Appel manqué
+Env.Text.NoResponseCall = Appel sans réponse
+Env.Text.NoInputInCallHistory = Aucune entrée dans l'historique d'appel
+Env.Text.UnknownNumber = Numéro inconnu
+
+Env.Text.WarningLedOff = Vous avez désactivé les voyants. Si vous voulez que la notification fonctionne, il faut réactiver les voyants sur la page "Etat".
+Env.Text.minute = minute
+Env.Text.to = à
+
+Env.Text.voip_daa_ko = Attention ! Le téléphone branché à votre $BOXNAME ne sonnera pas si vos correspondants cherchent à vous joindre en appelant votre ancien numéro France Telecom. <br/><br/> Pour recevoir ces appels, vous devez brancher un autre téléphone sur une prise téléphonique murale munie d'un filtre ADSL.<br/></br> Si vos correspondants ont l'habitude de vous appeler sur votre numéro $BOXNAME (ce numéro figure sur votre courrier de commande), ne tenez pas compte de cet avertissement.
+
+Env.Text.voip_slic_ko = Attention ! Une erreur matérielle est survenue lors du démarrage du téléphone. Veuillez appeler le service client:
+
+Button.CleanupHistory = Vider l'historique

@@ -1,0 +1,7 @@
+table#voip_diag th, #table_dsltest th {
+    width: 115px;
+}
+
+table#voip_diag td, #table_dsltest td {
+    width: 300px;
+}

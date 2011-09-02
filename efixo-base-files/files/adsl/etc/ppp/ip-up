@@ -1,0 +1,29 @@
+#!/bin/sh
+
+echo "Setting on "$IFNAME > /dev/console
+
+[ -n "DNS1" ] && echo "nameserver $DNS1" > "/var/ppp/resolv.conf.adsl"
+[ -n "DNS2" ] && echo "nameserver $DNS2" >> "/var/ppp/resolv.conf.adsl"
+chmod a+r /var/ppp/resolv.conf.adsl
+
+backup3g stop data
+
+# update status
+status set ppp_adsl_session "`cat /var/ppp/pppoe_session`"
+status set ppp_adsl_server "`cat /var/ppp/pppoe_server`"
+# NOTE: this give a chance for VOIP in option 3
+status set ppp_adsl_ifname "$IFNAME"
+status set ppp_adsl_ipaddr "$IPLOCAL"
+status set ppp_adsl_gateway "$IPREMOTE"
+status set ppp_adsl_dns "$DNS1 $DNS2"
+status set ppp_adsl_status "up"
+event notify 'ppp_adsl-up'
+
+logger -s -t PPP_STATUS -p local1.info "ppp/adsl UP :)"
+
+[ -d /etc/ppp/ip-up.d ] && {
+	for SCRIPT in /etc/ppp/ip-up.d/*
+	do
+		[ -x "$SCRIPT" ] && "$SCRIPT" "$@"
+	done
+}

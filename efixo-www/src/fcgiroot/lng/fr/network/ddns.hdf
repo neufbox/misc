@@ -1,0 +1,117 @@
+Env.Page.Title = DynDNS
+
+Env.Help.Text = Dans la rubrique <b>DynDNS</b>, vous pouvez activer un service de DNS (Domain Name Server) dynamique, qui vous permettra par exemple de pouvoir accéder à votre ordinateur depuis Internet sans avoir besoin de connaître votre adresse IP. Pour plus d'information, et pour vous inscrire au service (nécessaire avant d'activer DynDNS sur votre $BOXNAME), rendez-vous sur <a href="http://www.dyndns.com" rel="external">http://www.dyndns.com</a>.
+
+Env.Section.ddns_configuration.Title = DynDNS
+
+Env.Var.ddns_status.Header = Statut service
+Env.Var.ddns_status.Value.down = Arrêté
+Env.Var.ddns_status.Value.starting = En cours d'initialisation
+Env.Var.ddns_status.Value.up = Démarré - en attente
+Env.Var.ddns_status.Value.updated = Mise à jour réussie
+Env.Var.ddns_status.Value.waiting_wan = Désactivé (En attente de connexion internet)
+
+Env.Var.ddns_status.Value.badauth = Erreur compte. Vérifiez vos paramètres.
+Env.Var.ddns_status.Value.badsys = (Erreur interne) Le paramètre système est invalide.
+Env.Var.ddns_status.Value.badagent = (Erreur interne) Le client ddns est bloqué.
+Env.Var.ddns_status.Value.nohost = Le nom d'hôte spécifié n'existe pas.
+Env.Var.ddns_status.Value.donator = Le paramètre a été mis hors ligne tant que l'utilisateur n'est pas un donateur.
+Env.Var.ddns_status.Value.yours = Le nom d'hôte spécifié existe mais n'est pas définit avec ce compte utilisateur.
+Env.Var.ddns_status.Value.abuse = Le nom d'hôte spécifié est bloqué suite à des abus.
+Env.Var.ddns_status.Value.notfqdn = (Erreur interne) Aucun nom d'hôte spécifié.
+Env.Var.ddns_status.Value.numhost = (Erreur interne) Trop ou pas assez de nom d'hôtes spécifiés.
+Env.Var.ddns_status.Value.dnserror = Erreur serveur (dnserr).
+Env.Var.ddns_status.Value.911 = Erreur serveur (911).
+Env.Var.ddns_status.Value.err_update = Erreur lors de la tentative de mise à jour (internet non opérationnel ?)
+Env.Var.ddns_status.Value.err_gprs = Le service Dyndns n'est pas compatible avec la connexion 3G de secours.
+
+Env.Var.ddns_lastupdate.Header = Mise à jour
+
+Env.Var.ddns_active.Header = Activation DynDNS
+Env.Var.ddns_active.Value.on = activé
+Env.Var.ddns_active.Value.off = désactivé
+Env.Var.ddns_active.Error.value = Format incorrect
+
+Env.Var.ddns_service.Header = Service
+Env.Var.ddns_service.Value.dyndns = dyndns.org
+
+Env.Var.ddns_username.Header = Nom d'utilisateur
+Env.Var.ddns_username.Error.value = Le nom d'utilisateur doit être composé de 1 à 25 caractères alphanumériques ou du signe '-', et le premier caractère doit être une lettre.
+
+Env.Var.ddns_password.Header = Mot de passe
+Env.Var.ddns_password.Error.value = Le mot de passe doit être composé d'au moins 5 caractères.
+
+Env.Var.ddns_hostname.Header = Nom de domaine
+Env.Var.ddns_hostname.Error.value = Le nom d'hôte doit être composé de 1 à 20 caractères alphanumériques ou du signe '-'.
+
+Env.Text.dyndns_hostname_list.ath_cx = ath.cx
+Env.Text.dyndns_hostname_list.blogdns_com = blogdns.com
+Env.Text.dyndns_hostname_list.blogdns_net = blogdns.net
+Env.Text.dyndns_hostname_list.blogdns_org = blogdns.org
+Env.Text.dyndns_hostname_list.boldlygoingnowhere_org = boldlygoingnowhere.org
+Env.Text.dyndns_hostname_list.dnsalias_com = dnsalias.com
+Env.Text.dyndns_hostname_list.dnsalias_net = dnsalias.net
+Env.Text.dyndns_hostname_list.dnsalias_org = dnsalias.org
+Env.Text.dyndns_hostname_list.dnsdojo_com = dnsdojo.com
+Env.Text.dyndns_hostname_list.dnsdojo_net = dnsdojo.net
+Env.Text.dyndns_hostname_list.dnsdojo_org = dnsdojo.org
+Env.Text.dyndns_hostname_list.dvrdns_org = dvrdns.org
+Env.Text.dyndns_hostname_list.dyn_o_saur_com = dyn-o-saur.com
+Env.Text.dyndns_hostname_list.dynalias_com = dynalias.com
+Env.Text.dyndns_hostname_list.dynalias_net = dynalias.net
+Env.Text.dyndns_hostname_list.dynalias_org = dynalias.org
+Env.Text.dyndns_hostname_list.dyndns_biz = dyndns.biz
+Env.Text.dyndns_hostname_list.dyndns_info = dyndns.info
+Env.Text.dyndns_hostname_list.dyndns_org = dyndns.org
+Env.Text.dyndns_hostname_list.dyndns_tv = dyndns.tv
+Env.Text.dyndns_hostname_list.dyndns_ws = dyndns.ws
+Env.Text.dyndns_hostname_list.ftpaccess_cc = ftpaccess.cc
+Env.Text.dyndns_hostname_list.game_host_org = game-host.org
+Env.Text.dyndns_hostname_list.game_server_cc = game-server.cc
+Env.Text.dyndns_hostname_list.getmyip_com = getmyip.com
+Env.Text.dyndns_hostname_list.gotdns_com = gotdns.com
+Env.Text.dyndns_hostname_list.gotdns_org = gotdns.org
+Env.Text.dyndns_hostname_list.ham_radio_op_net = ham-radio-op.net
+Env.Text.dyndns_hostname_list.hobby_site_com = hobby-site.com
+Env.Text.dyndns_hostname_list.homedns_org = homedns.org
+Env.Text.dyndns_hostname_list.homeftp_net = homeftp.net
+Env.Text.dyndns_hostname_list.homeftp_org = homeftp.org
+Env.Text.dyndns_hostname_list.homeip_net = homeip.net
+Env.Text.dyndns_hostname_list.homelinux_com = homelinux.com
+Env.Text.dyndns_hostname_list.homelinux_net = homelinux.net
+Env.Text.dyndns_hostname_list.homelinux_org = homelinux.org
+Env.Text.dyndns_hostname_list.homeunix_com = homeunix.com
+Env.Text.dyndns_hostname_list.homeunix_net = homeunix.net
+Env.Text.dyndns_hostname_list.homeunix_org = homeunix.org
+Env.Text.dyndns_hostname_list.is_a_chef_com = is-a-chef.com
+Env.Text.dyndns_hostname_list.is_a_chef_net = is-a-chef.net
+Env.Text.dyndns_hostname_list.is_a_chef_org = is-a-chef.org
+Env.Text.dyndns_hostname_list.is_a_geek_com = is-a-geek.com
+Env.Text.dyndns_hostname_list.is_a_geek_net = is-a-geek.net
+Env.Text.dyndns_hostname_list.is_a_geek_org = is-a-geek.org
+Env.Text.dyndns_hostname_list.isa_geek_com = isa-geek.com
+Env.Text.dyndns_hostname_list.isa_geek_net = isa-geek.net
+Env.Text.dyndns_hostname_list.isa_geek_org = isa-geek.org
+Env.Text.dyndns_hostname_list.kicks_ass_net = kicks-ass.net
+Env.Text.dyndns_hostname_list.kicks_ass_org = kicks-ass.org
+Env.Text.dyndns_hostname_list.merseine_nu = merseine.nu
+Env.Text.dyndns_hostname_list.mine_nu = mine.nu
+Env.Text.dyndns_hostname_list.myphotos_cc = myphotos.cc
+Env.Text.dyndns_hostname_list.podzone_net = podzone.net
+Env.Text.dyndns_hostname_list.podzone_org = podzone.org
+Env.Text.dyndns_hostname_list.scrapping_cc = scrapping.cc
+Env.Text.dyndns_hostname_list.selfip_biz = selfip.biz
+Env.Text.dyndns_hostname_list.selfip_com = selfip.com
+Env.Text.dyndns_hostname_list.selfip_info = selfip.info
+Env.Text.dyndns_hostname_list.selfip_net = selfip.net
+Env.Text.dyndns_hostname_list.selfip_org = selfip.org
+Env.Text.dyndns_hostname_list.servebbs_com = servebbs.com
+Env.Text.dyndns_hostname_list.servebbs_net = servebbs.net
+Env.Text.dyndns_hostname_list.servebbs_org = servebbs.org
+Env.Text.dyndns_hostname_list.serveftp_net = serveftp.net
+Env.Text.dyndns_hostname_list.serveftp_org = serveftp.org
+Env.Text.dyndns_hostname_list.servegame_org = servegame.org
+Env.Text.dyndns_hostname_list.shacknet_nu = shacknet.nu
+
+Env.Text.Desactivated = Désactivé
+Env.Text.UnknownError = Erreur inconnue

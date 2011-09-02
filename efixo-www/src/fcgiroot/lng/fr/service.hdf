@@ -1,0 +1,20 @@
+Env.Page.Title = Applications
+
+Env.Help.Text = L'onglet <b>Applications</b> permet de gérer le partage de votre imprimante et de vos fichiers à l'aide de votre $BOXNAME.
+
+Env.Section.Applications.Value = Applications
+
+Env.Header.FileSharing.Value = Partage de fichiers
+
+Env.Var.samba_state.Value.up = Actif
+Env.Var.samba_state.Value.down = Inactif
+
+Env.Header.PrinterSharing.Value = Partage d'imprimantes
+
+Env.Var.print_server_status.Value.up = Actif
+Env.Var.print_server_status.Value.down = Inactif
+
+Env.Header.MediaServer.Value = Serveur multimédia
+
+Env.Var.upnpav_state.Value.up = Actif
+Env.Var.upnpav_state.Value.down = Inactif

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <dsl status="<?cs var:dsl.status ?>" linemode="<?cs var:dsl.linemode?>" uptime="<?cs var:dsl.uptime?>" counter="<?cs var:dsl.counter?>" crc="<?cs var:dsl.crc?>" noise_down="<?cs var:dsl.noise_down ?>" noise_up="<?cs var:dsl.noise_up ?>" attenuation_down="<?cs var:dsl.attenuation_down ?>" attenuation_up="<?cs var:dsl.attenuation_up ?>" rate_down="<?cs var:dsl.rate_down ?>" rate_up="<?cs var:dsl.rate_up ?>" />
+</rsp>

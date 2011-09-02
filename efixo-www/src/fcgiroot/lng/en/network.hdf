@@ -1,0 +1,50 @@
+Env.Page.Title = Network
+
+#ifdef CIBOX
+Env.Help.Text = In the <b>Ports status</b> section, you can check the status of the different links between your $BOXNAME and the equipments connected to it (computer, set-top box,...), and also the number of active WiFi connections.<br /><br />In the <b>Connected hosts</b> section, you can check the list of equipments currently connected to your $BOXNAME.<br/><br/>In the <b>STB configuration</b> section, you can manually configure the port of $BOXNAME you connected the TV decoder.
+#else
+Env.Help.Text = In the <b>Ports status</b> section, you can check the status of the different links between your $BOXNAME and the equipments connected to it (computer, set-top box,...), and also the number of active WiFi connections.<br /><br />In the <b>Connected hosts</b> section, you can check the list of equipments currently connected to your $BOXNAME.
+#endif
+
+Env.Section.lan_status.Header = Ports status
+
+Env.Var.TVStatus.Header = TV
+Env.Var.TVStatus.Value.up = set-top box
+Env.Var.TVStatus.Value.down = Unused
+
+Env.Var.LinkStatus.Value.up = Actived
+Env.Var.LinkStatus.Value.down = Unused
+
+Env.Var.type.Value.stb = Set-top box
+Env.Var.type.Value.host = Host
+
+Env.Var.USBStatus.Header = USB PC
+Env.Var.USBStatus.Value.up = Actived
+Env.Var.USBStatus.Value.down = Unused
+
+Env.Var.WifiStatus.Header = WiFi
+Env.Var.WifiStatus.Value.on = Actived
+Env.Var.WifiStatus.Value.off = Desactived
+
+Env.Var.WifiCountClient.Value.0 = not active connection
+Env.Var.WifiCountClient.Value.1 = 1 active connection
+Env.Var.WifiCountClient.Value.many = active connections
+
+Env.Section.connected_computers.Header = Connected computers
+
+Env.Var.hostname.Header = Host name
+Env.Var.mac_addr.Header = MAC address
+Env.Var.ip_addr.Header = IP address
+Env.Var.port.Header = Port
+
+#ifdef CIBOX
+Env.Section.stbconfig.Header = STB configuration
+
+Env.Var.stbconfig.Header = Settings
+Env.Var.stbconfig.Value.dynamic = dynamic
+Env.Var.stbconfig.Value.static = custom
+Env.Var.stbconfig.Error.value = Invalid format
+
+Env.Var.stbconfig_iface.Header = Network interface
+Env.Var.stbconfig_iface.Error.value = Invalid format
+#endif

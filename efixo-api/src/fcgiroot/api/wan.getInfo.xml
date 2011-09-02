@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <wan status="<?cs var:wan.status ?>" uptime="<?cs var:wan.uptime ?>" ip_addr="<?cs var:wan.ip_addr ?>" infra="<?cs var:wan.infra?>" />
+</rsp>

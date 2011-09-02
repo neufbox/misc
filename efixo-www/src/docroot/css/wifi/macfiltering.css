@@ -1,0 +1,11 @@
+table#mac_filtering_activation th {
+    width: 153px;
+}
+
+table#mac_filtering_activation td {
+#ifdef CIBOX
+    width: 256px;
+#else
+    width: 166px;
+#endif
+}

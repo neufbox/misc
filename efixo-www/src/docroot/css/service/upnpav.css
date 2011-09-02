@@ -1,0 +1,19 @@
+#table_upnpavconf th {
+    width: 205px;
+}
+
+#table_upnpavconf td {
+    width: 256px;
+}
+
+#col_upnpav_stock_part { 
+    width: 294px;
+}
+
+#col_upnpav_stock_dir { 
+    width: 192px;
+}
+
+#select_upnpav_stock_share { 
+    width: 410px;
+}

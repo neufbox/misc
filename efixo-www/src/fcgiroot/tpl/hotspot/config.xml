@@ -1,0 +1,9 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <hotspot>
+    <enable val="<?cs var:Var.hotspot_enable.Value?>" text="<?cs call:varValueH3n_d('hotspot_enable', 'true')?>" />
+    <active val="<?cs var:Var.hotspot_active.Value?>" text="<?cs call:varValueH3n_d('hotspot_active', 'off')?>" />
+    <status val="<?cs var:Var.hotspot_status.Value?>" text="<?cs call:varValueH3n_d('hotspot_status', 'down')?>" />
+    <ssid val="<?cs var:Var.hotspot_ssid.Value?>" />
+  </hotspot>
+</rsp>

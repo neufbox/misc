@@ -1,0 +1,296 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+    <h1><?cs call:sectionTitle("wan_info")?></h1>
+</div>
+
+<div class="content">
+    <table id="wan_info">
+        <tr>
+            <th scope="row"><?cs call:varHeader("wan_status") ?></th>
+            <td class="<?cs if:Var.wan_status.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>">
+                <?cs call:varValueH3n("wan_status") ?>
+            </td>
+        </tr>
+        
+        <?cs if:Var.infra_name.Value != ""?>
+        <tr>
+            <th scope="row"><?cs call:varHeader("infra_name") ?></th>
+            <td><?cs call:varValueH3n("infra_name") ?></td>
+        </tr>
+        <?cs /if?>
+        
+        <?cs if:Var.wan_status.Value == "up"?>
+        <tr>
+            <th scope="row"><?cs call:varHeader("wan_ipaddr") ?></th>
+            <td><?cs var:Var.wan_ipaddr.Value ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?cs call:varHeader("wan_gateway") ?></th>
+            <td><?cs var:Var.wan_gateway.Value ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?cs call:varHeader("wan_dns_server") ?></th>
+            <td><?cs var:Var.wan_dns_1.Value ?><?cs if:Var.wan_dns_2.Value != ""?>, <?cs var:Var.wan_dns_2.Value?><?cs /if?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?cs call:varHeader("wan_uptime") ?></th>
+            <td>
+                <?cs var:Var.wan_uptime.day.Value ?>  <?cs var:Env.Text.dayAbbr?>
+                <?cs var:Var.wan_uptime.hour.Value ?> <?cs var:Env.Text.hourAbbr?>
+                <?cs var:Var.wan_uptime.min.Value ?> <?cs var:Env.Text.minAbbr?>
+                <?cs var:Var.wan_uptime.sec.Value ?> <?cs var:Env.Text.secAbbr?>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><?cs call:varHeader("infra_proto") ?></th>
+            <td>
+                <?cs call:varValueH3n("infra_proto")?>
+            </td>
+        </tr>
+        <?cs /if?>
+    </table>
+</div>
+
+#ifdef HAVE_IPV6_SUPPORT
+<div class="title">
+    <h1><?cs call:sectionTitle("ipv6_info")?></h1>
+</div>
+
+<div class="content">
+    <table id="ipv6_info">
+
+
+        <tr>
+            <th scope="row"><?cs call:varHeader("wan_status") ?></th>
+            <?cs if:Var.ipv6_enable.Value == "on" || Var.ipv6_lock.Value == "on" ?>
+                <?cs if:Var.ipv6_status.Value == "up" || Var.ipv6_lock.Value == "on" ?>
+                        <?cs set:ipv6_status = "enabled" ?>
+                <?cs else ?>
+                        <?cs set:ipv6_status = "unused" ?>
+                <?cs /if ?>
+            <?cs else ?>
+                <?cs set:ipv6_status = "disabled" ?>
+            <?cs /if ?>
+
+            <td class="<?cs var:ipv6_status ?>">
+                <?cs if:ipv6_status == "enabled" ?><?cs var:Env.Var.ipv6_status.up ?><?cs /if ?>
+                <?cs if:ipv6_status == "unused" ?><?cs var:Env.Var.ipv6_status.noconnect ?><?cs /if ?>
+                <?cs if:ipv6_status == "disabled" ?><?cs var:Env.Var.ipv6_status.down ?><?cs /if ?>
+            </td>
+        </tr>
+
+
+        
+        <?cs if:Var.ipv6_status.Value == "up" ?>
+        <tr>
+            <th scope="row"><?cs call:varHeader("ipv6_prefix") ?></th>
+            <td><?cs var:Var.net_ipv6_prefix.Value ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?cs call:varHeader("wan_gateway") ?></th>
+            <td><?cs var:Var.net_ipv6_ipaddr.Value ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?cs call:varHeader("wan_uptime") ?></th>
+            <td>
+                <?cs var:Var.net_ipv6_uptime.day.Value ?>  <?cs var:Env.Text.dayAbbr?>
+                <?cs var:Var.net_ipv6_uptime.hour.Value ?> <?cs var:Env.Text.hourAbbr?>
+                <?cs var:Var.net_ipv6_uptime.min.Value ?> <?cs var:Env.Text.minAbbr?>
+                <?cs var:Var.net_ipv6_uptime.sec.Value ?> <?cs var:Env.Text.secAbbr?>
+            </td>
+        </tr>
+        <?cs /if?>
+    </table>
+</div>
+#endif
+
+<?cs if:Var.infra_name.Value == "ftth"?>
+    <?cs if:Var.infra_ftth_access.Value == "sfp"?>
+    
+    <div class="title">
+	<h1><?cs call:sectionTitle("infra_ftth_sfp_info")?></h1>
+    </div>
+    
+    <?cs if:Var.infra_ftth_sfp_wavelength.Value != #1310?>
+    <div class="error_notice">
+        <?cs var:Env.Text.warning_wrong_sfp?>
+    </div>
+    <?cs /if?>
+    
+    <div class="content">
+        <table id="ftth_info">
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_ftth_sfp_status") ?></th>
+                <td><?cs call:varValueH3n("infra_ftth_sfp_status") ?></td>
+            </tr>
+            <?cs if:Var.infra_ftth_sfp_status.Value == "up"?>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_ftth_sfp_speed") ?></th>
+                <td><?cs var:Var.infra_ftth_sfp_speed.Value ?></td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_ftth_sfp_wavelength") ?></th>
+                <td><?cs var:Var.infra_ftth_sfp_wavelength.Value ?> nm</td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_ftth_sfp_temperature") ?></th>
+                <td><?cs var:Var.infra_ftth_sfp_temperature.Value ?> &deg;C</td>
+            </tr>
+            <?cs /if?>
+        </table>
+    
+        <?cs if:Var.infra_ftth_sfp_status.Value == "up"?>
+        <a href="/state/wan/extra"><?cs var:Env.Link.SFPStats ?></a>
+        <?cs /if?>
+    </div>
+        
+    <?cs elif:Var.infra_ftth_access.Value == "extern"?>
+    
+    <div class="title">
+	<h1><?cs call:sectionTitle("infra_ftth_extern_info")?></h1>
+    </div>
+    
+    <div class="content">
+        <table id="ftth_info">
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_ftth_extern_status") ?></th>
+                <td><?cs call:varValueH3n("infra_ftth_extern_status") ?></td>
+            </tr>
+            <?cs if:Var.infra_ftth_extern_status.Value == "up"?>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_ftth_extern_speed") ?></th>
+                <td><?cs var:Var.infra_ftth_extern_speed.Value ?></td>
+            </tr>
+            <?cs /if?>
+        </table>
+    </div>
+
+    <?cs else?>
+    
+    <div class="content">
+	<div class="error_notice">
+            <?cs var:Env.Text.warning_no_wanface?>
+	</div>
+    </div>
+
+    <?cs /if?>
+<?cs /if?>
+
+<?cs if:Var.infra_dsl_status.Value == "up" ?>
+    
+    <?cs set:Env.Help.Text = Env.Help.Text.DSL?>
+    
+    <div class="title">
+	<h1><?cs call:sectionTitle("infra_dsl_info")?></h1>
+    </div>
+    
+    <div class="content">
+        <?cs if:Var.infra_dsl_status.Value != "up"?>
+            <?cs var:Env.Text.DSLNoSynchro ?>
+        <?cs else?>
+        <table id="adsl_info">
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_dsl_ratedown") ?></th>
+                <td><?cs var:Var.infra_dsl_ratedown.Value ?>&nbsp;Kbps</td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_dsl_rateup") ?></th>
+                <td><?cs var:Var.infra_dsl_rateup.Value ?>&nbsp;Kbps</td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_dsl_noisedown") ?></th>
+                <td><?cs var:Var.infra_dsl_noisedown.Value ?>&nbsp;dB</td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_dsl_noiseup") ?></th>
+                <td><?cs var:Var.infra_dsl_noiseup.Value ?>&nbsp;dB</td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_dsl_attenuationdown") ?></th>
+                <td><?cs var:Var.infra_dsl_attenuationdown.Value ?>&nbsp;dB</td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_dsl_attenuationup") ?></th>
+                <td><?cs var:Var.infra_dsl_attenuationup.Value ?>&nbsp;dB</td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_dsl_linemode") ?></th>
+                <td><?cs var:Var.infra_dsl_linemode.Value ?></td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_dsl_uptime") ?></th>
+                <td>
+                    <?cs var:Var.infra_dsl_uptime.day.Value ?> <?cs var:Env.Text.dayAbbr?>
+                    <?cs var:Var.infra_dsl_uptime.hour.Value ?> <?cs var:Env.Text.hourAbbr?>
+                    <?cs var:Var.infra_dsl_uptime.min.Value ?> <?cs var:Env.Text.minAbbr?>
+                    <?cs var:Var.infra_dsl_uptime.sec.Value ?> <?cs var:Env.Text.secAbbr?>
+                </td>
+            </tr>
+	</table>
+	<a href="/state/wan/extra"><?cs var:Env.Link.ADSLStats ?></a>
+        <?cs /if?>
+    </div>
+<?cs /if?>
+
+<?cs if:Var.infra_name.Value == "gprs" ?>
+
+    <?cs set:Env.Help.Text = Env.Help.Text.radio?>
+    
+    <div class="title">
+	<h1><?cs var:Env.Section.infra_gprs_info.Title ?></h1>
+    </div>
+
+    <div class="content">
+        <?cs if:Var.wan_status.Value != "up" ?>
+            <?cs var:Env.Text.LinkDown ?>
+        <?cs else?>
+        <table id="gprs_info">
+            <tr>
+                <th scope="row"><?cs call:varHeader("infra_gprs_dbm") ?></th>
+                <td>
+                    <?cs if:Var.infra_gprs_rssi.Value == -1?>
+                        <?cs var:Env.Text.UnknownValue?>
+                    <?cs else?>
+                        <?cs var:Var.infra_gprs_dbm.Value?> dBm
+                    <?cs /if?>
+                </td>
+            </tr>
+        </table>
+        <?cs /if?>
+    </div>
+<?cs /if?>
+
+<?cs if:Var.infra_ppp_status.Value == "up" ?>
+<div class="title">
+    <h1><?cs call:sectionTitle("infra_ppp_info")?></h1>
+</div>
+
+<div class="content">
+    <?cs if:Var.infra_ppp_status.Value != "up"?>
+        <?cs var:Env.Text.LinkDown ?>
+    <?cs else?>
+    <table id="ppp_info">
+        <tr>
+            <th scope="row"><?cs call:varHeader("infra_ppp_ifname") ?></th>
+            <td><?cs var:Var.infra_ppp_ifname.Value ?></td>
+        </tr>
+        <?cs if:Var.infra_ppp_session.Value != ""?>
+        <tr>
+            <th scope="row"><?cs call:varHeader("infra_ppp_session") ?></th>
+            <td><?cs var:Var.infra_ppp_session.Value ?></td>
+        </tr>
+        <?cs /if?>
+        <?cs if:Var.infra_ppp_server.Value != ""?>
+        <tr>
+            <th scope="row"><?cs call:varHeader("infra_ppp_server") ?></th>
+            <td><?cs var:Var.infra_ppp_server.Value ?></td>
+        </tr>
+        <?cs /if?>
+    </table>
+    <?cs /if?>
+</div>
+<?cs /if?>
+
+<?cs include:"tpl/footer.html" ?>

@@ -1,0 +1,51 @@
+#!/bin/sh /etc/rc.common
+
+START=10
+
+system_config() {
+	hostname -F /etc/hostname
+
+	ifconfig lo 127.0.0.1
+
+	[ "$(hostname)" = "nb5" ] && export TZ=CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00
+}
+
+mount_all() {
+	mount -a
+}
+
+load_modules() {
+	[ -d /etc/modules.d ] && {
+		cd /etc/modules.d
+		sed 's/^[^#]/insmod &/' $* | ash 2>&- || :
+	}
+	insmod neufbox_events
+}
+
+topology_prepare() {
+	brctl addbr lan0
+	brctl addbr wan0
+	brctl addbr voip0
+}
+
+start() {
+	system_config
+	mount_all
+
+	mkdir -p /var/adsl
+	mkdir -p /var/run
+	mkdir -p /var/log
+	mkdir -p /var/lock
+	mkdir -p /var/state
+	mkdir -p /var/ppp
+	mkdir -p /var/dhcp
+	chmod a+rw /dev/mtd2
+	chmod a+rwx /tmp
+	mkdir /tmp/autoconf
+
+	topology_prepare
+
+	load_modules /etc/modules.d/*
+
+	ledctl mode boot-rescue 2>/dev/null
+}

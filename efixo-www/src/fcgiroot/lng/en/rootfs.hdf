@@ -1,0 +1,9 @@
+Env.Page.Title = Rootfs
+
+Env.Section.rootfs.Title = Rootfs
+
+Env.Var.rootfs.Header = Change rootfs
+
+Env.Var.rootfs.Value.flash = flash
+Env.Var.rootfs.Value.nfs = nfs
+Env.Var.rootfs.Regex = flash|nfs

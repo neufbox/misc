@@ -1,0 +1,7 @@
+#voip_status th {
+    width: 128px;
+}
+
+#voip_status td {
+    min-width: 256px;
+}

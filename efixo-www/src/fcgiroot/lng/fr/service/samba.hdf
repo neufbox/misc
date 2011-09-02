@@ -1,0 +1,46 @@
+Env.Page.Title = Partage de fichiers Windows (SMB)
+
+Env.Help.Text = Dans la rubrique <b>Partage de fichiers Windows</b> vous pouvez configurer le service de partage de fichiers de votre $BOXNAME. Pour partager des fichiers, vous devez brancher une clé USB ou un disque dur sur le port USB 1 ou 2 de la $BOXNAME. <br /><br />Afin d'éviter la perte de vos données, <b>veillez à éjecter le périphérique avant de le retirer</b> sur la page Etat &rarr; Périphérique ou attendre 30 secondes après la dernière copie effectuée.
+
+Env.Text.PlugUsbKey = Branchez une clé USB sur le port USB 1 ou 2 de votre $BOXNAME pour partager un répertoire
+Env.Text.NoShare = Pas de répertoire partagé
+
+Env.Text.Started = Démarré
+Env.Text.Stopped = Arrêté
+Env.Text.Desactivated = Désactivé
+Env.Text.Starting = Démarrage en cours
+
+Env.Section.SambaServer = Partage de fichiers Windows
+
+Env.Var.samba_status.Header = Statut service
+
+Env.Var.samba_state.Value.up = Démarré
+Env.Var.samba_state.Value.down = Arrêté
+
+Env.Var.samba_codeno.Value.starting = En cours d'initialisation
+Env.Var.samba_codeno.Value.error_internal = Erreur interne
+
+Env.Var.samba_active.Header = Activation partage de fichiers
+Env.Var.samba_active.Value.on = activé
+Env.Var.samba_active.Value.off = désactivé
+Env.Var.samba_active.Error.value = Valeur incorrecte
+
+Env.Var.samba_workgroup.Header = Nom du groupe
+Env.Var.samba_workgroup.Error.value = Valeur incorrecte
+
+Env.Var.samba_name.Header = Nom du service
+Env.Var.samba_name.Error.value = Valeur incorrecte
+
+Env.Section.SambaShare = Dossiers partagés
+
+Env.Var.samba_share_idx.Error.value = Valeur incorrecte
+
+Env.Var.action.Error.value = Valeur incorrecte
+
+Env.Var.samba_stockage_name.Header = Nom du partage
+Env.Var.samba_stockage_name.Error.value = Valeur incorrecte. Les espaces sont interdits et seuls les caractères alphanumériques sont autorisés.
+Env.Var.samba_stockage_name.Error.invalid_name = Ce nom n'est pas autorisé.
+
+Env.Var.samba_stockage_partition.Header = Partition
+Env.Var.samba_stockage_dir.Header = Dossier
+Env.Var.samba_stockage_share.Error.value = Valeur incorrecte

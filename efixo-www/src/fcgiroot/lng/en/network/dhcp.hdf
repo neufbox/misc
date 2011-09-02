@@ -1,0 +1,38 @@
+Env.Page.Title = DHCP
+
+Env.Help.Text = The DHCP server automatically assigns IP address and the address of the nameserver to the equipments connected to your $BOXNAME (computer, game stations,...). These settings usually don't need to be changed.
+
+Env.Section.dhcp_configuration.Title = DHCP server
+
+Env.Form.Error.invalid_ip_range = The ip address range for the dhcp server is invalid
+
+Env.Var.dhcp_active.Header = DHCP
+Env.Var.dhcp_active.Value.on = enabled
+Env.Var.dhcp_active.Value.off = disabled
+Env.Var.dhcp_active.Error.value = Invalid format
+
+Env.Var.dhcp_start.Header = First address
+Env.Var.dhcp_start_p3.Error.value = Invalid format
+Env.Var.dhcp_start_p3.Error.invalid = Invalid IP address
+
+Env.Var.dhcp_end.Header = Last address
+Env.Var.dhcp_end_p3.Error.value = Invalid format
+Env.Var.dhcp_end_p3.Error.invalid = Invalid IP address
+
+Env.Var.dhcp_lease.Header = Lease (in seconds)
+Env.Var.dhcp_lease.Error.value = Invalid format
+
+Env.Section.dhcp_static.Title = Static addresses
+
+Env.Var.dhcp_static_ipaddr.Header = IP address
+Env.Var.dhcp_static_ipaddr.Error.value = Invalid format
+Env.Var.dhcp_static_ipaddr.Error.invalid = Invalid IP address
+Env.Var.dhcp_static_ipaddr.Error.already_use = IP address already in use
+Env.Var.dhcp_static_ipaddr.Error.boxip = You cannot use the ip of the $BOXNAME
+
+Env.Var.dhcp_static_macaddr.Header = MAC address
+Env.Var.dhcp_static_macaddr.Error.value = Invalid format
+Env.Var.dhcp_static_macaddr.Error.invalid = Invalid MAC address
+Env.Var.dhcp_static_macaddr.Error.already_use = MAC address already in use
+
+Env.Text.dhcp_off_warning = Warning ! By Disabling the DHCP server of the $BOXNAME, the STB may not work properly any more.

@@ -1,0 +1,53 @@
+<?cs set:isep1 = string.find(Env.Page.Name, '_')?>
+<?cs if:isep1 != -1?>
+    <?cs set:len = string.length(Env.Page.Name)?>
+    <?cs set:iv1 = string.slice(Env.Page.Name, 0, isep1) ?>
+
+    <?cs set:iv2 = string.slice(Env.Page.Name, isep1 + 1, len) ?>
+    <?cs set:isep2 = string.find(iv2, '_')?>
+    <?cs if:isep2 != -1?>
+        <?cs set:iv2 = string.slice(iv2, 0, isep2) ?>
+    <?cs /if?>
+<?cs else?>
+    <?cs set:iv1 = Env.Page.Name?>
+    <?cs set:iv2 = ""?>
+<?cs /if?>
+
+<div id="menu">
+    
+    <ul>
+        <?cs each:item = Env.Menu ?>
+        <li id="id_<?cs var:name(item) ?>_tab" class="tab_<?cs if:Env.Page.Name.Parent == name(item) ?>on<?cs else ?>off<?cs /if ?>">
+            <a href="/<?cs var:name(item) ?>" title="<?cs var:item.Label ?>"><?cs var:item.Label ?></a>
+        </li>
+        <?cs /each ?>
+        
+        <?cs if:User.authenticated=="1"?>
+        <li id="logout_tab" class="tab_off tab_signoff">
+            <a href="/logout"><?cs var:Button.Signoff?></a>
+        </li>
+        <?cs /if?>
+    </ul>
+    
+</div>
+
+<div id="submenu">
+    
+    <ul>
+        <li class="tab_<?cs if:!?Env.Page.Name.Child || Env.Page.Name.Child == ""?>on<?cs else?>off<?cs /if?>">
+            <a href="/<?cs var:Env.Page.Name.Parent?>" title="<?cs var:Env.Text.General?>"><?cs var:Env.Text.General?></a>
+        </li>
+
+        <?cs each:item = Env.Menu ?>
+        <?cs if:Env.Page.Name.Parent == name(item) ?>
+        <?cs each:subitem = item.SubMenu ?>
+        <li class="tab_<?cs if:Env.Page.Name.Child == name(subitem) ?>on<?cs else ?>off<?cs /if ?>">
+            <a href="/<?cs var:Env.Page.Name.Parent ?>/<?cs var:name(subitem) ?>" title="<?cs var:subitem.Label ?>"><?cs var:subitem.Label ?></a>
+        </li>
+        <?cs /each ?>
+        <?cs /if ?>
+        <?cs /each ?>
+
+    </ul>
+
+</div>

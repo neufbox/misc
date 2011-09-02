@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <printer p910nd_status="<?cs var:printer.p910nd_status ?>" p910nd_bidir="<?cs var:printer.p910nd_bidir?>" />
+</rsp>

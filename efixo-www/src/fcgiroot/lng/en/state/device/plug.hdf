@@ -1,0 +1,4 @@
+Env.Page.Title = Local network statistics
+Env.Section.General.Title = Statistics Devices status
+
+Env.Btn.ShowHideDump.Value = Show / Hide the dump diagnostic

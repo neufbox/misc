@@ -1,0 +1,174 @@
+#!/bin/sh
+
+# Copyright (C) 2009 Efixo
+#  mai 2009 - Anthony Viallard <anthony.viallard@efixo.com>
+#  sept 2009 - Arnaud Andre <arnaud.andre@efixo.com>
+#  oct 2009 - Anthony Viallard <anthony.viallard@efixo.com>
+#
+# launch backup3g when ttyUSB3 is added (it's the last ttyUSB created)
+#
+# YOU MUST EDIT THIS FILE WITH EMACS TO CONSERVE THE CORRECT INDENTATION.
+#
+#            thank you.
+#
+
+TTY_NAME=`basename ${DEVPATH}`
+NB_MAX_TTY="4"
+
+# need services (nbd, ...) to proceed hotplug insertion
+if [ ! -e /var/run/nbd.socket ]; then
+	logger "[TTY] nbd not ready. Coldplug, you have a job"; exit 0;
+fi
+
+#
+# The process
+# -----------
+#
+# add:
+#  -> check the dongle (only few 3g dongles is supported)
+#  -> create human name symlink for each tty
+#  -> when we have all the tty inserted, launch backup3g
+#
+# remove:
+#  ->
+
+case "$ACTION" in
+	add)
+		if [ `status get gprs_device_state` != 'unavailable' ]; then
+			logger "[TTY] Already have gprs device. Exit."
+			exit 0
+		fi
+
+		# compute product and vendor ID
+		PID=`cat /sys${DEVPATH}/../../../idProduct`
+		VID=`cat /sys${DEVPATH}/../../../idVendor`
+		# tweak for 2.6.30 kernel
+		[ -z "$PID" ] && PID=`cat /sys${DEVPATH}/../../../../idProduct`
+		[ -z "$VID" ] && VID=`cat /sys${DEVPATH}/../../../../idVendor`
+
+		# match only ZTE 3g dongle && Huawei
+		DEVPROFILE="unknown"
+
+		if  [ "$VID" = '19d2' ] && [ "$PID" = "0063" -o "$PID" = "2003" ] ; then
+			logger "[TTY] ZTE 3g dongle - MF626"
+			ID_CMD=":1.1"
+			ID_DATA=":1.3"
+			ID_VOICE=":1.2"
+			ID_DIAG=":1.0"
+			DEVPROFILE="zte"
+			NB_MAX_TTY="4"
+		elif  [ "$VID" = '19d2' ] && [ "$PID" = "2002" ] ; then
+			logger "[TTY] ZTE 3g dongle - K3765-Z"
+			ID_CMD=":1.1"
+			ID_DATA=":1.3"
+			ID_VOICE=":1.2"
+			ID_DIAG=":1.0"
+			ID_BONUS=":1.4"
+			DEVPROFILE="zte"
+			NB_MAX_TTY="5"
+		elif [ "$VID" = '12d1' ] && [ "$PID" = "1003" -o "$PID" = "1001" ]; then
+			logger "[TTY] tty of Huawei 3g dongle"
+			ID_CMD=":1.2"
+			ID_DATA=":1.0"
+			ID_VOICE=":1.1"
+			ID_DIAG=":1.3"
+			DEVPROFILE="huawei"
+			NB_MAX_TTY="4"
+		else
+			logger "[TTY] Unrecognized tty VID='$VID' PID ='$PID'"
+			exit 0;
+		fi
+
+		ID=`echo $DEVPATH | sed 's#.*/[0-9]-[0-9]/[^:]*\([^/]*\)/tty.*#\1#'`
+
+		# DOE is an reference to John DOE or Jane DOE
+		TTY_SYM_NAME='ttyDOE'
+		if [ "$ID" = "$ID_CMD" ]; then
+			TTY_SYM_NAME='ttyCMD'
+		elif [ "$ID" = "$ID_DATA" ]; then
+			TTY_SYM_NAME='ttyDATA'
+		elif [ "$ID" = "$ID_VOICE" ]; then
+			TTY_SYM_NAME='ttyVOICE'
+		elif [ "$ID" = "$ID_DIAG" ]; then
+			TTY_SYM_NAME='ttyDIAG'
+		elif [ "$ID" = "$ID_BONUS" ]; then
+			TTY_SYM_NAME='ttyBONUS'
+		else
+			logger "[TTY] Error: Unable to find tty symlink mapping for ID:'$ID' TTY:'$TTY_NAME'"
+		fi
+
+		# --5151515151-- BEGIN PROTECTED ZONE --5151515151--
+		lock /var/lock/backup3g.lock
+
+		mkdir -p /dev/backup3g
+		mkdir -p /var/backupd
+		ln -sf "/dev/${TTY_NAME}" "/dev/backup3g/${TTY_SYM_NAME}"
+		logger "[TTY] Adding ${TTY_NAME}."
+
+		NB_TTY=`ls -l /dev/backup3g/ | wc -l`
+
+		lock -u /var/lock/backup3g.lock
+		# --5151515151-- END PROTECTED ZONE --5151515151--
+
+		# wait the last ttyUSB before launch backup3g
+		if [ "$NB_TTY" != "$NB_MAX_TTY" ]; then
+			logger "[TTY] There is only ${NB_TTY} TTY, wait for ${NB_MAX_TTY} TTY before launch backup3g. Exit."
+			exit 0
+		else
+			logger "[TTY] There are ${NB_TTY} TTY ! continue."
+		fi
+
+		status set gprs_device_profile $DEVPROFILE
+
+		# need to put gprs device status to available before call backup3g script
+		status set gprs_device_state available
+
+		# wait some times before launch backup3g because i love sleep
+		# (and wait the tty sitting comfortably)
+		sleep 1
+
+		logger "[TTY] Starting backup3g"
+
+		nbctl async_run /etc/init.d/backup3g start
+
+		;;
+
+	remove)
+		# remove the correspondant link in /dev/backup3g
+		logger "[TTY] Removing ${TTY_NAME} (/dev/backup3g/`ls -l /dev/backup3g/ | grep ${TTY_NAME} | awk '{print $9}'`)."
+
+		# --5151515151-- BEGIN PROTECTED ZONE --5151515151--
+		lock /var/lock/backup3g.lock
+
+		rm "/dev/backup3g/`ls -l /dev/backup3g/| grep ${TTY_NAME} | awk '{print $9}'`"
+
+		NB_TTY=`ls -l /dev/backup3g/ | wc -l`
+
+		if [ `status get gprs_device_state` == 'available' ]; then
+			logger "[TTY] One tty was removed from the system"
+			# need to put gprs device status to unavailable before call backup3g script
+			status set gprs_link down
+			status set gprs_device_state unavailable
+			status set gprs_device_profile unknown
+			logger "[TTY] Stopping backup3g"
+			nbctl async_run /etc/init.d/backup3g stop
+			lock -u /var/lock/backup3g.lock
+			exit 0
+		fi
+
+		lock -u /var/lock/backup3g.lock
+		# --5151515151-- END PROTECTED ZONE --5151515151--
+
+		# log remaining tty number
+		if [ "$NB_TTY" != "0" ]; then
+			logger "[TTY] There is only ${NB_TTY} TTY(s), waiting for 0 TTY. Exit."
+			exit 0
+		else
+			logger "[TTY] There are ${NB_TTY} TTY ! continue."
+		fi
+
+		# there are no 3g dongle anymore
+		rm -rf /dev/backup3g/
+
+		;;
+esac

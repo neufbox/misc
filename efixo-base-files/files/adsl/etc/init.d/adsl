@@ -1,0 +1,73 @@
+#!/bin/sh /etc/rc.common
+
+do_insmod() {
+
+	if ! insmod $1
+	then
+		logger -s -t insmod -p kern.info "insmod module $1 [FAILED]"
+		nbctl failure "$1 insmod"
+	fi
+
+}
+
+boot() {
+
+	echo " :: adsl boot"
+
+	do_insmod bcmxtmrt
+	do_insmod bcmxtmcfg
+	do_insmod adsldd
+
+	# configure ADSL PHY and start connection
+	dsl start
+
+	xtm start --rq0 $(nvram get atm_pqs)
+
+	xtm operate tdte --add ubr
+	xtm operate intf --state 1 enable
+	xtm operate intf --state 2 enable
+
+	# Generate PVC
+	atm_pvc=$(nvram list_long atm_pvc)
+	for pvc_params in $atm_pvc
+	do
+		# Create PVC
+		pvc_id=$(echo 1.$pvc_params | awk -F ":" '{print $1}')
+		qos="" && [ "$pvc_id" = "1.8.35" ] && qos="qos"
+		logger "xtm operate conn --add $pvc_id aal5 1 llcsnap_eth $qos"
+		xtm operate conn --add $pvc_id aal5 1 llcsnap_eth "$qos"
+
+		# Generate queue
+		pvc_size=$(echo $pvc_params | awk -F ":" '{print $3}')
+		pvc_queues=$(echo $pvc_params | awk -F ":" '{print $2}' | sed 's/-/ /g')
+
+		addqueue=
+		for queue in $pvc_queues
+		do
+			addqueue="$addqueue --addq $pvc_id $pvc_size $queue"
+		done
+
+		logger "xtm operate conn $addqueue"
+		xtm operate conn $addqueue
+
+		# Create net devices
+		nas_ifname=$(echo $pvc_id | awk -F "." '{print "nas_"$2"_"$3}')
+		logger "xtm operate conn --createnetdev $pvc_id $nas_ifname"
+		xtm operate conn --createnetdev $pvc_id $nas_ifname
+	done
+
+	[ "$(uname -r)" != "2.6.21.7" ] && {
+		# create macvlan on nas_8_35
+		nas_ifname=nas_8_35
+		logger "create macvlan 0 @$nas_ifname"
+		ip link add link $nas_ifname name mv0 type macvlan
+		ip link set mv0 multicast off
+		logger "create macvlan 1 @$nas_ifname"
+		ip link add link $nas_ifname name mv1 type macvlan
+		logger "create macvlan 2 @$nas_ifname"
+		ip link add link $nas_ifname name mv2 type macvlan
+		ip link set mv2 multicast off
+	}
+
+	rm -f /var/adsl/*
+}

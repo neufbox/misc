@@ -1,0 +1,9 @@
+Env.Page.Title = Ligne ADSL
+
+Env.Help.Text = Dans la rubrique <b>Optimisation ADSL</b>, trois configurations sont possibles :<br /><br /><i>Automatique</i>, le réseau et la $BOXNAME établissent <b>le meilleur compromis entre la qualité, la stabilité et le débit</b> de votre ligne ADSL.<br /><br /><i>Secours</i>, la $BOXNAME est paramétrée dans un mode de compatibilité maximisant les chances d'obtenir la connexion Internet. <b>Ce mode doit être utilisé sur recommandation du Service Clientèle uniquement.</b><br /><br /><i>Manuel</i>, en fonction de l'utilisation de votre ligne ADSL, vous pouvez personnaliser les paramètres de débit et de stabilité pour votre connexion.<br /><br /><b>Conseils</b>, si vous utilisez principalement le service de télévision HD, privilégiez la stabilité de votre ligne ADSL. <b>Si vous rencontrez des dysfonctionnements, utilisez la configuration automatique.</b>
+
+Env.Section.ADSLoptimise.Title = Optimisation ADSL
+
+Env.Text.ADSLauto.Header = Automatique (recommandé)
+Env.Text.ADSLrescue.Header = Secours (à n'utiliser que sur demande de votre service client)
+Env.Text.ADSLmanual.Header = Manuel

@@ -1,0 +1,5 @@
+root::0:root
+admin::1:admin
+diag::2:diag
+fabprocess::10:fabprocess
+nogroup:x:65534:

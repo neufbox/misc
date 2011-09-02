@@ -1,0 +1,24 @@
+#!/bin/sh
+
+logger -s -t PPP_STATUS -p local1.info "ppp/adsl DOWN :("
+
+status set ppp_adsl_session ""
+status set ppp_adsl_server ""
+status set ppp_adsl_ifname ""
+status set ppp_adsl_ipaddr ""
+status set ppp_adsl_gateway ""
+status set ppp_adsl_dns ""
+status set ppp_adsl_status "down"
+event notify 'ppp_adsl-down'
+
+/etc/init.d/qos o3_stop
+/etc/init.d/qos stop
+
+rm -f /var/ppp/resolv.conf.adsl
+
+[ -d /etc/ppp/ip-down.d ] && {
+	for SCRIPT in /etc/ppp/ip-down.d/*
+	do
+		[ -x "$SCRIPT" ] && "$SCRIPT" "$@"
+	done
+}

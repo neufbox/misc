@@ -1,0 +1,6 @@
+Env.Page.Title = Mise à jour
+
+Env.Help.Text = Mise à jour
+
+Env.Section.update_info.Title = Mise à jour
+Env.Text.Updating = Mise à jour du logiciel interne de votre $BOXNAME en cours. Merci de patienter.

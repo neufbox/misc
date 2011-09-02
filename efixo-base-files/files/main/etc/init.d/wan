@@ -1,0 +1,40 @@
+#!/bin/sh /etc/rc.common
+
+boot() {
+	# IGMP DSCP/MARK
+	iptables -t mangle -A OUTPUT -p tcp -m dscp --dscp 0x2d -j MARK --set-mark 3
+	iptables -t mangle -A OUTPUT -p udp -m dscp --dscp 0x2d -j MARK --set-mark 3
+
+	# Femtocell
+	[ -e /etc/init.d/adsl ] && {
+		femto_port=`nvram get femto_port`
+		for gw in `nvram list_long femto_gateway`
+		do
+			iptables -t mangle -A FORWARD -p udp -d ${gw} -m udp --dport  ${femto_port} -j MARK --set-mark 3
+		done
+	}
+
+	start
+}
+
+start() {
+	[ ! -e "/etc/init.d/adsl" ] && exit 0
+
+	dhcpc_voip_ifname=$(nvram get dhcpc_voip_ifname)
+
+	# setup local lan IP address
+	lan_ipaddr=$(nvram get lan_ipaddr)
+	lan_netmask=$(nvram get lan_netmask)
+	IPADDR=${lan_ipaddr}
+	eval $(ipcalc -np ${lan_ipaddr} ${lan_netmask})
+
+	iptables -D INPUT -i ${dhcpc_voip_ifname} -m state --state NEW -s ${NETWORK}/${PREFIX} -j LAN_FILTER 2>/dev/null
+}
+
+stop() {
+	[ ! -e "/etc/init.d/adsl" ] && exit 0
+
+	dhcpc_voip_ifname=$(nvram get dhcpc_voip_ifname)
+
+	ip addr flush dev ${dhcpc_voip_ifname}
+}

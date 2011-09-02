@@ -1,0 +1,36 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs set:js = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+        <h1 class="large"><?cs var:Env.Section.General.Title ?></h1>
+</div>
+
+<div class="content">	
+        <form id="form_cpl" action="<?cs var:Env.Page.Name ?>" method="post">
+                <p><select id="cpl_master" name="cpl_master">
+                                <?cs each:host = Var.hosts ?>
+                                <option value="<?cs var:host.mac.Value ?>" <?cs if:Var.cpl_master_selected.Value == host.mac.Value ?>selected="selected"<?cs /if ?> ><?cs var:host.mac.Value ?></option>
+                                <?cs /each ?>
+                        </select>
+                        <span>et</span>
+                        <select id="cpl_slave" name="cpl_slave">
+                                <?cs each:host = Var.hosts ?>
+                                <option value="<?cs var:host.mac.Value ?>" <?cs if:Var.cpl_slave_selected.Value == host.mac.Value ?>selected="selected"<?cs /if ?>><?cs var:host.mac.Value ?></option>
+                                <?cs /each ?>
+                        </select>
+                        <input type="submit" value="OK" />
+
+                </p>
+                
+                <pre><?cs var:Var.CPL_plugs_speed.Value ?></pre>
+                <pre><?cs var:Var.CPL_plugs_rate.Value ?></pre>
+                
+                <button id="toggle_display_pre" type="button"><?cs var:Env.Btn.ShowHideDump.Value ?></button>
+                <pre id="xy"><?cs each:part = Var.CPL_plugs ?><?cs var:part.Value?><?cs /each?></pre>
+                
+
+        </form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

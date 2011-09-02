@@ -1,0 +1,38 @@
+#ifdef NB5
+Env.Page.Title = SFP information
+
+Env.Section.SFP_infos.Title = Detailled information on the SFP
+
+Env.Var.sfp_wavelength.Header = Wavelength
+Env.Var.sfp_vendor_name.Header = Vendor name
+Env.Var.sfp_vendor_pn.Header = Product ID
+Env.Var.sfp_vendor_rev.Header = Revision
+Env.Var.sfp_extended_serial_number.Header = Serial number
+
+Env.Section.SFP_monitoring.Title = SFP status
+
+Env.Var.sfp_monitoring_temperature.Header = Temperature
+Env.Var.sfp_monitoring_vcc.Header = Vcc current
+Env.Var.sfp_monitoring_bias.Header = BIAS
+Env.Var.sfp_monitoring_tx_power.Header = Tx power
+Env.Var.sfp_monitoring_rx_power.Header = Rx power
+Env.Var.sfp_monitoring_logic_status.Header = Logic status
+
+Env.Text.warning_wrong_sfp = You are not using the correct SFP! The wavelength should be 1310 nm !
+Env.Text.warning_no_sfp = SFP not detected.
+
+#else
+Env.Page.Title = DSL information
+
+Env.Help.Text = Here you can check the statistics concerning your DSL line.
+
+Env.Section.ADSLStat.Title = DSL line statistics
+
+Env.Section.ADSLDiag.Title = DSL line diagnosis
+
+Env.Section.ADSLVoltage.Title = DSL line current
+
+Env.Text.NoLine = DSL line not detected
+#endif
+
+Env.Btn.ShowHideDump.Value = Show / Hide the dump diagnostic

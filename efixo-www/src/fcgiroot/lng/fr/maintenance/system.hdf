@@ -1,0 +1,19 @@
+Env.Page.Title = Système
+
+Env.Help.Text = Sur cette page, vous pouvez redémarrer et gérer les paramètres de configuration de votre $BOXNAME.
+
+Env.Section.reboot.Title = Redémarrage
+
+Env.Var.rebootbox.Header = Redémarrer votre $BOXNAME
+
+Env.Section.Params.Title = Paramètres de configuration
+
+Env.Var.paramexport.Header = Exporter mes paramètres
+Env.Var.paramimport.Header = Importer mes paramètres
+Env.Var.paramrestore.Header = Restaurer les paramètres par défaut
+
+Env.Section.extended_infos.Title = Informations
+
+Env.Var.webui_version.Header = Version de l'interface Web
+
+Env.Form.Error.import_failed = L'importation du fichier de configuration a echoué.

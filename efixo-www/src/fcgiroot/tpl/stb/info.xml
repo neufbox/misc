@@ -1,0 +1,49 @@
+<info>
+    <iad>
+        <mainversion><?cs var:Var.version_mainfirmware.Value?></mainversion>
+        <rescueversion><?cs var:Var.version_rescuefirmware.Value?></rescueversion>
+        <productid><?cs var:Var.productID.Value?></productid>
+        <macaddr><?cs var:Var.mac_addr.Value?></macaddr>
+        <infra><?cs var:Var.net_infra.Value?></infra>
+        <mode><?cs var:Var.net_mode.Value?></mode>
+        <uptime><?cs var:Var.uptime.Value?></uptime>
+    </iad>
+    <dsl>
+        <status><?cs var:Var.dsl_status.Value?></status>
+        <downstreamrate><?cs var:Var.dsl_downstreamrate.Value?></downstreamrate>
+        <upstreamrate><?cs var:Var.dsl_upstreamrate.Value?></upstreamrate>
+        <downstreamnoise><?cs var:Var.dsl_downstreamnoise.Value?></downstreamnoise>
+        <upstreamnoise><?cs var:Var.dsl_upstreamnoise.Value?></upstreamnoise>
+        <downstreamattenuation><?cs var:Var.dsl_downstreamattn.Value?></downstreamattenuation>
+        <upstreamattenuation><?cs var:Var.dsl_upstreamattn.Value?></upstreamattenuation>
+        <linemode><?cs var:Var.dsl_linemode.Value?></linemode>
+        <crc><?cs var:Var.dsl_crc.Value?></crc>
+        <uptime><?cs var:Var.dsl_uptime.Value?></uptime>
+        <counter><?cs var:Var.dsl_counter.Value?></counter>
+        <profile><?cs var:Var.dsl_profile.Value?></profile>
+    </dsl>
+    <ppp>
+        <status><?cs var:Var.ppp_status.Value?></status>
+        <uptime><?cs var:Var.ppp_uptime.Value?></uptime>
+        <counter><?cs var:Var.ppp_counter.Value?></counter>
+        <server><?cs var:Var.ppp_server.Value?></server>
+        <ipaddr><?cs var:Var.ppp_ipaddr.Value?></ipaddr>
+        <gateway><?cs var:Var.ppp_gateway.Value?></gateway>
+    </ppp>
+    <voip>
+        <linestatus><?cs var:Var.voip_linestatus.Value?></linestatus>
+        <hookstatus><?cs var:Var.voip_hookstatus.Value?></hookstatus>
+    </voip>
+    <lan>
+        <?cs each:host = Var.lan_hosts?>
+        <client>
+            <name><?cs var:host.name.Value?></name>
+            <mac><?cs var:host.mac.Value?></mac>
+            <ip><?cs var:host.ip.Value?></ip>
+            <port><?cs var:host.port.Value?></port>
+        </client>
+        <?cs /each?>
+        <ipaddr><?cs var:Var.lan_ipaddr.Value?></ipaddr>
+        <netmask><?cs var:Var.lan_netmask.Value?></netmask>
+    </lan>
+</info>

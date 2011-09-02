@@ -1,0 +1,14 @@
+#!/bin/sh /etc/rc.common
+
+START=11
+
+start() {
+	mkdir -p /etc/config
+	if ! mount -t jffs2 /dev/mtdblock-config /etc/config || test -n "`dmesg | grep 'Magic bitmask'`"
+	then
+    		echo "WARNING! mount config failed"
+    		flash_eraseall -j /dev/mtd-config
+    		mount -t jffs2 /dev/mtdblock-config /etc/config
+	fi
+}
+

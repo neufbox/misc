@@ -1,0 +1,19 @@
+#!/bin/sh
+
+logger -s -t PPP_STATUS -p local1.info "ppp/ipv6 DOWN :("
+
+status set ppp_ipv6_session ""
+status set ppp_ipv6_server ""
+status set ppp_ipv6_ifname ""
+status set ppp_ipv6_status "down"
+
+[ -d /etc/ppp/ip-down.d ] && {
+	for SCRIPT in /etc/ppp/ip-down.d/*
+	do
+		[ -x "$SCRIPT" ] && "$SCRIPT" "$@"
+	done
+}
+
+
+logger -s -t PPP_STATUS -p local1.info "stop dhcpv6 && radvd"
+/etc/init.d/ipv6 stop

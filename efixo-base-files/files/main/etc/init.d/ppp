@@ -1,0 +1,29 @@
+#!/bin/sh /etc/rc.common
+
+ADSL_PID_FILE=/var/run/ppp_adsl-wrapper.pid
+GPRS_PID_FILE=/var/run/ppp_gprs-wrapper.pid
+
+boot() {
+	[ -d /etc/adsl ] && wrapper -t ppp_adsl -p ${ADSL_PID_FILE}
+	wrapper -t ppp_gprs -p ${GPRS_PID_FILE}
+}
+
+start() {
+	reload
+}
+
+stop() {
+	reload
+}
+
+restart() {
+	killall pppd
+	reload
+}
+
+reload() {
+	pidfile=${ADSL_PID_FILE}
+	[ -e ${pifdile} ] && kill -HUP $(cat ${pidfile})
+	pidfile=${GPRS_PID_FILE}
+	[ -e ${pifdile} ] && kill -HUP $(cat ${pidfile})
+}

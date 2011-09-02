@@ -1,0 +1,85 @@
+#!/bin/sh
+
+[ "${INTERFACE}" != "tun0" ] && exit 0
+
+PRIO=1000
+hotspot_net=$(nvram get hotspot_net)
+hotspot_ifname=$(nvram get hotspot_ifname)
+localip=192.168.2.1
+
+
+firewall_setup() {
+	hotspot_ifname=$(nvram get hotspot_ifname)
+
+
+	# INPUT filter
+	iptables -N HOTSPOT_FILTER
+
+	# Prevent from local http query
+	iptables -A HOTSPOT_FILTER -i ${INTERFACE} -d ${localip} -p tcp -m tcp --dport 80 -j DROP
+	# Open UAM port
+	iptables -A HOTSPOT_FILTER -i ${INTERFACE} -p tcp -m tcp --dport 3990 -j ACCEPT
+	# BOOTPS
+	iptables -A HOTSPOT_FILTER  -i ${hotspot_ifname} -p udp -m udp --dport 67 -j ACCEPT
+
+	iptables -A INPUT -m state --state NEW -j HOTSPOT_FILTER
+
+
+	# FORWARD filter
+	iptables -N HOTSPOT_FILTER_FWD
+	# always accept domain, http, https
+	iptables -A HOTSPOT_FILTER_FWD -p udp -m udp --dport 53 -j ACCEPT
+	iptables -A HOTSPOT_FILTER_FWD -p tcp -m tcp --dport 80 -j ACCEPT
+	iptables -A HOTSPOT_FILTER_FWD -p tcp -m tcp --dport 443 -j ACCEPT
+	# other ports needs AUTH
+
+	iptables -A FORWARD -i ${hotspot_ifname} -j DROP
+	iptables -A FORWARD -i ${INTERFACE} -m state --state NEW -j HOTSPOT_FILTER_FWD
+}
+
+firewall_cleanup() {
+	# INPUT filter
+	iptables -D INPUT -m state --state NEW -j HOTSPOT_FILTER
+	iptables -F HOTSPOT_FILTER
+	iptables -X HOTSPOT_FILTER
+
+	# FORWARD filter
+	iptables -D FORWARD -i ${INTERFACE} -m state --state NEW -j HOTSPOT_FILTER_FWD
+	iptables -F HOTSPOT_FILTER_FWD
+	iptables -X HOTSPOT_FILTER_FWD
+}
+
+route_setup() {
+	ip rule add priority ${PRIO} from ${hotspot_net} lookup hotspot_t
+	ip route add ${hotspot_net} dev ${INTERFACE} table hotspot_t
+	ip route add default via $(status get net_data_gateway) table hotspot_t
+}
+
+route_cleanup() {
+	ip route flush table hotspot_t
+	ip rule del from ${hotspot_net} lookup hotspot_t
+}
+
+qos_setup() {
+	/etc/init.d/qos fon
+	iptables -t mangle -A POSTROUTING -s ${hotspot_net} -j TOS --set-tos 0x02
+}
+
+qos_cleanup() {
+	iptables -t mangle -D POSTROUTING -s ${hotspot_net} -j TOS --set-tos 0x02
+	/etc/init.d/qos fon_stop
+}
+
+case "$ACTION" in
+	add|register)
+		firewall_setup
+		route_setup
+		qos_setup
+	;;
+	remove|unregister)
+		qos_cleanup
+		route_cleanup
+		firewall_cleanup
+	;;
+esac
+

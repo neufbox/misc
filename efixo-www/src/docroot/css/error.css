@@ -1,0 +1,15 @@
+#sitemap li {
+    list-style-type: disc;
+    margin-top: 10px;
+    margin-left: 25px;
+}
+
+#sitemap li ul {
+    font-size: 90%;
+}
+
+#sitemap li ul li {
+    list-style-type: circle;
+    margin-top: 0;
+    margin-left: 25px;
+}

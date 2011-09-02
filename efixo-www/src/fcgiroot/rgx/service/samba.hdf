@@ -1,0 +1,7 @@
+Env.Var.samba_active.Regex = ^(on|off)$
+Env.Var.samba_workgroup.Regex = ^[a-zA-Z0-9 ]{2,32}$
+Env.Var.samba_name.Regex = ^[a-zA-Z0-9 ]{2,32}$
+Env.Var.samba_share_idx.Regex = ^[0-9]{1,8}$
+Env.Var.action.Regex = ^(editconf|delshare|addshare)$
+Env.Var.samba_stockage_name.Regex = ^[a-zA-Z0-9]{1,32}$
+Env.Var.samba_stockage_share.Regex = ^[\-a-zA-Z0-9]{8,36},[^,]{1,256}$

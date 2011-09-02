@@ -1,0 +1,9 @@
+#!/bin/sh /etc/rc.common
+
+boot() {
+	case "`hostname`" in
+		nb6)
+			rtk-switch init
+			;;
+	esac
+}

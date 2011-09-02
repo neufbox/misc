@@ -1,0 +1,21 @@
+#!/bin/sh
+
+logger -s -t PPP_STATUS -p local1.info "ppp/gprs DOWN :("
+
+status set ppp_gprs_session ""
+status set ppp_gprs_server ""
+status set ppp_gprs_ifname ""
+status set ppp_gprs_ipaddr ""
+status set ppp_gprs_gateway ""
+status set ppp_gprs_dns ""
+status set ppp_gprs_status "down"
+event notify 'ppp_gprs-down'
+
+rm -f /var/ppp/resolv.conf.gprs
+
+[ -d /etc/ppp/ip-down.d ] && {
+	for SCRIPT in /etc/ppp/ip-down.d/*
+	do
+		[ -x "$SCRIPT" ] && "$SCRIPT" "$@"
+	done
+}

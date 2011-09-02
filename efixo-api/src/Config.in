@@ -1,0 +1,53 @@
+# Webui configuration
+
+menu "Pimp my api"
+
+depends on PACKAGE_efixo-api
+
+config efixo-www-api-ctl-backup3g
+       bool "Backup 3g ctl"
+       default y
+
+config efixo-www-api-ctl-dsl
+       bool "Dsl ctl"
+       default y
+
+config efixo-www-api-ctl-firewall
+       bool "Firewall ctl"
+       default y
+
+config efixo-www-api-ctl-hotspot
+       bool "Hotspot ctl"
+       default y
+
+config efixo-www-api-ctl-lan
+       bool "Lan ctl"
+       default y
+
+config efixo-www-api-ctl-ppp
+       bool "PPP ctl"
+       default y
+config efixo-www-api-ctl-printer
+       bool "printer ctl"
+       default y
+config efixo-www-api-ctl-storage
+       bool "storage ctl"
+       default y
+
+config efixo-www-api-ctl-system
+       bool "System ctl"
+       default y
+
+config efixo-www-api-ctl-voip
+       bool "Voip ctl"
+       default y
+
+config efixo-www-api-ctl-wan
+       bool "Wan ctl"
+       default y
+
+config efixo-www-api-ctl-wlan
+       bool "Wlan ctl"
+       default y
+
+endmenu

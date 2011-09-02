@@ -1,0 +1,212 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<?cs def:date(weekday, monthday, month, year, hour) ?>
+  <?cs var:Env.Text.Weekday[weekday]?> <?cs var:monthday?> <?cs var:Env.Text.Month[month]?> <?cs var:year?> <?cs var:Env.Text.to?> <?cs var:hour?>
+<?cs /def ?>
+
+<?cs def:time(length, direction)?>
+  <?cs if:#length == -1?>
+    <?cs if:direction == "outgoing"?>
+      <b><?cs var:Env.Text.NoResponseCall?></b>
+    <?cs else?>
+      <b><?cs var:Env.Text.MissedCall?></b>
+    <?cs /if?>
+  <?cs else?>
+    <?cs if:#length / 60 > 0?>
+      <?cs set:lengthApprox = (#length + #59) / 60?>
+      ~ <?cs var:lengthApprox?> <?cs var:Env.Text.minute?><?cs if:lengthApprox > 1?>s<?cs /if?>
+    <?cs else?>
+      &lt; 1 <?cs var:Env.Text.minute?>
+    <?cs /if?>
+
+  <?cs /if?>
+<?cs /def?>
+
+<?cs if:Var.voip_daastatus.Value == "ko"?>
+<div class="warning_notice">
+	<?cs var:Env.Text.voip_daa_ko?>
+</div>
+<?cs /if?>
+
+<?cs if:Var.voip_slicstatus.Value == "ko"?>
+<div class="warning_notice">
+	<?cs var:Env.Text.voip_slic_ko?>
+	<b><?cs call:varValueH3n("voip_slicerrnum")?></b>
+</div>
+<?cs /if?>
+
+<?cs if:Var.eco_led_active.Value == "off" ?>
+<div class="warning_notice"><?cs var:Env.Var.warning_led ?></div>
+<?cs /if ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.voip_status.Title ?></h1>
+</div>
+
+<div class="content">
+
+	<table id="voip_status">
+		<tr>
+			<th scope="row"><?cs call:varHeader("voip_linestatus") ?></th>
+			<td id="voip_linestatus" class="<?cs if:Var.voip_linestatus.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>">
+			        <?cs call:varValueH3n_d("voip_linestatus", "down")?>
+                                
+                                <?cs if:Var.voip_access.Value == "gprs" ?>
+                                        (<?cs var:Env.Var.voip_access.Value.gprs ?>)
+                                <?cs /if ?>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("voip_hookstatus") ?></th>
+			<td id="voip_hookstatus" class="<?cs if:Var.voip_hookstatus.Value == "unknown" ?>unused<?cs else ?>enabled<?cs /if ?>">
+				<?cs call:varValueH3n("voip_hookstatus")?>
+			</td>
+		</tr>
+	</table>
+
+</div>
+
+<div class="title">
+	<h1><?cs var:Env.Section.voip_history.Title ?></h1>
+</div>
+
+<div class="content">
+
+	<form method="post" action="<?cs var:Env.Page.Name ?>" id="form_conf_history">
+	
+	<input type="hidden" name="action" value="conf" />
+	
+	<table id="table_callhistoryconf">
+		<tr>
+			<th scope="row"><?cs call:varHeader("callhistory_active")?></th>
+			<td>
+				<input type="radio" value="on" name="callhistory_active" id="callhistory_active_on"<?cs if:Var.CallHistoryActive.Value == "on" ?> checked="checked"<?cs /if ?> />
+				<label for="callhistory_active_on"><?cs var:Env.Var.callhistory_active.Value.on?></label>
+				<input type="radio" value="off" name="callhistory_active" id="callhistory_active_off"<?cs if:Var.CallHistoryActive.Value == "off" ?> checked="checked"<?cs /if ?> />
+				<label for="callhistory_active_off"><?cs var:Env.Var.callhistory_active.Value.off?></label>
+			</td>
+			<td class="col_action">
+			        <div id="div_button_submit" class="button_submit">
+					<button type="submit" name="submit_button"><?cs var:Button.Submit ?></button>
+				</div>
+			</td>
+		</tr>
+	</table>
+	
+	</form>
+	
+	<table id="call_history_list"<?cs if:Var.CallHistoryActive.Value == "off" ?> style="display: none;"<?cs /if?>>
+		<thead>
+			<tr>
+				<th scope="col"><?cs call:varHeader("voip_call_direction") ?></th>
+				<th scope="col"><?cs call:varHeader("voip_call_type") ?></th>
+				<th scope="col"><?cs call:varHeader("voip_call_number") ?></th>
+				<th scope="col"><?cs call:varHeader("voip_call_length") ?></th>
+				<th scope="col"><?cs call:varHeader("voip_call_date") ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?cs if:subcount(Var.call_list) > 0?>
+			<?cs each:call = Var.call_list ?>
+			<tr>
+				<td>
+					<?cs if:call.direction.Value == "incoming" ?>
+					<?cs if:call.length.Value == -1 || call.length.Value == 0?>
+					<img src="/img/icon_call_missed.png"
+					     alt="<?cs var:Env.Var.voip_call_direction.Value.missedIncoming?>"
+					     title="<?cs var:Env.Var.voip_call_direction.Value.missedIncoming?>" />
+					<?cs else?>
+					<img src="/img/icon_call_incoming.png"
+					     alt="<?cs var:Env.Var.voip_call_direction.Value.incoming?>"
+					     title="<?cs var:Env.Var.voip_call_direction.Value.incoming?>" />
+					<?cs /if?>
+					<?cs else?>
+					<img src="/img/icon_call_outgoing.png"
+					     alt="<?cs var:Env.Var.voip_call_direction.Value.outgoing?>"
+					     title="<?cs var:Env.Var.voip_call_direction.Value.outgoing?>" />
+					<?cs /if?>
+				</td>
+				<td>
+					<?cs if:call.type.Value == "pstn" ?>
+					<?cs var:Env.Var.voip_call_type.Value.pstn?>
+					<?cs elif:call.type.Value == "radio"?>
+					<?cs var:Env.Var.voip_call_type.Value.radio?>
+					<?cs else?>
+					<?cs var:Env.Var.voip_call_type.Value.voip?>
+					<?cs /if?>
+				</td>
+				<td>
+					<?cs if:call.number.Value == ""?><i><?cs var:Env.Text.UnknownNumber?></i><?cs else?><?cs var:call.number.Value?><?cs /if?>
+				</td>
+				<td>
+					<?cs call:time(call.length.Value, call.direction.Value)?>
+				</td>
+				<td>
+					<?cs call:date(call.date.weekday.Value, call.date.monthday.Value, call.date.month.Value, call.date.year.Value, call.date.hour.Value)?>
+				</td>
+			</tr>
+			<?cs /each?>
+			<?cs else?>
+			<tr>
+				<td colspan="5" align="center">
+					<?cs var:Env.Text.NoInputInCallHistory?>
+				</td>
+			</tr>
+			<?cs /if?>
+		</tbody>
+	</table>
+
+	<?cs if:subcount(Var.call_list) > 0?>
+	<form method="post" action="<?cs var:Env.Page.Name ?>" id="form_cleanup_history"<?cs if:Var.CallHistoryActive.Value == "off" ?> style="display: none;"<?cs /if?>>
+	
+	<input type="hidden" name="action" value="cleanup" />
+		
+        <div id="div_button_cleanup_history" class="button_submit">
+		<button type="submit" name="submit_button"><?cs var:Button.CleanupHistory ?></button>
+	</div>
+		
+	</form>
+	<?cs /if?>
+</div>
+
+
+<div class="title">
+	<h1><?cs var:Env.Section.voip_led_notification.Title ?></h1>
+</div>
+
+<div class="content">
+	<?cs if:Var.leds_state.Value == "off" && Var.voip_usermissedcall.Value == "on"?>
+	<div class="warning_notice">
+		<?cs var:Env.Text.WarningLedOff?>
+	</div>
+	<?cs /if?>
+	
+	<form method="post" action="<?cs var:Env.Page.Name ?>" id="form_conf_led_notification">
+	
+	<input type="hidden" name="action" value="led_notification" />
+	
+	<table id="table_led_notification_conf">
+		<tr>
+			<th scope="row"><?cs call:varHeader("led_notification_active")?></th>
+			<td>
+				<input type="radio" value="on" name="led_notification_active" id="led_notification_active_on"<?cs if:Var.voip_usermissedcall.Value == "on" ?> checked="checked"<?cs /if ?> />
+				<label for="led_notification_active_on"><?cs var:Env.Var.led_notification_active.Value.on?></label>
+				<input type="radio" value="off" name="led_notification_active" id="led_notification_active_off"<?cs if:Var.voip_usermissedcall.Value == "off" ?> checked="checked"<?cs /if ?> />
+				<label for="led_notification_active_off"><?cs var:Env.Var.led_notification_active.Value.off?></label>
+			</td>
+			<td class="col_action">
+			        <div class="button_submit">
+					<button type="submit" name="submit_button"><?cs var:Button.Submit ?></button>
+				</div>
+			</td>
+		</tr>
+	</table>
+	
+	</form>
+</div>
+
+
+<?cs include:"tpl/footer.html" ?>
+

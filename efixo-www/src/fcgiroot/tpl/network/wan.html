@@ -1,0 +1,67 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+    <h1><?cs var:Env.Section.profil.Title ?></h1>
+</div>
+
+<div class="content">
+    <form method="post" id="form_net_config" action="<?cs var:Env.Page.Name ?>">
+
+    <table id="net_config">
+    <tr id="row_ppp_login"<?cs if:(Var.NetMode.Value == "bridge") ?> style="display: none;"<?cs /if ?>>
+        <th scope="row"><?cs var:Env.Var.ppp_login.Header ?></th>
+        <td>
+            <input type="text" 
+                   name="ppp_login" 
+                   class="<?cs if:?Var.ppp_login.Error?>error<?cs else?>text<?cs /if?>"
+                   id="ppp_login" 
+                   size="64" 
+                   maxlength="64" 
+                   value="<?cs var:Var.ppp_login.Value ?>" />
+
+            <?cs if:?Var.ppp_login.Error ?>
+            <div class="error">
+                <?cs var:Env.Var.ppp_login.Error[Var.ppp_login.Error] ?>
+            </div>
+            <?cs /if ?>
+        </td>
+    </tr>
+    <tr id="row_ppp_password"<?cs if:(Var.NetMode.Value == "bridge") ?> style="display: none;"<?cs /if ?>>
+        <th scope="row"><?cs var:Env.Var.ppp_password.Header ?></th>
+        <td>
+            <input type="password"
+                   name="ppp_password" 
+                   class="<?cs if:?Var.ppp_password.Error?>error<?cs else?>text<?cs /if?>" 
+                   id="ppp_password" 
+                   size="64" 
+                   maxlength="64" 
+                   value="<?cs var:Var.ppp_password.Value ?>" />
+			    
+            <?cs if:?Var.ppp_password.Error ?>
+            <div class="error">
+                <?cs var:Env.Var.ppp_password.Error[Var.ppp_password.Error] ?>
+            </div>
+            <?cs /if ?>
+        </td>
+    </tr>
+
+#ifdef HAVE_IPV6_SUPPORT
+    <tr id="row_ipv6">
+        <th scope="row"><?cs var:Env.Var.mode_ipv6.Value ?></th>
+        <td>
+            <input type="radio" name="ipv6_enable" id="ipv6_mode_enable" value="on" <?cs if:Var.ipv6_enable.Value == "on" || Var.ipv6_lock.Value == "on" ?>checked="checked"<?cs /if ?> <?cs if:Var.net_data_access.Value != "adsl" ?> disabled="disabled"<?cs /if ?> />&nbsp;<label for="ipv6_mode_enable"><?cs var:Env.Var.ipv6_active.Value.on ?></label>
+            <input type="radio" name="ipv6_enable" id="ipv6_mode_disable" value="off" <?cs if:Var.ipv6_enable.Value == "off" && Var.ipv6_lock.Value == "off" ?>checked="checked"<?cs /if ?> <?cs if:Var.net_data_access.Value != "adsl" ?> disabled="disabled"<?cs /if ?> />&nbsp;<label for="ipv6_mode_disable"><?cs var:Env.Var.ipv6_active.Value.off ?></label>
+        </td>
+    </tr>
+#endif
+    
+    </table>
+
+    <div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+
+    </form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

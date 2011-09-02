@@ -1,0 +1,27 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+<?cs if:Var.action.Value == "ping"?>
+  <status val="<?cs var:Var.ping_status.Value?>" text="<?cs call:varValueH3n_d('ping_status','error')?>" />
+  <?cs if:?Var.ping_id.Value?><id><?cs var:Var.ping_id.Value?></id><?cs /if?>
+  <?cs if:Var.ping_status.Value == "living" || Var.ping_status.Value == "finished"?>
+  <sent><?cs alt:Var.ping_sent.Value?>0<?cs /alt?></sent>
+  <received><?cs alt:Var.ping_received.Value?>0<?cs /alt?></received>
+  <avgrtt><?cs alt:Var.ping_avgrtt.Value?>0<?cs /alt?></avgrtt>
+  <?cs /if?>
+<?cs elif:Var.action.Value == "traceroute"?>
+  <status val="<?cs var:Var.traceroute_status.Value?>" text="<?cs call:varValueH3n_d('traceroute_status','error')?>" />
+  <?cs if:?Var.traceroute_id.Value?><id><?cs var:Var.traceroute_id.Value?></id><?cs /if?>
+  <?cs if:Var.traceroute_status.Value == "living" || Var.traceroute_status.Value == "finished"?>
+  <hops>
+    <?cs each:hop=Var.traceroute_hops?>
+    <hop>
+      <index><?cs var:hop.index.Value?></index>
+      <hostname><?cs var:hop.hostname.Value?></hostname>
+      <ip><?cs var:hop.ip.Value?></ip>
+      <rtt><?cs var:hop.rtt.Value?></rtt>
+    </hop>
+    <?cs /each?>
+  </hops>
+  <?cs /if?>
+<?cs /if?>
+</rsp>

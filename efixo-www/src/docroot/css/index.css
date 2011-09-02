@@ -1,0 +1,33 @@
+#gruiks {
+        background-color: rgb(240, 240, 240);
+        font-size: 12px;
+        margin:4px 9px 4px 9px;
+}
+#gruiks li{
+        background-position: 5px center;
+        background-image: url(/img/icon_error.png);
+        height: 40px;
+        line-height: 40px;
+        background-repeat: no-repeat;
+        border: 1px solid rgb(226, 227, 229);
+        background-color: rgb(255, 255, 255);
+        text-indent: 50px;
+}
+.credits {
+    position:absolute;
+    background-image: url(/img/header_logo.png);
+    background-repeat: no-repeat;
+    overflow: hidden;
+    height:53px;
+    width:53px;
+    top:0px;
+    left:0px;
+}
+
+.credits small {
+    color:#FFF;
+    font-size: 9px;
+    margin-top:40px;
+    margin-left:1px;
+    display:block;
+}

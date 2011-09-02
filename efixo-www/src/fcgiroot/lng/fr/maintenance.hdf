@@ -1,0 +1,21 @@
+Env.Page.Title = Maintenance
+
+Env.Help.Text = Retrouvez dans les différentes rubriques de cette section des outils utiles à la maintenance de votre $BOXNAME.
+
+Env.Section.maintenance.Title = Maintenance
+
+Env.Text.AccessProtect = Protection de l'accès à l'interface
+Env.Text.Activated = Activé
+Env.Text.Desactivated = Désactivé
+Env.Text.auth_passwd = Identification par mot de passe
+Env.Text.auth_button = Identification par le bouton service
+Env.Text.auth_all = Identification par mot de passe et le bouton service
+
+#ifndef NB5
+Env.Text.ADSLprofil = Profil ADSL
+Env.Text.Rescue = Secours
+Env.Text.Manual = Manuel
+Env.Text.Auto = Automatique
+#endif
+
+Env.Text.ThemeName = Nom du thème

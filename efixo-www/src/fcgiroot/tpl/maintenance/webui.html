@@ -1,0 +1,79 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+    <h1><?cs var:Env.Section.theme.Title?></h1>
+</div>
+
+<div class="content">
+    <?cs if:Var.current_theme_present.Value == "0"?>
+    <div class="error_notice">
+	<?cs var:Env.Error.CurrentThemeNotAvailable.0?> '<strong><?cs var:Var.current_theme_name.Value?></strong>' <?cs var:Env.Error.CurrentThemeNotAvailable.1?>
+    </div>
+    <?cs /if?>
+
+    <div class="blocklist">
+	<?cs each:theme = Var.Themes?>
+	<p title="<?cs var:html_escape(theme.description.Value)?>" class=<?cs if:theme.selected.Value == 1?>"selected"<?cs elif:theme.is_compatible.Value != 1?>"unselectable"<?cs else?>"selectable"<?cs /if?>>
+	
+	    <a href="<?cs var:Env.Page.Name ?>?uri_theme=<?cs var:url_escape(theme.uri.Value)?>">
+	
+            <img src="<?cs if:theme.has_preview.Value?>/preview/<?cs var:theme.name.Value?>-<?cs var:theme.uuid.Value?>-<?cs var:theme.version.Value?>.png<?cs else?>/img/img_preview_default.png<?cs /if?>" width="150" height="120" alt="<?cs var:Env.Text.Preview?>" />
+	
+            <span>
+                <?cs if:string.length(theme.long_name.Value) > 0?><?cs var:html_escape(theme.long_name.Value)?><?cs else?><?cs var:theme.name.Value?><?cs /if?> <?cs if:theme.version.Value != ""?><?cs var:theme.version.Value?><?cs /if?>
+            </span>
+	
+            <span>
+                <em><?cs var:html_escape(Env.Text.Author)?> :</em> 
+                <?cs if:string.length(theme.author.Value) > 0?>
+                <?cs var:html_escape(theme.author.Value)?>
+                <?cs else?>
+                <?cs var:Env.Text.Anonymous?>
+                <?cs /if?>
+            </span>
+            
+            </a>
+    
+            <?cs if:theme.is_compatible.Value != 1?>
+            <span class="error">
+                <?cs var:Env.Text.NotCompatible?>
+            </span>
+            <?cs /if?>
+    
+        </p>
+        <?cs /each?>
+    </div>
+</div>
+
+<div class="title">
+    <h1><?cs var:Env.Section.localization.Title?></h1>
+</div>
+
+<div class="content">
+    <form method="post" id="form_localization_config" action="<?cs var:Env.Page.Name ?>">
+    <fieldset>
+        <input type="hidden" name="action" value="chglang" />
+        <table id="localization_config">
+            <tr id="row_lang_config">
+                <th scope="row"><label for="lang"><?cs var:Env.Var.lang.Header ?></label></th>
+                <td>
+                    <select name="lang" id="lang">
+                        <?cs each:lang = Env.Var.lang.Value ?>
+                        <option value="<?cs var:name(lang) ?>"<?cs if:Var.lang.Value == name(lang) ?> selected="selected"<?cs /if ?>>
+		        <?cs var:lang ?>
+		        </option>
+                        <?cs /each ?>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+    <div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+    
+    </fieldset>
+    </form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

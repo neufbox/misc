@@ -1,0 +1,10 @@
+Env.Var.page_ref.Regex = ^/[0-9A-Za-z_/]{0,64}$
+
+#ifdef CIBOX
+Env.Var.method.Regex = ^(passwd)$
+#else
+Env.Var.method.Regex = ^(passwd|button)$
+#endif
+
+Env.Var.web_login.Regex = ^[0-9A-Za-z]{5,63}$
+Env.Var.web_password.Regex = ^[!#-&(-_a-~]{5,63}$

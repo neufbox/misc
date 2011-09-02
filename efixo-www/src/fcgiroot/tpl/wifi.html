@@ -1,0 +1,132 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+        <h1><?cs var:Env.Section.wifi_info.Title ?></h1>
+</div>
+
+<div class="content">
+        <table id="wifi_info">
+                <tr>
+                        <th scope="row"><?cs call:varHeader("wifi_status") ?></th>
+                        <td class="<?cs if:Var.wifi_status.Value == "on" ?>enabled<?cs else ?>disabled<?cs /if ?>">
+                                <?cs if:Var.wifi_status.Value == "on" ?>
+                                        <?cs var:Env.Var.wifi_status.Value.on ?>
+                                <?cs else ?>
+                                        <?cs var:Env.Var.wifi_status.Value.off ?>
+                                <?cs /if ?>
+                        </td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("wifi_ssid") ?></th>
+                        <td><?cs var:Var.wifi_ssid.Value ?></td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("wifi_closed") ?></th>
+                        <td>
+                                <?cs if:Var.wifi_closed.Value == "0" ?>
+                                        <?cs var:Env.Var.wifi_closed.Value.0 ?>
+                                <?cs else ?>
+                                        <?cs var:Env.Var.wifi_closed.Value.1 ?>
+                                <?cs /if ?>
+                        </td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("wifi_channel") ?></th>
+                        <td>
+                                <?cs if:Var.wifi_autochannel.Value == "on"?>
+                                        <?cs var:Env.Text.auto?> ( <?cs var:Env.Text.currentChannel?>: <?cs var:Var.wifi_channel.Value ?> )
+                                <?cs else?>
+                                        <?cs var:Var.wifi_channel.Value ?>
+                                <?cs /if?>
+
+                                <?cs if:Var.wifi_mode.Value == "11n" && Var.wifi_ht40.Value == "on"?>
+                                        ( <?cs var:Env.Text.ht40Enabled?> )
+                                <?cs /if?>
+                        </td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("wifi_mode") ?></th>
+                        <td>
+				<?cs call:varValueH3n("wifi_mode")?>
+                        </td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("wifi_encryption") ?></th>
+                        <td>
+                                <?cs if:Var.wifi_encryption.Value == "OPEN" ?>
+                                        <?cs var:Env.Var.wifi_encryption.Value.OPEN ?>
+                                <?cs elif:Var.wifi_encryption.Value == "WEP" ?>
+                                        <?cs var:Env.Var.wifi_encryption.Value.WEP ?>
+                                <?cs elif:Var.wifi_encryption.Value == "WPA-PSK" ?>
+                                        <?cs var:Env.Var.wifi_encryption.Value.WPA_PSK ?> ( <?cs if:Var.wifi_keytype.Value == "tkip" ?><?cs var:Env.Var.wifi_wpaenctype.Value.tkip ?><?cs elif:Var.wifi_keytype.Value == "aes" ?><?cs var:Env.Var.wifi_wpaenctype.Value.aes ?><?cs elif:Var.wifi_keytype.Value == "tkipaes" ?><?cs var:Env.Var.wifi_wpaenctype.Value.tkipaes ?><?cs /if ?> )
+                                <?cs elif:Var.wifi_encryption.Value == "WPA2-PSK" ?>
+                                        <?cs var:Env.Var.wifi_encryption.Value.WPA2_PSK ?> ( <?cs if:Var.wifi_keytype.Value == "tkip" ?><?cs var:Env.Var.wifi_wpaenctype.Value.tkip ?><?cs elif:Var.wifi_keytype.Value == "aes" ?><?cs var:Env.Var.wifi_wpaenctype.Value.aes ?><?cs elif:Var.wifi_keytype.Value == "tkipaes" ?><?cs var:Env.Var.wifi_wpaenctype.Value.tkipaes ?><?cs /if ?> )
+                                <?cs elif:Var.wifi_encryption.Value == "WPA-WPA2-PSK" ?>
+                                        <?cs var:Env.Var.wifi_encryption.Value.WPA_WPA2_PSK ?> ( <?cs if:Var.wifi_keytype.Value == "tkip" ?><?cs var:Env.Var.wifi_wpaenctype.Value.tkip ?><?cs elif:Var.wifi_keytype.Value == "aes" ?><?cs var:Env.Var.wifi_wpaenctype.Value.aes ?><?cs elif:Var.wifi_keytype.Value == "tkipaes" ?><?cs var:Env.Var.wifi_wpaenctype.Value.tkipaes ?><?cs /if ?> )
+                                <?cs /if ?>
+                        </td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("wifi_key") ?></th>
+                        <td>
+                                <?cs if:Var.wifi_encryption.Value == "OPEN" ?>
+                                        <?cs var:Env.Var.wifi_key.Value.none ?>
+                                <?cs else ?>
+                                        <?cs var:html_escape(Var.wifi_key.Value) ?>
+                                <?cs /if ?>
+                        </td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("wifi_macfiltering") ?></th>
+                        <td>
+                                <?cs if:Var.wifi_macfiltering.Value != "off" ?>
+                                        <?cs var:Env.Var.wifi_macfiltering.Value.on ?>
+                                <?cs else ?>
+                                        <?cs var:Env.Var.wifi_macfiltering.Value.off ?>
+                                <?cs /if ?>
+                        </td>
+                </tr>
+        </table>
+</div>
+
+<div class="title">
+        <h1><?cs var:Env.Section.wifi_assoc.Title ?></h1>
+</div>
+
+<div class="content">
+<?cs if:subcount(Var.hosts) > 0 ?>
+        <table id="wifi_assoc">
+                <thead>
+			<tr>
+				<th scope="col" class="col_number">#</th>
+				<th scope="col" class="col_mac"><?cs var:Env.Var.mac_addr.Header?></th>
+				<th scope="col" class="col_ip"><?cs var:Env.Var.ip_addr.Header?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?cs each:host = Var.hosts ?>
+			<tr>
+				<td class="col_number">
+					<?cs name:host ?>
+				</td>
+				<td>
+					<?cs var:host.mac.Value ?>
+				</td>
+				<td>
+					<?cs var:host.ip.Value ?>
+                                        <?cs if:host.name.Value != ''  ?>
+                                        (<?cs var:host.name.Value ?>)
+                                        <?cs /if?>
+
+				</td>
+			</tr>
+			<?cs /each ?>
+		</tbody>
+        </table>
+<?cs else ?>
+        <?cs var:Env.Text.NoConnectedClients ?>
+<?cs /if ?>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

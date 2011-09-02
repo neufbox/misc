@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+
+<?cs include:"tpl/defs.cst" ?>
+
+  <head>
+    <title><?cs var:Env.Page.Pretitle?><?cs var:Env.Page.Title ?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    <meta http-equiv="Expires" content="Mon, 26 Jul 1997 05:00:00 GMT" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/common.css" />
+    <?cs if:css ?><link rel="stylesheet" type="text/css" media="screen" href="/css<?cs var:css ?>.css" /><?cs /if ?>
+    
+    <script type="text/javascript" src="/js/global.js"></script>
+    <?cs if:js ?><script type="text/javascript" src="/js<?cs var:js ?>.js"></script><?cs /if ?>
+    
+  </head>
+
+  <body>
+
+    <div id="header">
+      <div id="logo">
+        <a href="/" title="<?cs var:Env.Page.Index.Title ?>"><?cs var:Env.Page.Index.Title ?></a>
+      </div>
+      
+      <div id="infos">
+        <table>
+          <tr>
+            <th><?cs var:Env.Var.Sys.FirmwareVersion.Header ?>&nbsp;</th>
+            <td>: <?cs var:Var.Sys.FirmwareVersion.Value ?></td>
+          </tr>
+          <tr>
+            <th><?cs var:Env.Var.Sys.MACAddress.Header ?>&nbsp;</th>
+            <td>: <?cs var:Var.Sys.MACAddress.Value ?></td>
+          </tr>
+          <tr>
+            <th><?cs var:Env.Var.Sys.IPAddress.Header ?>&nbsp;</th>
+            <td>: <?cs var:Var.Sys.IPAddress.Value ?></td>
+          </tr>
+          <tr>
+            <th><?cs var:Env.Var.Sys.NetInfraExtra.Header ?>&nbsp;</th>
+            <td>:&nbsp;<?cs call:varValueH3n_d("Sys.NetInfraExtra", "unknown")?>&nbsp;<?cs
+                    if:Var.ipv6_status.Value == "up" && (Var.ipv6_enable.Value=="on" || Var.ipv6_lock.Value == "on")  ?>(IPv6)<?cs /if ?>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <?cs include:"tpl/menu.html" ?>
+
+    <div id="main">
+
+	    <?cs if:?Form.Error?>
+	    <div class="error_notice">
+		    <?cs alt:Env.Form.Error[Form.Error]?>
+		    <?cs var:Env.Form.Error.unknown?>
+		    <?cs /alt?>
+	    </div>
+	    <?cs elif:?Form.Success?>
+	    <div class="success_notice">
+		    <?cs alt:Env.Form.Success[Form.Success]?>
+		    <?cs var:Env.Form.Success.default?>
+		    <?cs /alt?>
+	    </div>
+	    <?cs /if?>

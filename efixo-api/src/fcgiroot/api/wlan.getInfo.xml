@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+  <wlan active="<?cs var:wlan.active ?>" channel="<?cs var:wlan.channel ?>" mode="<?cs var:wlan.mode?>" mac_filtering="<?cs var:wlan.macfiltering ?>">
+    <wl0 ssid="<?cs var:html_escape(wlan.wl0.ssid) ?>" enc="<?cs var:wlan.wl0.enc ?>" keytype="<?cs var:wlan.wl0.keytype ?>" wpakey="<?cs var:html_escape(wlan.wl0.wpakey) ?>" wepkey="<?cs var:html_escape(wlan.wl0.wepkey) ?>" />
+  </wlan>
+</rsp>

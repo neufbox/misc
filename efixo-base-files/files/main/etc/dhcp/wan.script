@@ -1,0 +1,96 @@
+#!/bin/sh
+
+RESOLV_CONF="/var/dhcp/resolv.conf.wan"
+
+net_setup() {
+
+	old_dns=$(status get dhcpc_wan_dns)
+
+	status set dhcpc_wan_ifname "$interface"
+	status set dhcpc_wan_ipaddr "$ip"
+	status set dhcpc_wan_netmask "$subnet"
+	status set dhcpc_wan_broadcast "$broadcast"
+	status set dhcpc_wan_gateway "$router"
+	status set dhcpc_wan_dns "$dns"
+	status set dhcpc_wan_nisdomain "$nisdomain"
+	status set dhcpc_wan_lease "$lease"
+
+	[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+	[ -n "$subnet" ] && NETMASK="netmask $subnet"
+	ifconfig $interface $ip $BROADCAST $NETMASK
+
+	[ "${old_dns}" != "${dns}" ] && {
+		rm -f $RESOLV_CONF
+		for i in $dns
+		do
+			echo nameserver $i >> $RESOLV_CONF
+		done
+	}
+
+	if [ "$(status get dhcpc_wan_status)" = "down" ]
+	then
+		# ADSL access
+		[ -d /etc/adsl ] && {
+			list=$(nvram list_long adsl_nisdomain)
+			[ -n "$(for p in $list; do echo $nisdomain | sed -n -e "/$p/p"; done)" ] && {
+				status set dhcpc_wan_access "adsl"
+				status set dhcpc_wan_status "up"
+				event notify "dhcp-wan-up"
+			}
+		}
+
+		# FTTH access
+		([ "$(hostname)" = "nb5" ] || [ "$(hostname)" = "nb6" ]) && {
+			list=$(nvram list_long ftth_nisdomain)
+			[ -n "$(for p in $list; do echo $nisdomain | sed -n -e "/$p/p"; done)" ] && {
+				status set ftth_link up
+				status set dhcpc_wan_access "ftth"
+				status set dhcpc_wan_status "up"
+				event notify "dhcp-wan-up"
+			}
+		}
+
+	fi
+
+}
+
+net_setdown() {
+
+	status set dhcpc_wan_access ""
+	status set dhcpc_wan_ipaddr ""
+	status set dhcpc_wan_netmask ""
+	status set dhcpc_wan_broadcast ""
+	status set dhcpc_wan_gateway ""
+	status set dhcpc_wan_dns ""
+	status set dhcpc_wan_nisdomain ""
+
+	if [ "$(status get dhcpc_wan_status)" = "up" ]
+	then
+		ifconfig "$interface" "0.0.0.0" up
+		rm -f $RESOLV_CONF
+		status set dhcpc_wan_access ""
+		status set dhcpc_wan_status "down"
+		event notify "dhcp-wan-down"
+	fi
+
+}
+
+previous_answer=`status get dhcpc_wan_answer`
+if [ "$previous_answer" != "$1" ]
+then
+	logger -s -t "WAN_DHCP_STATUS" -p local1.info "[wan] DHCP ANSWER changed [$previous_answer] -> [$1]"
+	logger -s -t "WAN_DHCP_STATUS" -p daemon.debug "[wan] DHCP ANSWER changed [$previous_answer] -> [$1]"
+	status set dhcpc_wan_answer $1
+fi
+
+case "$1" in
+
+	deconfig|leasefail|nak)
+		net_setdown
+	;;
+
+	bound|renew)
+		net_setup
+	;;
+
+esac

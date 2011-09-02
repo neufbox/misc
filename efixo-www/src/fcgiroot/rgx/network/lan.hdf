@@ -1,0 +1,9 @@
+Env.Var.lan_ipaddr_start_part1.Regex = [1-2]?[0-9]{0,2}
+Env.Var.lan_ipaddr_start_part2.Regex = [0-2]?[0-9]{0,2}
+Env.Var.lan_ipaddr_start_part3.Regex = [0-2]?[0-9]{0,2}
+Env.Var.lan_ipaddr_start_part4.Regex = [0-2]?[0-9]{0,2}
+
+Env.Var.lan_netmask_start_part1.Regex = [1-2]?[0-9]{0,2}
+Env.Var.lan_netmask_start_part2.Regex = [0-2]?[0-9]{0,2}
+Env.Var.lan_netmask_start_part3.Regex = [0-2]?[0-9]{0,2}
+Env.Var.lan_netmask_start_part4.Regex = [0-2]?[0-9]{0,2}

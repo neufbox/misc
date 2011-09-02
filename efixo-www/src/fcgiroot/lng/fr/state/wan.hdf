@@ -1,0 +1,91 @@
+Env.Page.Title = Internet
+
+Env.Help.Text = Dans la rubrique <b>Etat de la connexion Internet</b>, retrouvez les caractéristiques techniques de votre connexion (notamment l'adresse IP qui vous a été attribuée et le temps qui s'est écoulé depuis que votre connexion est active).
+
+Env.Help.Text.DSL = Dans la rubrique <b>Etat de la connexion Internet</b>, retrouvez les caractéristiques techniques de votre connexion (notamment l'adresse IP qui vous a été attribuée et le temps qui s'est écoulé depuis que votre connexion est active).<br /><br />Dans la rubrique <b>Informations de la ligne ADSL</b>, vous retrouvez les caractéristiques techniques de votre ligne ADSL (notamment le débit de synchronisation, le bruit et l'atténuation. Attention, les débits sont partagés pour les différents services que vous délivre votre $BOXNAME et ne sont pas exclusivement réservés au seul service Internet).
+
+Env.Help.Text.radio = Dans la rubrique <b>Etat de la connexion Internet</b>, retrouvez les caractéristiques techniques de votre connexion (notamment l'adresse IP qui vous a été attribuée et le temps qui s'est écoulé depuis que votre connexion est active).<br /><br />Dans la rubrique <b>Informations sur la connexion radio</b>, vous retrouvez les caractéristiques techniques sur votre connexion radio (la qualité de réception et la connectivité).
+
+Env.Section.wan_info.Title = Etat de la connexion Internet
+
+Env.Var.infra_name.Header = Connexion
+Env.Var.infra_name.Value.adsl = ADSL
+Env.Var.infra_name.Value.ftth = FTTH
+Env.Var.infra_name.Value.gprs = Clé 3G
+
+Env.Var.wan_status.Header = Statut de l'accès
+Env.Var.wan_status.Value.up = Internet opérationnel
+Env.Var.wan_status.Value.down = Pas de connexion internet
+
+Env.Var.wan_ipaddr.Header = Adresse IP
+Env.Var.wan_gateway.Header = Adresse passerelle
+Env.Var.wan_uptime.Header = Temps d'accès
+Env.Var.wan_dns_server.Header = Serveurs DNS
+
+Env.Var.infra_proto.Header = Protocole
+Env.Var.infra_proto.Value.dhcp = DHCP
+Env.Var.infra_proto.Value.bridge = Bridge
+Env.Var.infra_proto.Value.bridge_dhcp = Bridge (DHCP)
+Env.Var.infra_proto.Value.pppoe = PPPoE
+Env.Var.infra_proto.Value.pppoe_dhcp = Mix (PPPoE + DHCP)
+
+Env.Section.infra_ftth_sfp_info.Title = Informations sur l'accès SFP
+
+Env.Var.infra_ftth_sfp_status.Header = Statut SFP
+Env.Var.infra_ftth_sfp_status.Value.up = Opérationnel
+Env.Var.infra_ftth_sfp_status.Value.down = SFP non branché
+
+Env.Var.infra_ftth_sfp_speed.Header = Débit max.
+Env.Var.infra_ftth_sfp_wavelength.Header = Longueur d'onde
+Env.Var.infra_ftth_sfp_temperature.Header = Température
+
+Env.Text.warning_wrong_sfp = Vous utilisez un mauvais modèle de SFP. La longueur d'onde du SFP doit être de 1310 nm.
+Env.Link.SFPStats = Informations SFP détaillées
+
+Env.Section.infra_ftth_extern_info.Title = Informations sur la connexion externe
+
+Env.Var.infra_ftth_extern_status.Header = Statut
+Env.Var.infra_ftth_extern_status.Value.up = Opérationnel
+Env.Var.infra_ftth_extern_status.Value.down = Non branché
+
+Env.Var.infra_ftth_extern_speed.Header = Débit max.
+
+Env.Section.infra_dsl_info.Title = Informations de la ligne ADSL
+
+Env.Var.infra_dsl_ratedown.Header = Débit flux descendant
+Env.Var.infra_dsl_rateup.Header = Débit flux montant
+Env.Var.infra_dsl_noisedown.Header = Marge de bruit flux descendant
+Env.Var.infra_dsl_noiseup.Header = Marge de bruit flux montant
+Env.Var.infra_dsl_attenuationdown.Header = Atténuation flux descendant
+Env.Var.infra_dsl_attenuationup.Header = Atténuation flux montant
+Env.Var.infra_dsl_linemode.Header = Mode de transmission
+Env.Var.infra_dsl_uptime.Header = Temps de service ADSL
+
+Env.Text.DSLNoSynchro = Votre modem n'arrive pas à synchroniser votre ligne ADSL. Elle n'est peut être pas encore livrée, ou le câble reliant votre ligne téléphonique au modem n'est peut être pas correctement branché.
+Env.Link.ADSLStats = Statistiques détaillées
+
+Env.Section.infra_gprs_info.Title = Informations sur la connexion radio
+
+Env.Var.infra_gprs_dbm.Header = Qualité de réception
+Env.Var.infra_gprs_connectivity.Header = Connectivité
+
+Env.Section.infra_ppp_info.Title = Informations sur la connexion PPP
+
+Env.Var.infra_ppp_ifname.Header = Nom de la session PPP
+Env.Var.infra_ppp_session.Header = ID de la session PPP
+Env.Var.infra_ppp_server.Header = Nom du serveur d'accès PPP
+
+Env.Text.LinkDown = Ces informations ne sont pas disponibles lorsque la connexion n'est pas effectuée.
+
+Env.Text.warning_no_wanface = La $BOXNAME n'arrive pas à détecter de connexion Internet sur l'accès 1 ou l'accès 2. Ceci est dû à des problèmes de branchement sur votre $BOXNAME ou à une panne du réseau.
+
+Env.Text.dayAbbr = j
+Env.Text.hourAbbr = h
+Env.Text.minAbbr = min.
+Env.Text.secAbbr = sec.
+
+Env.Section.ipv6_info.Title = Internet IPv6
+Env.Var.ipv6_status.up = Opérationnel
+Env.Var.ipv6_status.noconnect = Non connecté
+Env.Var.ipv6_status.down = Désactivé
+Env.Var.ipv6_prefix.Header = Préfixe IPv6

@@ -1,0 +1,8 @@
+#main table th{
+    vertical-align:top;
+    width: 282px;
+}
+#main table td{
+    vertical-align:top;
+    width: 230px;
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <system product_id="<?cs var:system.product_id ?>" mac_addr="<?cs var:system.mac_addr ?>" net_mode="<?cs var:system.net_mode ?>" net_infra="<?cs var:system.net_infra?>" uptime="<?cs var:system.uptime ?>" version_mainfirmware="<?cs var:system.firmware_version?>" version_rescuefirmware="<?cs var:system.rescue_version?>" version_bootloader="<?cs var:system.bootloader_version?>"<?cs if:env.uname != "NB5"?> version_dsldriver="<?cs var:system.dsldriver_version?>"<?cs /if?> />
+</rsp>

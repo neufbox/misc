@@ -1,0 +1,4 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <error val="<?cs var:Var.error.Value?>" text="<?cs call:varValueH3n_gd('error', Env.Text.UnknownError)?>" />
+</rsp>

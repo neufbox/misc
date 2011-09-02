@@ -1,0 +1,78 @@
+#!/bin/sh
+
+RESOLV_CONF="/var/dhcp/resolv.conf.voip"
+
+net_setup() {
+
+	status set dhcpc_voip_ifname "$interface"
+	status set dhcpc_voip_ipaddr "$ip"
+	status set dhcpc_voip_netmask "$subnet"
+	status set dhcpc_voip_broadcast "$broadcast"
+	status set dhcpc_voip_gateway "$router"
+	status set dhcpc_voip_dns "$dns"
+	status set dhcpc_voip_nisdomain "$nisdomain"
+	status set dhcpc_voip_lease "$lease"
+
+	[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+	[ -n "$subnet" ] && NETMASK="netmask $subnet"
+	ifconfig $interface $ip $BROADCAST $NETMASK
+	rm -f $RESOLV_CONF
+	for i in $dns
+	do
+		echo nameserver $i >> $RESOLV_CONF
+	done
+
+	if [ "`status get dhcpc_voip_status`" = "down" ]
+	then
+		status set dhcpc_voip_status "up"
+		event notify "dhcp-voip-up"
+	fi
+
+}
+
+net_setdown() {
+
+	status set dhcpc_voip_ipaddr ""
+	status set dhcpc_voip_netmask ""
+	status set dhcpc_voip_broadcast ""
+	status set dhcpc_voip_gateway ""
+	status set dhcpc_voip_dns ""
+	status set dhcpc_voip_nisdomain ""
+
+	if [ "`status get dhcpc_voip_status`" = "up" ]
+	then
+		ifconfig "$interface" "0.0.0.0" up
+		rm -f $RESOLV_CONF
+		status set dhcpc_voip_status "down"
+		event notify "dhcp-voip-down"
+	fi
+
+}
+
+previous_answer=`status get dhcpc_voip_answer`
+if [ "$previous_answer" != "$1" ]
+then
+	logger -s -t "VOIP_DHCP_STATUS" -p local1.info "[voip] DHCP ANSWER changed [$previous_answer] -> [$1]"
+	logger -s -t "VOIP_DHCP_STATUS" -p daemon.debug "[voip] DHCP ANSWER changed [$previous_answer] -> [$1]"
+	status set dhcpc_voip_answer $1
+fi
+
+case "$1" in
+
+	deconfig|leasefail|nak)
+		net_setdown
+	;;
+
+	bound|renew)
+		CAFQDN=`echo $dumpfile | awk -F "|" '{print $4}'`
+		if [ "$CAFQDN" = 'toto1@neuf.com' ]
+		then
+			logger -s -t "VOIP_DHCP_STATUS" -p daemon.debug "[VOIP]  ** DHCP Answer FQDN=[$CAFQDN]"
+			net_setdown
+			exit 1
+		fi
+
+		net_setup
+	;;
+
+esac

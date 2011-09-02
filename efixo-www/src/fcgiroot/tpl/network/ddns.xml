@@ -1,0 +1,14 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+<?cs if:Var.internet_status.Value != "up"?>
+  <?cs set:Var.ddns_status.Value="waiting_wan"?>
+<?cs /if?>
+  <ddns>
+    <?cs if:Var.net_data_infra.Value == "gprs/ppp" && Var.internet_status.Value == "down" ?>
+    <status val="down" text="<?cs var:Env.Var.ddns_status.Value.err_gprs ?>" />
+    <?cs else ?>
+    <status val="<?cs var:Var.ddns_status.Value?>" text="<?cs call:varValueH3n_d('ddns_status', 'down')?>" />
+    <?cs /if?>
+    <active val="<?cs var:Var.ddns_active.Value?>" text="<?cs call:varValueH3n_d('ddns_active', 'off')?>" />
+  </ddns>
+</rsp>

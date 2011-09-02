@@ -1,0 +1,25 @@
+Env.Page.Title = Customization
+
+Env.Help.Text = You can select another theme for the interface of your $BOXNAME.<br /><br />Once selected, you will have to tell your browser to refresh the current page in order to see the new style and images.<br/><br/> In the <b>Localization</b> section, you can select your preferred display language for the administration interface.
+
+
+Env.Section.theme.Title = Theme
+
+Env.Form.Error.install_failed = Error ! Unable to loading the theme.
+Env.Form.Error.install_uri = Error ! Unable to loading the theme.
+Env.Form.Error.unknown = An error has occurred while loading the theme.
+
+Env.Text.NotCompatible = This theme is not compatible with the current version of the interface.
+Env.Text.Author = Author
+Env.Text.Anonymous = Anonymous
+Env.Text.Preview = Preview
+Env.Text.ActualNameOfThemeDirectory = Actual name of theme directory
+
+Env.Error.CurrentThemeNotAvailable.0 = The selected theme
+Env.Error.CurrentThemeNotAvailable.1 = is not present ! The default theme has been loaded.
+
+Env.Section.localization.Title = Localization
+
+Env.Var.lang.Header = Language
+Env.Var.lang.Value.fr = French
+Env.Var.lang.Value.en = English

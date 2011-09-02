@@ -1,0 +1,7 @@
+Env.Page.Title = Page not found
+
+Env.Help.Text = The page your are looking for doesn't exist.
+
+Env.Section.page_not_found.Title = Page not found
+
+Env.Text.PageNotFound = The page your are looking for doesn't exist.<br /><br />You can go back to the <a href="/index">home page</a>, or use the following sitemap.

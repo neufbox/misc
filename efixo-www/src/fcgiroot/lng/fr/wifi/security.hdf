@@ -1,0 +1,44 @@
+Env.Page.Title = Chiffrement
+
+#ifdef NB4
+
+Env.Help.Text = Dans la rubrique <b>Chiffrement</b>, vous pouvez définir la sécurisation de la liaison sans fil WiFi. Il est vivement conseillé de crypter votre liaison WiFi. De plus, le mode de chiffrement devra être choisi en fonction de vos équipements WiFi.<br/><br/> Pour des raisons de sécurité, il est conseillé de privilégier le système WPA2.<br/> Pour des raisons de compatibilité, il est conseillé d'utiliser une clé de type TKIP avec le système WPA.
+
+#else
+
+Env.Help.Text = Dans la rubrique <b>Chiffrement</b>, vous pouvez définir la sécurisation de la liaison sans fil WiFi. Il est vivement conseillé de crypter votre liaison WiFi. De plus, le mode de chiffrement devra être choisi en fonction de vos équipements WiFi.<br/><br/>Suivant le mode WiFi utilisé, vous ne pourrez pas utiliser certains systèmes de chiffrement. Le mode radio <b>11n</b> fonctionne uniquement avec le <b>WPA2 Personnel (PSK)</b>, le <b>11b/g/n</b> fonctionne avec le <b>WPA Personnel (PSK)</b> et/ou le <b>WPA2 Personnel (PSK)</b> et le <b>11b/g</b> fonctionne avec tous les chiffrements.<br/><br/> Pour des raisons de sécurité, il est conseillé de privilégier le système WPA2.<br/> Pour des raisons de compatibilité, il est conseillé d'utiliser une clé de type TKIP avec le système WPA.
+
+#endif
+
+Env.Text.GenerateKey = Générer une clé
+
+Env.Section.wlan_encryption.Title = Chiffrement
+
+Env.Var.wlan_encryptiontype.Header = Système
+Env.Var.wlan_encryptiontype.Value.OPEN = désactivé
+Env.Var.wlan_encryptiontype.Value.WEP = WEP
+Env.Var.wlan_encryptiontype.Value.WPA_PSK = WPA Personnel (PSK)
+Env.Var.wlan_encryptiontype.Value.WPA2_PSK = WPA2 Personnel (PSK)
+Env.Var.wlan_encryptiontype.Value.WPA_WPA2_PSK = WPA/WPA2 Personnel (PSK)
+Env.Var.wlan_encryptiontype.Error.value = Format incorrect
+
+Env.Var.wlan_keytype.Header = Type&nbsp;de&nbsp;clé
+Env.Var.wlan_keytype.Value.ascii = ASCII
+Env.Var.wlan_keytype.Value.hexa = Hexadécimal
+Env.Var.wlan_keytype.Error.value = Format incorrect
+
+Env.Var.wlan_wepkey.Header = Clé
+Env.Var.wlan_wepkey.Error.ascii = La clé doit avoir une longueur de 5 caractères ou 13 caractères exactement, et ne pas comporter de " ' `.
+Env.Var.wlan_wepkey.Error.hexa = La clé doit avoir une longueur de 10 ou 26 caractères exactement, et comporter uniquement des caractères hexadécimaux.
+
+Env.Var.wlan_wpaenctype.Header = Type&nbsp;de&nbsp;clé
+Env.Var.wlan_wpaenctype.Value.tkip = TKIP
+Env.Var.wlan_wpaenctype.Value.aes = AES
+Env.Var.wlan_wpaenctype.Value.tkipaes = TKIP et AES
+
+Env.Var.wlan_wpakey.Header = Clé
+Env.Var.wlan_wpakey.Error.value = La clé doit avoir une longueur comprise entre 8 et 63 caractères, et ne pas comporter de " ' `.
+
+Env.Form.Error.wpa_aes_incompatibility = Certains périphériques Wifi ne sont pas compatibles avec le système de chiffrement 'WPA Personnel (PSK)' et le type de clé 'AES'.
+
+Env.Form.Error.enc_mode_incompatibility = Le système de chiffrement sélectionné est incompatible avec le mode radio actuellement utilisé. Veuillez changer le mode radio avant de changer le système de chiffrement en allant sur la page "Configuration".

@@ -1,0 +1,15 @@
+table#ddns_configuration th {
+    width: 153px;
+}
+
+table#ddns_configuration td {
+    width: 395px;
+}
+
+#ddns_service, #ddns_username, #ddns_password, #ddns_host {
+    width: 141px;
+}
+
+#ddns_domain {
+    width: 166px;
+}

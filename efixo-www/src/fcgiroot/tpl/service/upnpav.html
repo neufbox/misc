@@ -1,0 +1,140 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.UpnpAVServer?></h1>
+</div>
+
+<div class="content">
+	<form method="post" action="<?cs var:Env.Page.Name ?>">
+	<input type="hidden" name="action" value="editconf" />
+	
+	<table id="table_upnpavconf">
+		<tr>
+			<th scope="row"><?cs var:Env.Var.upnpav_status.Header?></th>
+			<td class="<?cs if:Var.upnpav_status.Value == "up" || Var.upnpav_status.Value == "starting" ?>enabled<?cs else ?>disabled<?cs /if ?>" id="col_upnpav_status">
+			        <span id="upnpav_status">
+				    <?cs call:varValueH3n("upnpav_status") ?>
+				</span>
+				
+				<span id="upnpav_sharedcount">
+				<?cs if:Var.upnpav_status.Value == "up" || Var.upnpav_status.Value == "starting"?>
+					( <?cs var:Var.upnpav_sharedcount.Value?> <?cs if:Var.upnpav_sharedcount.Value <= 1?><?cs var:Env.Var.upnpav_sharedcount.Value.single?><?cs else?><?cs var:Env.Var.upnpav_sharedcount.Value.multiple?><?cs /if?> )
+				<?cs /if?>
+				</span>
+				
+				<span id="upnpav_errno">
+				<?cs if:Var.upnpav_errno.Value != ""?>
+				        [ <?cs call:varValueH3n("upnpav_errno")?> ]
+				<?cs /if?>
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs call:varHeader("upnpav_active")?></th>
+			<td>
+				<input type="radio" value="on" name="upnpav_active" id="upnpav_active_on"<?cs if:Var.upnpav_active.Value == "on" ?> checked="checked"<?cs /if ?> />
+				<label for="upnpav_active_on"><?cs var:Env.Var.upnpav_active.Value.on?></label>
+				<input type="radio" value="off" name="upnpav_active" id="upnpav_active_off"<?cs if:Var.upnpav_active.Value == "off" ?> checked="checked"<?cs /if ?> />
+				<label for="upnpav_active_off"><?cs var:Env.Var.upnpav_active.Value.off?></label>
+				
+				<?cs if:?Var.upnpav_active.Error ?>
+			        <div class="error"><?cs var:Env.Var.upnpav_active.Error[Var.upnpav_active.Error] ?></div>
+				<?cs /if ?>
+			</td>
+		</tr>
+		<tr id="row_upnpav_name">
+			<th scope="row"><?cs call:varHeader("upnpav_name")?></th>
+			<td>
+				<input type="text" class="<?cs if:?Var.ftpd_user.Error?>error<?cs else ?>text<?cs /if ?>" name="upnpav_name" value="<?cs var:Var.upnpav_name.Value?>" />
+				
+				<?cs if:?Var.upnpav_name.Error ?>
+			        <div class="error"><?cs var:Env.Var.upnpav_name.Error[Var.upnpav_name.Error] ?></div>
+				<?cs /if ?>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="button_submit">
+		<button type="submit" name="submit"><?cs var:Button.Submit ?></button>
+	</div>
+	
+	</form>
+</div>
+
+<div class="title" id="title_upnpav_share">
+	<h1><?cs var:Env.Section.UpnpAVShare?></h1>
+</div>
+
+<div class="content" id="content_upnpav_share">
+	<table id="table_upnpavshare">
+		<thead>
+			<tr>
+				<th scope="col" id="col_upnpav_stock_part"><?cs var:Env.Var.upnpav_stockage_partition.Header?></th>
+				<th scope="col" id="col_upnpav_stock_dir"><?cs var:Env.Var.upnpav_stockage_dir.Header?></th>
+				<th class="col_action"></th>
+			</tr>
+		</thead>
+		<tbody>
+		        <?cs if:subcount(Var.upnpav_stockage_list) > 0?>
+			<?cs each:share = Var.upnpav_stockage_list?>
+			<tr>
+				<td <?cs if:share.online.Value != #1?>class="desactivated"<?cs /if?>><?cs var:Var.stockage_list[share.uuid.Value].pname.Value?> <b> - </b> 
+					<?cs var:Var.stockage_list[share.uuid.Value].type.Value?> (<?cs var:Var.stockage_list[share.uuid.Value].capacity.Value?>)
+				</td>
+				<td <?cs if:share.online.Value != #1?>class="desactivated"<?cs /if?>>
+					<b><?cs var:share.dir.Value?></b>
+				</td>
+				<td class="col_action">
+					<form method="post" action="<?cs var:Env.Page.Name ?>">
+                                        <fieldset>
+                                            <input type="hidden" name="action" value="delshare" />
+                                            <input type="hidden" name="upnpav_share_idx" value="<?cs name:share?>" />
+					
+                                            <button class="button_remove" type="submit" name="submit"></button>
+                                        </fieldset>
+					</form>
+				</td>
+			</tr>
+			<?cs /each?>
+			<?cs else?>
+			<tr>
+			    <td colspan="2" align="center"><strong><?cs var:Env.Text.NoShare?></strong></td>
+			</tr>
+			<?cs /if?>
+			
+			<?cs if:subcount(Var.disks) > 0?>
+			<form method="post" action="<?cs var:Env.Page.Name ?>">
+			<input type="hidden" name="action" value="addshare" />
+			<tr>
+			    <td colspan="2">
+				<select name="upnpav_stockage_share" id="select_upnpav_stock_share">
+				    <?cs each:disk = Var.disks?>
+				    <?cs each:part = disk.partitions?>
+				    <optgroup label="Port <?cs var:disk.usb_port.Value?> // <?cs var:disk.manufacturer.Value?> <?cs var:disk.model.Value?> // <?cs var:part.fstype.Value?> <?cs var:part.capacity.Value?>">
+				    <?cs each:dir = part.dirs?>
+				    <option value="<?cs var:part.uuid.Value?>,<?cs var:dir.name.Value?>"><?cs var:dir.name.Value?></option>
+				    <?cs /each?>
+				    </optgroup>
+				    <?cs /each?>
+				    <?cs /each?>
+				</select>
+			    </td>
+			    <td class="col_action">
+				<button class="button_add" type="submit" name="submit"<?cs if:subcount(Var.disks) == 0?> disabled="disabled"<?cs /if?>></button>
+			    </td>
+			</tr>
+			</form>
+			<?cs /if?>
+		</tbody>
+	</table>
+
+	<?cs if:subcount(Var.disks) == 0?>
+	<div class="info_notice">
+	<?cs var:Env.Text.PlugUsbKey?>
+	</div>
+	<?cs /if?>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

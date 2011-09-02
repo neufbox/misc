@@ -1,0 +1,54 @@
+Env.Page.Title = Settings
+
+Env.Help.Text << EOM
+By enabling the hotspot service (WiFi access point), you allow other users of the <i>$BOXNAME WiFi de $OPERATORNAME</i> 
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+and <i>FON</i> 
+#endif
+communities to connect to Internet <i>via your $BOXNAME</i>. For your security, these users won't have access to your equipments (computer, set-top box,...) and will be identified before being allowed to connect.<br /><br />
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+Choose one of the following modes before applying the settings:<br /><br />
+#endif
+The <strong>$OPERATORNAME WiFi Community</strong> mode in order to allow other $BOXNAME users and $OPERATORNAME customers to connect to your hotspot and which enables you to freely access all the hotspots of the $OPERATORNAME community in France.<br /><br />
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+The <strong>$OPERATORNAME WiFi and Fon Community</strong> mode in order to allow other $BOXNAME users, $OPERATORNAME customers and Fon users to connect to your hotspot and which enables you to freely access all the hotspots of the $OPERATORNAME and Fon community in France and abroad.
+#endif
+EOM
+
+Env.Section.hotspot_config.Title = Settings
+
+Env.Var.hotspot_enable.Value.false = The hotspot service isn't available.
+
+Env.Var.hotspot_active.Header = Activation
+Env.Var.hotspot_active.Value.on = enabled
+Env.Var.hotspot_active.Value.off = disabled
+Env.Var.hotspot_active.Error.value = Invalid format
+
+Env.Var.hotspot_status.Header = Status
+Env.Var.hotspot_status.Value.up = Started
+Env.Var.hotspot_status.Value.down = Stopped
+Env.Var.hotspot_status.Value.starting = Starting
+Env.Var.hotspot_status.Value.stopping = Stopping
+Env.Var.hotspot_status.Value.error_maxup = Error: upload rate too low
+Env.Var.hotspot_status.Value.error_maxdown = Error: download rate too low
+Env.Var.hotspot_status.Value.error_conf = Internal error
+Env.Var.hotspot_status.Value.error_wandown = Error: Internet not working
+Env.Var.hotspot_status.Value.error_pppdown = Error: Internet is not working
+Env.Var.hotspot_status.Value.error_adsldown = Error: Internet is not working
+Env.Var.hotspot_status.Value.error_wifidown = Error: WiFi disabled
+
+Env.Var.hotspot_ssid.Header = SSID
+
+Env.Var.hotspot_mode.Header = Mode
+Env.Var.hotspot_mode.Value.sfr = $OPERATORNAME WiFi Community
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+Env.Var.hotspot_mode.Value.sfr_fon = $OPERATORNAME WiFi Community and FON
+#endif
+Env.Var.hotspot_mode.Error.value = Invalid format
+
+Env.Var.hotspot_conditions.Header = I accept the <a href="$HOTSPOTCONDITIONSURL" rel="external">specific conditions</a>
+Env.Var.hotspot_conditions.Error.no_accept = You must accept the specific conditions.
+
+Env.Text.work_in_progress = Operation in progress
+
+Env.Text.InfoFON = Your FON login and password will be sent to you by email within the next 48 hours.<br />These information will be sent to the email address specified in <a href="http://moncompte.neuf.fr" rel="external">your account</a>. Please check that this email is not in your spam box.

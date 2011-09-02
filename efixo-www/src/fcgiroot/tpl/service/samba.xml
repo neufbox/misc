@@ -1,0 +1,9 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <samba>
+    <active val="<?cs var:Var.samba_active.Value?>" text="<?cs call:varValueH3n_d('samba_active', 'off')?>" />
+    <state val="<?cs var:Var.samba_state.Value?>" text="<?cs call:varValueH3n_d('samba_state', 'down')?>" />
+    <codeno val="<?cs var:Var.samba_codeno.Value?>" text="<?cs call:varValueH3n_d('samba_codeno', 'internal')?>" />
+    <sharedcount val="<?cs var:Var.samba_sharedcount.Value?>" posttext="<?cs if:#Var.samba_sharedcount.Value.Value > 1?><?cs var:Env.Var.samba_sharedcount.Value.multiple?><?cs else?><?cs var:Env.Var.samba_sharedcount.Value.single?><?cs /if?>" />
+  </samba>
+</rsp>

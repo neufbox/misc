@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <calls>
+      <?cs each:item = voip.call_list ?>
+      <call type="<?cs var:item.type ?>" direction="<?cs var:item.direction ?>" number="<?cs var:item.number ?>" length="<?cs var:item.length ?>" date="<?cs var:item.date ?>" />
+      <?cs /each ?>
+   </calls>
+</rsp>

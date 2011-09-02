@@ -1,0 +1,155 @@
+Env.Page.Title = Périphériques
+
+Env.Help.Text << EOM
+L'onglet <b>Périphériques</b> permet de gérer les périphériques connectés sur les ports USB de votre $BOXNAME.<br /><br />
+Dans la rubrique <b>Périphériques de stockage</b> vous trouvez le détail des périphériques de stockage (clé USB, disque dur externe, etc.) branchés sur les deux prises USB : constructeur, modèle, port, capacité ainsi que le détail des partitions présentes sur chacun d'entre eux : système de fichiers, taille, espace utilisé et espace libre.<br/><br/>
+Dans la rubrique <b>Imprimantes</b> vous trouvez la liste des imprimantes détectées. <br/><br/>
+#ifdef HAVE_BACKUP_3G_SUPPORT
+Dans la rubrique <b>Clé 3G</b> est affichée l’ensemble des informations qui correspondent à la clé 3G actuellement utilisée (référence matérielle, firmware, code IMEI) ainsi que la qualité de la réception radio.
+#endif
+EOM
+
+Env.Text.NoPrinter = Pas d'imprimante détectée
+Env.Text.NoUsbKey = Pas de périphérique de stockage détecté
+Env.Text.No3GDongle = Pas de clé 3G détectée
+Env.Text.Umount = Ejecter
+Env.Text.UmountForce = Forcer l'éjection
+Env.Text.UmountedDisk = Disque éjecté.
+Env.Text.PercentBar = Barre de pourcentage
+Env.Text.port = port
+
+Env.Text.Unmounted = Non utilisable
+Env.Text.NoCompatiblePartitionAvailable = Pas de partition compatible trouvée.
+
+Env.Section.StockPeripheral.Title = Périphériques de stockage
+
+Env.Form.Error.disk_error_umount_failed = Impossible d'éjecter le disque.
+Env.Form.Error.disk_error_umount_failed_busy = Impossible d'éjecter le disque. Périphérique occupé.
+
+Env.Var.disks.Header = Disques
+
+Env.Var.disk_manufacturer.Header = Constructeur
+Env.Var.disk_model.Header = Modèle
+Env.Var.disk_capacity.Header = Capacité
+
+Env.Var.partitions.Header = Partitions
+
+Env.Var.partition_fstype.Header = Type
+Env.Var.partition_capacity.Header = Capacité
+Env.Var.partition_used_capacity.Header = Capacité utilisée
+
+Env.Section.Printers.Header = Imprimantes
+
+Env.Var.printers.Header = Imprimantes
+Env.Var.ink_level.Header = Niveaux d'encre
+
+Env.Var.printer_manufacturer.Header = Constructeur
+Env.Var.printer_model.Header = Modèle
+
+Env.Var.cartridges.types.NotPresent = ?
+Env.Var.cartridges.types.NotPresent.htmlcolor = white
+Env.Var.cartridges.types.NotPresent.htmlcolor.neg = black
+Env.Var.cartridges.types.Black = Noir
+Env.Var.cartridges.types.Black.htmlcolor = black
+Env.Var.cartridges.types.Black.htmlcolor.neg = white
+Env.Var.cartridges.types.Color = Couleur
+Env.Var.cartridges.types.Color.htmlcolor = green
+Env.Var.cartridges.types.Color.htmlcolor.neg = white
+Env.Var.cartridges.types.Photo = Photo
+Env.Var.cartridges.types.Photo.htmlcolor = green
+Env.Var.cartridges.types.Photo.htmlcolor.neg = white
+Env.Var.cartridges.types.Cyan = Cyan
+Env.Var.cartridges.types.Cyan.htmlcolor = cyan
+Env.Var.cartridges.types.Cyan.htmlcolor.neg = black
+Env.Var.cartridges.types.Magenta = Magenta
+Env.Var.cartridges.types.Magenta.htmlcolor = magenta
+Env.Var.cartridges.types.Magenta.htmlcolor.neg = white
+Env.Var.cartridges.types.Yellow = Jaune
+Env.Var.cartridges.types.Yellow.htmlcolor = yellow
+Env.Var.cartridges.types.Yellow.htmlcolor.neg = black
+Env.Var.cartridges.types.PhotoBlack = Photo noir
+Env.Var.cartridges.types.PhotoBlack.htmlcolor = black
+Env.Var.cartridges.types.PhotoBlack.htmlcolor.neg = white
+Env.Var.cartridges.types.PhotoCyan = Photo cyan
+Env.Var.cartridges.types.PhotoCyan.htmlcolor = cyan
+Env.Var.cartridges.types.PhotoCyan.htmlcolor.neg = black
+Env.Var.cartridges.types.PhotoMagenta = Photo magenta
+Env.Var.cartridges.types.PhotoMagenta.htmlcolor = magenta
+Env.Var.cartridges.types.PhotoMagenta.htmlcolor.neg = white
+Env.Var.cartridges.types.PhotoYellow = Photo jaune
+Env.Var.cartridges.types.PhotoYellow.htmlcolor = yellow
+Env.Var.cartridges.types.PhotoYellow.htmlcolor.neg = black
+Env.Var.cartridges.types.Red = Rouge
+Env.Var.cartridges.types.Red.htmlcolor = red
+Env.Var.cartridges.types.Red.htmlcolor.neg = white
+Env.Var.cartridges.types.Green = Vert
+Env.Var.cartridges.types.Green.htmlcolor = green
+Env.Var.cartridges.types.Green.htmlcolor.neg = white
+Env.Var.cartridges.types.Blue = Bleu
+Env.Var.cartridges.types.Blue.htmlcolor = blue
+Env.Var.cartridges.types.Blue.htmlcolor.neg = white
+Env.Var.cartridges.types.LightBlack = Noir clair
+Env.Var.cartridges.types.LightBlack.htmlcolor = #505050
+Env.Var.cartridges.types.LightBlack.htmlcolor.neg = white
+Env.Var.cartridges.types.LightCyan = Cyan clair
+Env.Var.cartridges.types.LightCyan.htmlcolor = LightCyan
+Env.Var.cartridges.types.LightCyan.htmlcolor.neg = black
+Env.Var.cartridges.types.LightMagenta = Magenta clair
+Env.Var.cartridges.types.LightMagenta.htmlcolor = #ff7ffd
+Env.Var.cartridges.types.LightMagenta.htmlcolor.neg = white
+Env.Var.cartridges.types.LightLightBlack = Noir clair clair
+Env.Var.cartridges.types.LightLightBlack.htmlcolor = #7e7e7e
+Env.Var.cartridges.types.LightLightBlack.htmlcolor.neg = black
+Env.Var.cartridges.types.MatteBlack = Noir mat
+Env.Var.cartridges.types.MatteBlack.htmlcolor = black
+Env.Var.cartridges.types.MatteBlack.htmlcolor.neg = white
+Env.Var.cartridges.types.GlossOptimizer = Optimiseur de brillance
+Env.Var.cartridges.types.GlossOptimizer.htmlcolor = #fdfdfd
+Env.Var.cartridges.types.GlossOptimizer.htmlcolor.neg = black
+Env.Var.cartridges.types.Unknown = Inconnu
+Env.Var.cartridges.types.Unknown.htmlcolor = white
+Env.Var.cartridges.types.Unknown.htmlcolor.neg = black
+Env.Var.cartridges.types.KCM = Noir, cyan, magenta
+Env.Var.cartridges.types.KCM.htmlcolor = black
+Env.Var.cartridges.types.KCM.htmlcolor.neg = white
+Env.Var.cartridges.types.GGK = 2x gris et noir
+Env.Var.cartridges.types.GGK.htmlcolor = black
+Env.Var.cartridges.types.GGK.htmlcolor.neg = white
+Env.Var.cartridges.types.KCMY = Noir, cyan, magenta et jaune
+Env.Var.cartridges.types.KCMY.htmlcolor = black
+Env.Var.cartridges.types.KCMY.htmlcolor.neg = white
+Env.Var.cartridges.types.LCLM = Photo cyan et photo magenta
+Env.Var.cartridges.types.LCLM.htmlcolor = #80bfbf
+Env.Var.cartridges.types.LCLM.htmlcolor.neg = white
+Env.Var.cartridges.types.YM = Jaune et magenta
+Env.Var.cartridges.types.YM.htmlcolor = #ff807f
+Env.Var.cartridges.types.YM.htmlcolor.neg = white
+Env.Var.cartridges.types.CK = Cyan et noir
+Env.Var.cartridges.types.CK.htmlcolor = black
+Env.Var.cartridges.types.CK.htmlcolor.neg = white
+Env.Var.cartridges.types.LGPK = Gris clair et photo noir
+Env.Var.cartridges.types.LGPK.htmlcolor = black
+Env.Var.cartridges.types.LGPK.htmlcolor.neg = white
+Env.Var.cartridges.types.LG = Gris clair
+Env.Var.cartridges.types.LG.htmlcolor = lightgray
+Env.Var.cartridges.types.LG.htmlcolor.neg = black
+Env.Var.cartridges.types.G = Gris moyen
+Env.Var.cartridges.types.G.htmlcolor = DarkGray
+Env.Var.cartridges.types.G.htmlcolor.neg = white
+Env.Var.cartridges.types.PG = Photo gris
+Env.Var.cartridges.types.PG.htmlcolor = gray
+Env.Var.cartridges.types.PG.htmlcolor.neg = white
+Env.Var.cartridges.types.White = Blanc
+Env.Var.cartridges.types.White.htmlcolor = white
+Env.Var.cartridges.types.White.htmlcolor.neg = black
+
+Env.Section.3g_dongle.Title = Clé 3G
+
+Env.Var.3g_dongle.Header = Informations clé 3G
+Env.Var.3g_dongle_rssi.Header = Qualité de réception
+
+Env.Var.3g_dongle_pcb.Header = PCB
+Env.Var.3g_dongle_fw.Header = FW
+Env.Var.3g_dongle_imei.Header = IMEI
+
+Env.Text.UnknownDbm = Le niveau de réception 3G est inconnu

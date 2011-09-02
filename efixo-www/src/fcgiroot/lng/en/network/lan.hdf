@@ -1,0 +1,16 @@
+Env.Page.Title = LAN
+
+Env.Help.Text = On this page, you can change the private IP address of your $BOXNAME.<br /><br />The IP addresses of the NAT rules, routes and the IP range provided by the DHCP service will be automatically adjusted.
+
+Env.Section.lan_configuration.Title = LAN
+
+Env.Var.lan_ipaddr.Header = $BOXNAME IP
+Env.Var.lan_ipaddr.Error.value = Invalid format
+Env.Var.lan_ipaddr.Error.invalid_ip = Invalid IP
+Env.Var.lan_ipaddr.Error.ip_is_broadcast = The IP address of the $BOXNAME must be different from the IP address of the network.
+Env.Var.lan_ipaddr.Error.ip_is_network = The IP address of the $BOXNAME must be different from the broadcast IP of the network.
+Env.Var.lan_ipaddr.Error.ip_is_in_hotspot_net = The IP address of the $BOXNAME must not be in the hotspot network (192.168.2.0).
+
+Env.Var.lan_netmask.Header = Netmask
+Env.Var.lan_netmask.Error.value = Invalid format
+Env.Var.lan_netmask.Error.invalid_netmask = Invalid Netmask

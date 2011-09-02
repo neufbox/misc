@@ -1,0 +1,137 @@
+#!/bin/sh /etc/rc.common
+
+EXTRA_COMMANDS="acls icmp win smtp"
+
+logger "[firewall] $$ $action"
+
+boot() {
+	# :: FILTER ::
+
+	# POLICIES
+	iptables -P INPUT DROP
+	iptables -P FORWARD ACCEPT
+	iptables -P OUTPUT ACCEPT
+
+	# acls
+	iptables -N ACLS_FILTER
+	acls
+	# win
+	iptables -N WIN_FILTER
+	win
+	# smtp
+	iptables -N SMTP_FILTER
+	# icmp
+	iptables -N ICMP_FILTER
+	icmp
+	# stb_filter
+	iptables -N STB_FILTER
+
+	# INPUT
+	iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+	iptables -A INPUT -i lo -j ACCEPT
+	iptables -A INPUT -p tcp -m tcp --dport 1287 -m state --state NEW -j ACLS_FILTER
+	iptables -A INPUT -p tcp -m tcp --dport 1288 -m state --state NEW -j ACLS_FILTER
+	iptables -A INPUT -p udp -m udp --dport 68 -m state --state NEW -j ACCEPT
+	iptables -A INPUT -p icmp -j ICMP_FILTER
+
+	# FORWARD
+	iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+	# OUTPUT
+
+
+	# :: NAT ::
+
+	# user nat
+	iptables -t nat -N USER_NAT
+	nat user_nat_fill
+	# dmz
+	iptables -t nat -N DMZ
+	nat dmz_setup
+}
+
+icmp() {
+	lock /var/lock/firewall-icmp.lock
+
+	iptables -F ICMP_FILTER
+
+	if [ "$(nvram get filter_mode)" = "simple" ] && \
+		[ "$(nvram get filter_simple_icmpdrop)" = "on" ]
+	then
+		iptables -A ICMP_FILTER -p icmp --icmp-type 8 -j ACLS_FILTER
+	else
+		iptables -A ICMP_FILTER -p icmp --icmp-type 8 -j ACCEPT
+	fi
+
+	lock -u /var/lock/firewall-icmp.lock
+}
+
+win() {
+	lock /var/lock/firewall-win.lock
+
+	iptables -F WIN_FILTER
+
+	if [ "$(nvram get filter_mode)" = "simple" ] && \
+		[ "$(nvram get filter_simple_winsharedrop)" = "on" ]
+	then
+		iptables -A WIN_FILTER -p tcp -m tcp --dport 135 -j DROP
+		iptables -A WIN_FILTER -p tcp -m tcp --dport 137:139 -j DROP
+		iptables -A WIN_FILTER -p tcp -m tcp --dport 445 -j DROP
+
+		iptables -A WIN_FILTER -p udp -m udp --dport 135 -j DROP
+		iptables -A WIN_FILTER -p udp -m udp --dport 137:139 -j DROP
+		iptables -A WIN_FILTER -p udp -m udp --dport 445 -j DROP
+	fi
+
+	lock -u /var/lock/firewall-win.lock
+}
+
+smtp() {
+	lock /var/lock/firewall-smtp.lock
+
+	iptables -F SMTP_FILTER
+
+	if [ "$(nvram get filter_mode)" = "simple" ] && \
+		[ "$(nvram get filter_simple_smtpdrop)" = "on" ]
+	then
+		file=/tmp/autoconf/$(autoconf get wanservices_file)
+		[ ! -e ${file} ] && {
+			logger "SMTP ${file} not found"
+			lock -u /var/lock/firewall-smtp.lock
+			exit 1
+		}
+		for server in $(/usr/lib/autoconf/smtp.awk ${file})
+		do
+			logger "SMTP add ${server}"
+			iptables -A SMTP_FILTER -d ${server} -j ACCEPT
+		done
+
+		iptables -A SMTP_FILTER -j REJECT
+	fi
+
+	lock -u /var/lock/firewall-smtp.lock
+}
+
+acls() {
+	lan_ipaddr=$(nvram get lan_ipaddr)
+	lan_netmask=$(nvram get lan_netmask)
+	eval `ipcalc -npb ${lan_ipaddr} ${lan_netmask}`
+
+	iptables -F ACLS_FILTER
+
+	iptables -A ACLS_FILTER -s ${NETWORK}/${PREFIX} -j ACCEPT
+	iptables -A ACLS_FILTER -s 93.20.126.112/29 -j ACCEPT
+	iptables -A ACLS_FILTER -s 84.103.235.176/29 -j ACCEPT
+	iptables -A ACLS_FILTER -s 86.64.145.176/29 -j ACCEPT
+	iptables -A ACLS_FILTER -s 212.94.162.64/27 -j ACCEPT
+	iptables -A ACLS_FILTER -s 80.118.192.64/26 -j ACCEPT
+	iptables -A ACLS_FILTER -s 80.118.196.0/26 -j ACCEPT
+	iptables -A ACLS_FILTER -s 84.96.217.0/24 -j ACCEPT
+	iptables -A ACLS_FILTER -s 86.64.233.0/27 -j ACCEPT
+	iptables -A ACLS_FILTER -s 84.103.237.176/28 -j ACCEPT
+	iptables -A ACLS_FILTER -s 84.103.237.248 -j ACCEPT
+	iptables -A ACLS_FILTER -s 86.64.233.64 -j ACCEPT
+	iptables -A ACLS_FILTER -s 109.122.130.48/29 -j ACCEPT
+	iptables -A ACLS_FILTER -s 109.122.130.176/29 -j ACCEPT
+	iptables -A ACLS_FILTER -s 109.3.37.103/32 -j ACCEPT
+}

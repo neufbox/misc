@@ -1,0 +1,39 @@
+Env.Page.Title = Serveur multimédia
+
+Env.Help.Text = Dans la rubrique <b>Service UPnP-AV</b> vous pouvez désactiver ou activer le service UPnP-AV de la $BOXNAME. Lorsque le service UPnP-AV est activé, vous transformez votre $BOXNAME en &ldquo;Serveur Multimédia&rdquo;. Ainsi, vous partagez du contenu multimédia (photos, vidéos, musiques) sur votre réseau à des clients compatibles UPnP-AV. <br/><br/>Dans la rubrique <b>Dossiers partagés</b>, vous pouvez gérer vos partages.
+
+Env.Text.Desactivated = Désactivé
+Env.Text.PlugUsbKey = Branchez une clé USB sur le port USB 1 ou 2 de votre $BOXNAME pour partager un répertoire
+Env.Text.NoShare = Pas de répertoire partagé
+
+Env.Section.UpnpAVServer = Service UPnP-AV
+
+Env.Var.upnpav_status.Header = Service UPnP-AV
+Env.Var.upnpav_status.Value.starting = En cours d'initialisation
+Env.Var.upnpav_status.Value.stopping = Arrêt en cours
+Env.Var.upnpav_status.Value.up = Démarré
+Env.Var.upnpav_status.Value.down = Arrêté
+
+Env.Var.upnpav_sharedcount.Value.single = fichier multimédia trouvé
+Env.Var.upnpav_sharedcount.Value.multiple = fichiers multimédia trouvés
+
+Env.Var.upnpav_errno.Value.internal = Erreur interne
+Env.Var.upnpav_errno.Value.noshare = Aucun partage
+
+Env.Var.upnpav_active.Header = Activation service UPnP-AV
+Env.Var.upnpav_active.Value.on = activé
+Env.Var.upnpav_active.Value.off = désactivé
+Env.Var.upnpav_active.Error.value = Valeur incorrecte
+
+Env.Var.upnpav_name.Header = Nom du service
+Env.Var.upnpav_name.Error.value = Valeur incorrecte
+
+Env.Section.UpnpAVShare = Dossiers partagés
+
+Env.Var.upnpav_share_idx.Error.value = Valeur incorrecte
+
+Env.Var.action.Error.value = Valeur incorrecte
+
+Env.Var.upnpav_stockage_partition.Header = Partition
+Env.Var.upnpav_stockage_dir.Header = Dossier
+Env.Var.upnpav_stockage_share.Error.value = Valeur incorrecte

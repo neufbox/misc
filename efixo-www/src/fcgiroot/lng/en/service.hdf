@@ -1,0 +1,20 @@
+Env.Page.Title = Applications
+
+Env.Help.Text = The <b>Applications</b> sections allows to manage the sharing of your printer and you files via the $BOXNAME.
+
+Env.Section.Applications.Value = Applications
+
+Env.Header.FileSharing.Value = File sharing
+
+Env.Var.samba_state.Value.up = Up
+Env.Var.samba_state.Value.down = Down
+
+Env.Header.PrinterSharing.Value = Printer sharing
+
+Env.Var.print_server_status.Value.up = Up
+Env.Var.print_server_status.Value.down = Down
+
+Env.Header.MediaServer.Value = Media server
+
+Env.Var.upnpav_state.Value.up = Up
+Env.Var.upnpav_state.Value.down = Down

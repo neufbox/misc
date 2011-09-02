@@ -1,0 +1,4 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="fail">
+  <err code="<?cs var:Var.error.Value?>" />
+</rsp>

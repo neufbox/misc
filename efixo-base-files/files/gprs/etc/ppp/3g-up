@@ -1,0 +1,28 @@
+#!/bin/sh
+
+echo "Setting on "$IFNAME > /dev/console
+
+[ -n "DNS1" ] && echo "nameserver $DNS1" > "/var/ppp/resolv.conf.gprs"
+[ -n "DNS2" ] && echo "nameserver $DNS2" >> "/var/ppp/resolv.conf.gprs"
+chmod a+r /var/ppp/resolv.conf.gprs
+
+status set gprs_active_data on
+
+# update status
+status set ppp_gprs_session "`cat /var/ppp/pppoe_session`"
+status set ppp_gprs_server "`cat /var/ppp/pppoe_server`"
+status set ppp_gprs_ifname "$IFNAME"
+status set ppp_gprs_ipaddr "$IPLOCAL"
+status set ppp_gprs_gateway "$IPREMOTE"
+status set ppp_gprs_dns "$DNS1 $DNS2"
+status set ppp_gprs_status "up"
+event notify 'ppp_gprs-up'
+
+logger -s -t PPP_STATUS -p local1.info "ppp/grps UP :)"
+
+[ -d /etc/ppp/ip-up.d ] && {
+	for SCRIPT in /etc/ppp/ip-up.d/*
+	do
+		[ -x "$SCRIPT" ] && "$SCRIPT" "$@"
+	done
+}

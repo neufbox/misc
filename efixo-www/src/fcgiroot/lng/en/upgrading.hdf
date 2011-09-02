@@ -1,0 +1,6 @@
+Env.Page.Title = Update in progress
+
+Env.Help.Text = Update in progress
+
+Env.Section.update_info.Title = Update in progress
+Env.Text.Updating = The firmware update of your $BOXNAME is in progress. Please wait.

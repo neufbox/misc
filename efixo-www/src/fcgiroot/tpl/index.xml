@@ -1,0 +1,17 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <internet>
+    <link val="<?cs var:Var.internet_status.Value?>" text="<?cs call:varValueH3n_d('internet_status','down')?>" />
+    <access val="<?cs var:Var.internet_access.Value?>" text="<?cs call:varValueH3n('internet_access')?>" />
+  </internet>
+  <voip>
+    <link val="<?cs var:Var.voip_status.Value?>" text="<?cs call:varValueH3n_d('voip_status','down')?>" />
+    <access val="<?cs var:Var.voip_access.Value?>" text="<?cs call:varValueH3n('voip_access')?>" />
+  </voip>
+  <tv>
+    <link val="<?cs var:Var.tv_status.Value?>" text="<?cs call:varValueH3n_d('tv_status','down')?>" />
+  </tv>
+  <gruiks>
+    <?cs each:item = Var.gruiks ?><gruik><?cs var:item.Value ?></gruik><?cs /each ?>
+  </gruiks>
+</rsp>

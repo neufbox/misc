@@ -1,0 +1,39 @@
+Env.Page.Title = Administration
+
+#ifdef CIBOX
+Env.Help.Text = Sur cette page, vous pouvez configurer l'accès à l'interface d'administration de votre $BOXNAME (interface web et API REST). Il est conseillé d'activer la protection par mot de passe.
+#else
+Env.Help.Text = Sur cette page, vous pouvez configurer l'accès à l'interface d'administration de votre $BOXNAME (interface web et API REST). Il est conseillé d'activer la protection par mot de passe et/ou le bouton service.
+#endif
+
+Env.Section.access.Title = Accès à l'administration de votre $BOXNAME
+
+Env.Var.web_auth.Header = Protection
+Env.Var.web_auth.Value.passwd = Mot de passe
+Env.Var.web_auth.Value.button = Bouton service
+Env.Var.web_auth.Value.all = Mot de passe et bouton service
+Env.Var.web_auth.Value.off = Désactivée
+
+Env.Var.web_login.Header = Identifiant
+Env.Var.web_login.Error.value = L'identifiant doit être composé de 5 à 63 alphanumériques (a, b, .. z, 0 .. 9).
+
+Env.Var.web_password.Header = Nouveau mot de passe
+Env.Var.web_password.Error.value = Le mot de passe doit être composé de 5 à 63 caractères, et ne pas comporter d'espace, ni ces 3 caractères : <b>"</b> <b>'</b> <b>`</b>.
+Env.Var.web_password.Error.no_match = Les mots de passe ne correspondent pas
+
+Env.Var.web_password_check.Header = Confirmer le mot de passe
+
+Env.Text.SecurityCheck.passwd = Par mesure de sécurité, entrez votre identifiant et mot de passe actuel pour enregistrer vos modifications :
+Env.Text.SecurityCheck.button = Par mesure de sécurité, avant de pouvoir enregistrer vos modifications, veuillez appuyer quelques secondes sur le bouton service de votre $BOXNAME jusqu'à ce qu'il clignote.
+
+Env.Var.web_old_login.Header = Identifiant
+Env.Var.web_old_login.Error.value = L'identifiant doit être composé de 5 à 63 alphanumériques (a, b, .. z, 0 .. 9).
+Env.Var.web_old_login.Error.no_match = Erreur, l'identifiant ne correspond pas.
+
+Env.Var.web_old_password.Header = Mot de passe
+Env.Var.web_old_password.Error.value = Mot de passe invalide.
+Env.Var.web_old_password.Error.no_match = Erreur, le mot de passe ne correspond pas.
+
+Env.Form.Error.autologin_off = Le bouton service n'a pas été appuyé.
+
+Env.Form.Success.done = Modification correctement enregistrée

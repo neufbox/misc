@@ -1,0 +1,35 @@
+Env.Page.Title = Filtrage MAC
+
+#ifdef CIBOX
+Env.Help.Text = En activant le filtrage MAC, vous pouvez autoriser ou interdire des équipements connus à se connecter sans fil à votre $BOXNAME. Pour cela, vous devez récupérer l'adresse MAC de l'équipement (il s'agit de l'adresse physique de la carte réseau sans fil) dont vous voulez autoriser ou interdire l'accés.<br/><br/> Si vous choisissez une <b>politique d'autorisation</b>, seuls les équipements avec des adresses MAC autorisées pourront accéder à votre réseau sans fil.<br/><br/> Si vous choisissez une <b>politique d'interdiction</b>, les équipements dont l'adresse MAC figure dans la liste ne pourront pas accéder à votre réseau sans fil.
+#else
+Env.Help.Text = En activant le filtrage MAC, vous n'autorisez que les équipements connus à se connecter sans fil à votre $BOXNAME. Pour cela, la $BOXNAME interdit aux équipements dont l'adresse MAC (il s'agit de l'adresse physique de la carte réseau sans fil de l'équipement) n'est pas connue de se connecter, même si l'équipement connaît la clé de cryptage.
+#endif
+
+Env.Section.MACFiltering.Title = Filtrage MAC
+Env.Var.MACFiltering.Header = Activation du filtrage
+
+Env.Var.MACFiltering.Value.off = désactivé
+
+#ifdef CIBOX
+Env.Var.MACFiltering.Value.whitelist = autoriser
+Env.Var.MACFiltering.Value.blacklist = interdire
+#endif /* #ifdef CIBOX */
+
+#ifndef CIBOX
+Env.Var.MACFiltering.Value.whitelist = activé
+#endif /* #ifndef CIBOX */
+
+#ifdef CIBOX
+Env.Section.MACWhiteList.Title = Adresses MAC
+#endif /* #ifdef CIBOX */
+
+#ifndef CIBOX
+Env.Section.MACWhiteList.Title = Adresses MAC autorisées
+#endif /* #ifndef CIBOX */
+
+Env.Var.mac_address.Header = Adresse MAC
+Env.Var.mac_address.Error.invalid = Cette adresse MAC n'est pas valide
+Env.Var.mac_address.Error.alreadyused = Cette adresse MAC est déjà utilisée
+
+Env.Text.WarningMacFiltering = Attention, si vous êtes en WiFi, veillez tout d'abord à ajouter l'adresse MAC de votre poste ci dessous avant d'activer le filtrage MAC.

@@ -1,0 +1,60 @@
+Env.Page.Title = Wifi
+
+Env.Help.Text = In the <b>Access point</b> section, you can find the settings used by your wireless network of your $BOXNAME : WiFi status, the name of your wireless network (SSID), the channel, the radio mode, the encryption system, the encryption key and the activation of MAC filtering.<br /><br /> In the <b>Connected hosts</b> section, you can find the list of the WiFi equipments currently connected to your $BOXNAME.
+
+Env.Section.wifi_info.Title = Access point
+
+Env.Var.wifi_status.Header = Status
+Env.Var.wifi_status.Value.on = Enabled
+Env.Var.wifi_status.Value.off = Disabled
+
+Env.Var.wifi_ssid.Header = SSID
+
+Env.Var.wifi_closed.Header = SSID broadcasting
+Env.Var.wifi_closed.Value.0 = Enabled
+Env.Var.wifi_closed.Value.1 = Disabled
+
+Env.Var.wifi_channel.Header = Channel
+
+Env.Var.wifi_mode.Header = Radio mode
+Env.Var.wifi_mode.Value.auto = auto
+Env.Var.wifi_mode.Value.11b = 11b
+#ifdef NB4
+Env.Var.wifi_mode.Value.11g = 54g
+#else
+Env.Var.wifi_mode.Value.11g = 11b/g
+#endif
+Env.Var.wifi_mode.Value.11ng = 11b/g/n
+Env.Var.wifi_mode.Value.11n = 11n
+
+Env.Var.wifi_encryption.Header = Encryption
+Env.Var.wifi_encryption.Value.OPEN = Disabled
+Env.Var.wifi_encryption.Value.WEP = WEP
+Env.Var.wifi_encryption.Value.WPA_PSK = WPA Personal
+Env.Var.wifi_encryption.Value.WPA2_PSK = WPA2 Personal
+Env.Var.wifi_encryption.Value.WPA_WPA2_PSK = WPA/WPA2 Personal
+
+Env.Var.wifi_wpaenctype.Value.tkip = TKIP
+Env.Var.wifi_wpaenctype.Value.aes = AES
+Env.Var.wifi_wpaenctype.Value.tkipaes = TKIP and AES
+
+Env.Var.wifi_key.Header = Key
+Env.Var.wifi_key.Value.none = None
+
+Env.Var.wifi_macfiltering.Header = MAC filtering
+Env.Var.wifi_macfiltering.Value.on = Enabled
+Env.Var.wifi_macfiltering.Value.off = Disabled
+
+Env.Section.wifi_assoc.Title = Connected hosts
+
+Env.Var.wifi_assoclist_mac.Header = MAC address
+Env.Var.wifi_assoclist_ip.Header = IP address
+
+Env.Text.NoConnectedClients = No connected hosts
+Env.Text.Undefined = Undefined
+Env.Text.auto = auto
+Env.Text.currentChannel = current canal
+Env.Text.ht40Enabled = wide channels enabled
+
+Env.Var.mac_addr.Header = MAC address
+Env.Var.ip_addr.Header = IP address

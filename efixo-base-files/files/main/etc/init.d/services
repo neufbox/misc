@@ -1,0 +1,34 @@
+#!/bin/sh /etc/rc.common
+
+wait_networks() {
+	while [ ! -e /var/state/networks ]; do
+		sleep 1
+	done
+}
+
+#
+# this script is launched after nbd so now we can 
+# launch the services which couldn't be launched in hotplug
+#
+
+gprs_fixup() {
+    # gprs_device_state must be at available to start backup3g
+    if [ -f /var/state/3gdongle ]; then
+        status set gprs_device_state available
+    fi
+}
+
+boot() {
+	services='lan-topology dhcpd wlan discovery lighttpd dhcpc igmp yaddns voip hotspot tvservices nfs'
+	coldplug='ushare samba p910nd backup3g'
+
+	wait_networks
+	gprs_fixup
+
+	for i in $services $coldplug; do
+		[ -x /etc/init.d/$i ] && /etc/init.d/$i boot 2>&1
+	done
+
+	touch /var/state/services
+	event notify boot-succeeded
+}

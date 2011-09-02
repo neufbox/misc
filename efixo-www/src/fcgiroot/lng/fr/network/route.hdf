@@ -1,0 +1,17 @@
+Env.Page.Title = Route
+
+Env.Help.Text = Dans la rubrique <b>Table de routage</b>, vous pouvez ajouter des routes pour joindre des réseaux accessibles par une passerelle différente de la $BOXNAME. Ces réglages sont réservés à des utilisateurs experts.
+
+Env.Section.route_config.Title = Table de routage
+
+Env.Var.route_destination.Header = Destination
+Env.Var.route_destination.Error.value = Adresse IP incorrecte
+Env.Var.route_destination.Error.invalid_ip = Adresse IP invalide
+
+Env.Var.route_genmask.Header = Masque de sous-réseau
+Env.Var.route_genmask.Error.value = Masque de sous-réseau incorrect
+Env.Var.route_genmask.Error.invalid_netmask = Masque de sous-réseau invalide
+
+Env.Var.route_gateway.Header = Passerelle
+Env.Var.route_gateway.Error.value = Adresse IP incorrecte
+Env.Var.route_gateway.Error.invalid_ip = Adresse IP invalide

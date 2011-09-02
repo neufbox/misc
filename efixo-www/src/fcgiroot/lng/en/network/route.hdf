@@ -1,0 +1,17 @@
+Env.Page.Title = Route
+
+Env.Help.Text = In the <b>Routing table</b> section, you can add routes to reach networks wich are accessible via another gateway than the $BOXNAME. These settings are for experts users.
+
+Env.Section.route_config.Title = Routing table
+
+Env.Var.route_destination.Header = Destination
+Env.Var.route_destination.Error.value = Invalid IP address
+Env.Var.route_destination.Error.invalid_ip = Invalid IP address
+
+Env.Var.route_genmask.Header = Netmask
+Env.Var.route_genmask.Error.value = Invalid netmask
+Env.Var.route_genmask.Error.invalid_netmask = Invalid netmask
+
+Env.Var.route_gateway.Header = Gateway
+Env.Var.route_gateway.Error.value = Invalid IP address
+Env.Var.route_gateway.Error.invalid_ip = Invalid IP address

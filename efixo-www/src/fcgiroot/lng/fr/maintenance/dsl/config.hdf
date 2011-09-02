@@ -1,0 +1,41 @@
+Env.Page.Title    = ADSL
+
+Env.Help.Text     = Section réservée aux utilisateurs experts
+
+Env.Section.adsl_advanced_configuration.Header = Configuration ADSL avancé
+
+Env.Var.dsl_mod.Header = Modulation
+Env.Var.dsl_mod.Value.a = toutes
+Env.Var.dsl_mod.Value.d = G.DMT (G.992.1)
+Env.Var.dsl_mod.Value.l = G.Lite (G.992.2)
+Env.Var.dsl_mod.Value.t = ADSL (T1.413)
+Env.Var.dsl_mod.Value.2 = ADSL2 (G.992.3)
+Env.Var.dsl_mod.Value.p = ADSL2+ (G.992.5)
+Env.Var.dsl_mod.Value.e = RE-ADSL2 (G.992.5 Annex L)
+Env.Var.dsl_mod.Value.m = ADSL2+ (G.992.5 Annex M)
+
+Env.Var.dsl_lpair.Header = Paire de bouclage
+Env.Var.dsl_lpair.Value.inner = interne
+Env.Var.dsl_lpair.Value.outer = externe
+
+Env.Var.dsl_trellis.Header = Modulation en treillis
+Env.Var.dsl_trellis.Value.on = activé
+Env.Var.dsl_trellis.Value.off = désactivé
+
+Env.Var.dsl_snr.Header = Marge de bruit
+
+Env.Var.dsl_bitswap.Header = Inversion des bits
+Env.Var.dsl_bitswap.Value.on = activé
+Env.Var.dsl_bitswap.Value.off = désactivé
+
+Env.Var.dsl_sesdrop.Header = Sesdrop
+Env.Var.dsl_sesdrop.Value.on = activé
+Env.Var.dsl_sesdrop.Value.off = désactivé
+
+Env.Var.dsl_sra.Header = Ajustement du débit
+Env.Var.dsl_sra.Value.on = activé
+Env.Var.dsl_sra.Value.off = désactivé
+
+Env.Var.dsl_diag.Header = Dsl diagnostique
+Env.Var.dsl_diag.Value.on = activé
+Env.Var.dsl_diag.Value.off = désactivé

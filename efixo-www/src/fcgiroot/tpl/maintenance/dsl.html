@@ -1,0 +1,44 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+        <h1><?cs var:Env.Section.ADSLoptimise.Title?></h1>
+</div>
+
+<div class="content">
+
+        <form method="post" action="<?cs var:Env.Page.Name ?>">
+
+                <input type="hidden" name="action" value="adsl_profile" />
+
+                <p>
+                <input type="radio" id="adsl_profile_auto" name="adsl_profile" value="auto"<?cs if:Var.ADSLProfile.Value == "auto" ?> checked="checked"<?cs /if ?> />
+                <label for="adsl_profile_auto"><?cs var:Env.Text.ADSLauto.Header?></label><br />
+
+                <input type="radio" id="adsl_profile_rescue" name="adsl_profile" value="rescue"<?cs if:Var.ADSLProfile.Value == "rescue" ?> checked="checked"<?cs /if ?> />
+                <label for="adsl_profile_rescue"><?cs var:Env.Text.ADSLrescue.Header?></label><br />
+
+                <input type="radio" id="adsl_profile_manual" name="adsl_profile" value="manual"<?cs if:Var.ADSLProfile.Value == "manual" ?> checked="checked"<?cs /if ?> />
+                <label for="adsl_profile_manual"><?cs var:Env.Text.ADSLmanual.Header?></label><br />
+                </p>
+
+                <table id="adsl_configuration"<?cs if:Var.ADSLProfile.Value != "manual" ?> style="display: none;"<?cs /if ?>>
+                <tr><th scope="col" colspan="6"><img src="/img/img_dsl_profile.png" alt="" width="425" height="85" /></th></tr>
+                <tr>
+                        <td id="col_profile_1"><input type="radio" id="adsl_profile_n1" name="adsl_profile_n" value="1"<?cs if:Var.ADSLProfileNumber.Value == "1" ?> checked="checked"<?cs /if ?> /></td>
+                        <td id="col_profile_2"><input type="radio" id="adsl_profile_n2" name="adsl_profile_n" value="2"<?cs if:Var.ADSLProfileNumber.Value == "2" ?> checked="checked"<?cs /if ?> /></td>
+                        <td id="col_profile_3"><input type="radio" id="adsl_profile_n3" name="adsl_profile_n" value="3"<?cs if:Var.ADSLProfileNumber.Value == "3" ?> checked="checked"<?cs /if ?> /></td>
+                        <td id="col_profile_4"><input type="radio" id="adsl_profile_n4" name="adsl_profile_n" value="4"<?cs if:Var.ADSLProfileNumber.Value == "4" ?> checked="checked"<?cs /if ?> /></td>
+                        <td id="col_profile_5"><input type="radio" id="adsl_profile_n5" name="adsl_profile_n" value="5"<?cs if:Var.ADSLProfileNumber.Value == "5" ?> checked="checked"<?cs /if ?> /></td>
+                        <td id="col_profile_6"><input type="radio" id="adsl_profile_n6" name="adsl_profile_n" value="6"<?cs if:Var.ADSLProfileNumber.Value == "6" ?> checked="checked"<?cs /if ?> /></td>
+                </tr>
+                </table>
+
+                <div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+
+        </form>
+
+</div>
+
+<?cs include:"tpl/footer.html" ?>

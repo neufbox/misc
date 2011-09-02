@@ -1,0 +1,201 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<?cs def:statName(rawName)?>
+  <?cs if:?Env.Text[rawName]?>
+    <?cs var:Env.Text[rawName]?>
+  <?cs else?>
+    <?cs var:rawName?>
+  <?cs /if?>
+<?cs /def?>
+
+<?cs def:getRssiBarWidth(rssi)?>
+  <?cs if:rssi < #-100?>
+    0%
+  <?cs elif:rssi > #0 ?>
+    100%
+  <?cs else?>
+    <?cs var:#100 + rssi?>%
+  <?cs /if?>
+<?cs /def?>
+
+<?cs def:getRssiBarColor(rssi)?>
+  <?cs if:rssi <= #0 && rssi > #-50?>
+    lightgreen
+  <?cs elif:rssi <= #-50 && rssi > #-65?>
+    orange
+  <?cs elif:rssi <= #-65 && rssi > #-80?>
+    darkorange
+  <?cs else?>
+    red
+  <?cs /if?>
+<?cs /def?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.pcports_stats.Title ?></h1>
+</div>
+
+<div class="content">
+    
+    <table class="pcports_stats">
+	<thead>
+	    <tr>
+		<th scope="col" class="col_action"></th>
+		<?cs each:port = Var.ports?>
+		<th scope="col"><?cs var:Env.Text.port?> <?cs call:lanIfaceToPortName(port.name.Value)?></th>
+		<?cs /each?>
+	    </tr>
+	</thead>
+	
+	<tbody>
+	    <?cs each:counter = Var.ports.1.counters?>
+	    <tr>
+		<th scope="row" class="row_stat_name"><?cs call:statName(name(counter)) ?></th>
+		
+		<?cs each:port = Var.ports?>
+		<td><?cs var:port.counters[name(counter)].Value ?></td>
+		<?cs /each?>
+	    </tr>
+	    <?cs /each?>
+	</tbody>
+    </table>
+
+    <br/>
+	
+#ifndef CIBOX
+    <a href="/state/lan/extra"><?cs var:Env.Link.GeneralStat ?></a>
+#endif
+
+</div>
+
+<div class="title">
+	<h1><?cs var:Env.Section.wlanhost_stats.Title ?></h1>
+</div>
+
+<div class="content">
+	
+<?cs if:subcount(Var.wlan_host) > 0 ?>
+	<?cs each:item = Var.wlan_host?>
+	<table class="wlanhost_stats">
+		<thead>
+			<tr>
+				<th scope="row">
+                                        <?cs var:Env.Text.mac_addr?>
+                                </th>
+                                <td>
+                                        <?cs var:item.macaddr.Value ?>
+                                </td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<?cs var:Env.Text.ip_addr?>
+				</th>
+				<td>
+                                        <?cs alt:item.ipaddr.Value ?>
+                                                <i><?cs var:Env.Text.Undefined?></i>
+                                        <?cs /alt?>
+                                </td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row" valign="top">
+					<?cs var:Env.Var.rssi.Header?>
+				</th>
+				<td>
+					<div class="rssidb">
+						&nbsp; <?cs var:item.rssi.Value ?> dB
+					</div>
+					<div class="rssibar">
+						<div style="width: <?cs call:getRssiBarWidth(item.rssi.Value )?>; background-color: <?cs call:getRssiBarColor(item.rssi.Value )?>;">
+							&nbsp;
+						</div>
+					</div>
+					
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top">
+					<?cs var:Env.Var.rates.Header?>
+				</th>
+				<td>
+					[ <?cs each:rate = item.rates ?><?cs var:rate.Value?><?cs /each?> ]
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top">
+					<?cs var:Env.Var.in.Header?>
+				</th>
+				<td>
+					<?cs var:item.in.Value ?> <?cs var:Env.text.second?><?cs if:#item.in.Value > 1?>s<?cs /if?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top">
+	                                <?cs var:Env.Var.idle.Header?>
+				</th>
+				<td>
+					<?cs var:item.idle.Value ?> <?cs var:Env.text.second?><?cs if:#item.idle.Value > 1?>s<?cs /if?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top">
+					<?cs var:Env.Var.tx_pkts.Header?>
+				</th>
+				<td>
+					<?cs var:item.tx_pkts.Value ?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top">
+					<?cs var:Env.Var.tx_failures.Header?>
+				</th>
+				<td>
+					<?cs var:item.tx_failures.Value ?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top">
+					<?cs var:Env.Var.rx_ucast_pkts.Header?>
+				</th>
+				<td>
+					<?cs var:item.rx_ucast_pkts.Value ?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top">
+					<?cs var:Env.Var.rx_mcast_pkts.Header?>
+				</th>
+				<td>
+					<?cs var:item.rx_mcast_pkts.Value ?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top">
+					<?cs var:Env.Var.tx_rate.Header?>
+				</th>
+				<td>
+					<?cs var:item.tx_rate.Value ?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row" valign="top">
+					<?cs var:Env.Var.rx_rate.Header?>
+				</th>
+				<td>
+					<?cs var:item.rx_rate.Value ?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<?cs /each?>
+	
+	<br/><br/>
+	
+	<a href="/state/wifi"><?cs var:Env.Link.WifiGeneralStat ?></a>
+<?cs else ?>
+        <?cs var:Env.Text.NoConnectedClients ?>
+<?cs /if ?>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

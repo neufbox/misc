@@ -1,0 +1,68 @@
+***********************************************************************
+sysfs_open_driver("usb", "usb-storage");
+
+1-1:1.0 /sys/devices/pci0000:00/0000:00:0a.0/usb1/1-1/1-1:1.0
+1-2.6:1.0 /sys/devices/pci0000:00/0000:00:0a.0/usb1/1-2/1-2.6/1-2.6:1.0
+
+[root@Lost /var/www/test] ls -al /sys/devices/pci0000:00/0000:00:0a.0/usb1/1-1/1-1:1.0
+drwxr-xr-x    3 root     root            0 Mar 21 11:45 .
+drwxr-xr-x    3 root     root            0 Mar 21 11:45 ..
+-r--r--r--    1 root     root         4096 Mar 21 11:45 bAlternateSetting
+-r--r--r--    1 root     root         4096 Mar 21 11:45 bInterfaceClass
+-r--r--r--    1 root     root         4096 Mar 21 11:45 bInterfaceNumber
+-r--r--r--    1 root     root         4096 Mar 21 11:45 bInterfaceProtocol
+-r--r--r--    1 root     root         4096 Mar 21 11:45 bInterfaceSubClass
+-r--r--r--    1 root     root         4096 Mar 21 11:45 bNumEndpoints
+-rw-r--r--    1 root     root         4096 Mar 21 11:45 detach_state
+drwxr-xr-x    3 root     root            0 Mar 21 11:45 host8
+-r--r--r--    1 root     root         4096 Mar 21 11:45 iInterface
+***********************************************************************
+sysfs_open_driver("scsi", "sd");
+
+2:0:0:0 /sys/devices/pci0000:00/0000:00:0a.0/usb1/1-2/1-2.6/1-2.6:1.0/host2/2:0:0:0
+8:0:0:0 /sys/devices/pci0000:00/0000:00:0a.0/usb1/1-1/1-1:1.0/host8/8:0:0:0
+
+[root@Lost /var/www/test] ls -al /sys/devices/pci0000:00/0000:00:0a.0/usb1/1-2/1-2.6/1-2.6:1.0/host2/2:0:0:0
+drwxr-xr-x    2 root     root            0 Mar 20 11:23 .
+drwxr-xr-x    3 root     root            0 Mar 20 11:23 ..
+lrwxrwxrwx    1 root     root            0 Mar 20 11:23 block -> ../../../../../../../../../block/sda
+--w-------    1 root     root         4096 Mar 20 11:23 delete
+-rw-r--r--    1 root     root         4096 Mar 20 11:23 detach_state
+-r--r--r--    1 root     root         4096 Mar 20 11:23 device_blocked
+lrwxrwxrwx    1 root     root            0 Mar 20 11:23 generic -> ../../../../../../../../../class/scsi_generic/sg0
+-rw-r--r--    1 root     root         4096 Mar 20 11:23 max_sectors
+-r--r--r--    1 root     root         4096 Mar 20 11:23 model
+-r--r--r--    1 root     root         4096 Mar 20 11:23 queue_depth
+--w-------    1 root     root         4096 Mar 20 11:23 rescan
+-r--r--r--    1 root     root         4096 Mar 20 11:23 rev
+-r--r--r--    1 root     root         4096 Mar 20 11:23 scsi_level
+-rw-r--r--    1 root     root         4096 Mar 20 11:23 state
+-rw-r--r--    1 root     root         4096 Mar 20 11:23 timeout
+-r--r--r--    1 root     root         4096 Mar 20 11:23 type
+-r--r--r--    1 root     root         4096 Mar 20 11:23 vendor
+***********************************************************************
+sysfs_open_class("block");
+
+sda -> 2:0:0:0, /sys/devices/pci0000:00/0000:00:0a.0/usb1/1-2/1-2.6/1-2.6:1.0/host2/2:0:0:0
+sdb -> 8:0:0:0, /sys/devices/pci0000:00/0000:00:0a.0/usb1/1-1/1-1:1.0/host8/8:0:0:0
+
+[root@Lost /var/www/test] ls -al /sys/devices/pci0000:00/0000:00:0a.0/usb1/1-2/1-2.6/1-2.6:1.0/host2/2:0:0:0
+drwxr-xr-x    2 root     root            0 Mar 20 11:23 .
+drwxr-xr-x    3 root     root            0 Mar 20 11:23 ..
+lrwxrwxrwx    1 root     root            0 Mar 20 11:23 block -> ../../../../../../../../../block/sda
+--w-------    1 root     root         4096 Mar 20 11:23 delete
+-rw-r--r--    1 root     root         4096 Mar 20 11:23 detach_state
+-r--r--r--    1 root     root         4096 Mar 20 11:23 device_blocked
+lrwxrwxrwx    1 root     root            0 Mar 20 11:23 generic -> ../../../../../../../../../class/scsi_generic/sg0
+-rw-r--r--    1 root     root         4096 Mar 20 11:23 max_sectors
+-r--r--r--    1 root     root         4096 Mar 20 11:23 model
+-r--r--r--    1 root     root         4096 Mar 20 11:23 queue_depth
+--w-------    1 root     root         4096 Mar 20 11:23 rescan
+-r--r--r--    1 root     root         4096 Mar 20 11:23 rev
+-r--r--r--    1 root     root         4096 Mar 20 11:23 scsi_level
+-rw-r--r--    1 root     root         4096 Mar 20 11:23 state
+-rw-r--r--    1 root     root         4096 Mar 20 11:23 timeout
+-r--r--r--    1 root     root         4096 Mar 20 11:23 type
+-r--r--r--    1 root     root         4096 Mar 20 11:23 vendor
+***********************************************************************
+

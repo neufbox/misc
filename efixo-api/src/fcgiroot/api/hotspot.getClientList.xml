@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+<?cs each:item = hotspot.clients ?>
+   <client mac_addr="<?cs var:item.mac_addr ?>" ip_addr="<?cs var:item.ip_addr ?>" />
+<?cs /each ?>
+</rsp>

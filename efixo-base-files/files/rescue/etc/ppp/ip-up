@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "nameserver $DNS1
+nameserver $DNS2" > /var/ppp/adsl-resolv.conf
+
+echo $IPLOCAL > /var/ppp/adsl-ipaddr
+echo $IPREMOTE > /var/ppp/adsl-gateway
+

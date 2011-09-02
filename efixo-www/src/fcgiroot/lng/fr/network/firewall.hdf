@@ -1,0 +1,20 @@
+Env.Page.Title = Filtrage
+
+Env.Help.Text = Dans la rubrique <b>Filtrage</b>, vous pouvez activer la protection des ports régulièrement attaqués par les vers et les virus Windows (135, 137, 138, 139, 445). Vous pouvez aussi bloquer les requêtes SMTP qui n'utilisent pas le serveur SMTP du groupe $OPERATORNAME.<br/><br/> Toutes ces règles modifient uniquement le comportement de la $BOXNAME sur les communications qui passent à travers elle.
+
+Env.Section.firewall.Title = Filtrage
+
+Env.Var.filter_mode.Header = Filtrage
+Env.Var.filter_mode.Value.on = personnalisé
+Env.Var.filter_mode.Value.off = désactivé
+Env.Var.filter_mode.Error.value = Format incorrect
+
+Env.Var.filter_simple.Header = Options
+
+Env.Var.filter_simple_winsharedrop.Header = Protéger vos ordinateurs Windows de l'internet
+
+Env.Var.filter_simple_smtpdrop.Header = Autoriser l'envoi de courriels uniquement par l'intermédiaire des serveurs mail du groupe $OPERATORNAME
+
+Env.Var.filter_simple_icmpdrop.Header = Bloquer le ping entrant
+
+Env.Var.filter_simple_ipv6drop.Header = Bloquer le trafic IPv6 entrant non sollicité

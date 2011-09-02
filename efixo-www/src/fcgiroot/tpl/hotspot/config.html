@@ -1,0 +1,90 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div id="ctn_hotspot_disable" <?cs if:Var.hotspot_enable.Value != "false"?>style="display:none;"<?cs /if?>>
+  <div class="title">
+    <h1><?cs var:Env.Section.hotspot_config.Title ?></h1>
+  </div>
+
+  <div class="content">
+    <div class="warning_notice">
+      <?cs call:varValueH3n_d("hotspot_enable", "false")?>
+    </div>
+  </div>
+</div>
+
+<div id="ctn_hotspot_enable" <?cs if:Var.hotspot_enable.Value == "false"?>style="display:none;"<?cs /if?>>
+  <div class="title">
+    <h1><?cs var:Env.Section.hotspot_config.Title ?></h1>
+  </div>
+
+  <div class="content">
+    <form method="post" action="<?cs var:Env.Page.Name ?>" id="form_hotspot_config">
+
+      <table id="hotspot_config">
+	<tr>
+	  <th scope="row"><?cs call:varHeader("hotspot_active") ?></th>
+	  <td>
+	    <input type="radio" value="on" name="hotspot_active" id="hotspot_active_on"<?cs if:Var.hotspot_active.Value == "on" ?> checked="checked"<?cs /if ?> />
+	    <label for="hotspot_active_on"><?cs var:Env.Var.hotspot_active.Value.on ?></label>
+            
+	    <input type="radio" value="off" name="hotspot_active" id="hotspot_active_off"<?cs if:Var.hotspot_active.Value == "off" ?> checked="checked"<?cs /if ?> />
+	    <label for="hotspot_active_off"><?cs var:Env.Var.hotspot_active.Value.off ?></label>
+	  </td>
+	</tr>
+	<tr>
+	  <th scope="row"><?cs call:varHeader("hotspot_status") ?></th>
+	  <td class="<?cs if:Var.hotspot_status.Value == "up" ?>enabled<?cs elif:(Var.hotspot_status.Value == "starting" || Var.hotspot_status.Value == "stopping") ?>unused<?cs else ?>disabled<?cs /if ?>" id="hotspot_status">
+	    <?cs call:varValueH3n("hotspot_status")?>
+	  </td>
+	</tr>
+	<tr id="row_hotspot_ssid"<?cs if:Var.hotspot_active.Value == "off" || string.length(Var.hotspot_ssid.Value) == 0?> style="display: none;"<?cs /if ?>>
+	  <th scope="row"><label for="hotspot_ssid"><?cs call:varHeader("hotspot_ssid") ?></label></th>
+	  <td id="hotspot_ssid">
+            <?cs var:Var.hotspot_ssid.Value ?>
+	  </td>
+	</tr>
+	<tr id="row_hotspot_mode"<?cs if:Var.hotspot_active.Value == "off" ?> style="display: none;"<?cs /if ?>>
+	  <th scope="row"><label for="hotspot_mode"><?cs call:varHeader("hotspot_mode") ?></label></th>
+	  <td>
+	    <select name="hotspot_mode" id="hotspot_mode">
+	      <option value="sfr"<?cs if:Var.hotspot_mode.Value == "sfr" ?> selected="selected"<?cs /if ?>><?cs var:Env.Var.hotspot_mode.Value.sfr ?></option>
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+	      <option value="sfr_fon"<?cs if:Var.hotspot_mode.Value == "sfr_fon" ?> selected="selected"<?cs /if ?>><?cs var:Env.Var.hotspot_mode.Value.sfr_fon ?></option>
+#endif
+	    </select>
+	  </td>
+	</tr>
+      </table>
+
+      <p id="row_hotspot_conditions"<?cs if:Var.hotspot_active.Value == "off" ?> style="display: none;"<?cs /if ?>>
+	<input type="checkbox" name="hotspot_conditions" id="hotspot_conditions" value="accept" />
+	<label for="hotspot_conditions"><?cs call:varHeader("hotspot_conditions") ?></label>
+      </p>
+
+      <?cs if:?Var.hotspot_conditions.Error ?>
+      <p id="row_hotspot_conditionserror" class="error">
+	<?cs var:Env.Var.hotspot_conditions.Error[Var.hotspot_conditions.Error] ?>
+      </p>
+      <?cs else ?>
+        <?cs if:Var.hotspot_chosefon.Value == "yes" ?>
+        <p id="row_hotspot_chosefon"><?cs var:Env.Text.InfoFON ?></p>
+        <?cs /if ?>
+      <?cs /if ?>
+
+      <div id="div_submit" <?cs if:Var.Page.Action.Value == "work"?>class="button_submit_disabled"<?cs else?>class="button_submit"<?cs /if?>>
+	<button type="submit" name="submit" id="push_the_button" <?cs if:Var.Page.Action.Value == "work"?>disabled<?cs /if?>>
+	  <?cs var:Button.Submit ?>
+        </button>
+
+        <div id="work_in_progress" class="status loading" <?cs if:Var.Page.Action.Value != "work"?>style="display:none;"<?cs /if?>>
+          <?cs var:Env.Text.work_in_progress ?>
+        </div>
+      </div>
+        
+    </form>
+  </div>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

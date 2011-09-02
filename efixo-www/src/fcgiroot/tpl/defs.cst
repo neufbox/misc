@@ -1,0 +1,115 @@
+#ifdef NB4
+<?cs def:lanIfaceToPortName(iface)?>
+  <?cs if:iface == "lan1" ?>TV
+  <?cs elif:iface == "lan2" ?>PC 1
+  <?cs elif:iface == "lan3" ?>PC 2
+  <?cs elif:iface == "lan4" ?>PC 3
+  <?cs elif:iface == "swi1" ?>Switch
+  <?cs else ?>Inconnu
+  <?cs /if ?>
+<?cs /def?>
+#endif
+
+#ifdef NB5
+<?cs def:lanIfaceToPortName(iface)?>
+  <?cs if:iface == "lan1" ?>LAN 1
+  <?cs elif:iface == "lan2" ?>LAN 2
+  <?cs elif:iface == "lan3" ?>LAN 3
+  <?cs elif:iface == "lan4" ?>LAN 4
+  <?cs elif:iface == "swi1" ?>Switch
+  <?cs else ?>Inconnu
+  <?cs /if ?>
+<?cs /def?>
+#endif
+
+#ifdef NB6
+<?cs def:lanIfaceToPortName(iface)?>
+  <?cs if:iface == "lan1" ?>LAN 1
+  <?cs elif:iface == "lan2" ?>LAN 2
+  <?cs elif:iface == "lan3" ?>LAN 3
+  <?cs elif:iface == "lan4" ?>LAN 4
+  <?cs elif:iface == "femto" ?>Femtocell
+  <?cs else ?>Inconnu
+  <?cs /if ?>
+<?cs /def?>
+#endif
+
+#ifdef CIBOX
+<?cs def:lanIfaceToPortName(iface)?>
+  <?cs if:iface == "lan1" ?>ETH 1
+  <?cs elif:iface == "lan2" ?>ETH 2
+  <?cs else ?>Inconnu
+  <?cs /if ?>
+<?cs /def?>
+#endif
+
+#ifdef X86
+<?cs def:lanIfaceToPortName(iface)?>
+  <?cs if:iface == "lan1" ?>ETH 1
+  <?cs elif:iface == "lan2" ?>ETH 2
+  <?cs else ?>Inconnu
+  <?cs /if ?>
+<?cs /def?>
+#endif
+
+<?cs def:IfaceToPortName(iface)?>
+  <?cs if:iface == "usb"?>USB PC
+  <?cs elif:iface == "wlan0"?>Wifi
+  <?cs else?>
+    <?cs call:lanIfaceToPortName(iface)?>
+  <?cs /if?>
+<?cs /def?>
+
+<?cs def:sectionTitle(name)?>
+  <?cs alt:Env.Section[name].Title?>Section <?cs var:name?><?cs /alt?>
+<?cs /def?>
+
+<?cs def:varHeader(name)?>
+  <?cs alt:Env.Var[name].Header?><?cs var:value?><?cs /alt?>
+<?cs /def?>
+
+<?cs def:_varErrorDiv(name, error, defaulterror)?>
+  <?cs if:?Var[name].Error?>
+  <div class="error">
+    <?cs alt:Env.Var[name].Error[error]?>
+      <?cs var:defaulterror?>
+    <?cs /alt?>
+  </div>
+  <?cs /if?>
+<?cs /def?>
+
+<?cs def:varErrorDiv(name)?>
+  <?cs call:_varErrorDiv(name, Var[name].Error, Env.Text.UnknownError)?>
+<?cs /def?>
+
+<?cs def:varErrorDiv_d(name, defaultErrorName)?>
+  <?cs call:_varErrorDiv(name, Var[name].Error, Env.Var[name].Error[defautErrorName])?>
+<?cs /def?>
+
+<?cs def:varErrorDiv_gd(name, defaultErrorValue)?>
+  <?cs call:_varErrorDiv(name, Var[name].Error, defaultErrorValue)?>
+<?cs /def?>
+
+<?cs def:varValue(name)?>
+  <?cs var:Var[name].Value?>
+<?cs /def?>
+
+<?cs def:_varValueH3n(name, value, defaultvalue)?>
+  <?cs if:?Env.Var[name].Value[value]?>
+    <?cs var:Env.Var[name].Value[value]?>
+  <?cs else?>
+    <?cs var:defaultvalue?>
+  <?cs /if?>
+<?cs /def?>
+
+<?cs def:varValueH3n(name)?>
+  <?cs call:_varValueH3n(name, Var[name].Value, Env.Text.UnknownValue)?>
+<?cs /def?>
+
+<?cs def:varValueH3n_d(name, defaultvaluename)?>
+  <?cs call:_varValueH3n(name, Var[name].Value, Env.Var[name].Value[defaultvaluename])?>
+<?cs /def?>
+
+<?cs def:varValueH3n_gd(name, defaultvalue)?>
+  <?cs call:_varValueH3n(name, Var[name].Value, defaultvalue)?>
+<?cs /def?>

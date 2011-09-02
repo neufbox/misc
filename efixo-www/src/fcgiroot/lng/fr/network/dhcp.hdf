@@ -1,0 +1,38 @@
+Env.Page.Title = DHCP
+
+Env.Help.Text = Le serveur DHCP de la $BOXNAME permet d'attribuer automatiquement une adresse IP et l'adresse du serveur de nom aux équipements connectés à votre $BOXNAME (ordinateurs, consoles de jeu, etc.). Ces réglages n'ont normalement pas à être modifiés.
+
+Env.Section.dhcp_configuration.Title = Serveur DHCP
+
+Env.Form.Error.invalid_ip_range = La plage des adresses IP pour le serveur DHCP est invalide
+
+Env.Var.dhcp_active.Header = Activation
+Env.Var.dhcp_active.Value.on = activé
+Env.Var.dhcp_active.Value.off = désactivé
+Env.Var.dhcp_active.Error.value = Format incorrect
+
+Env.Var.dhcp_start.Header = Première adresse
+Env.Var.dhcp_start_p3.Error.value = Format incorrect
+Env.Var.dhcp_start_p3.Error.invalid = Adresse IP incorrecte
+
+Env.Var.dhcp_end.Header = Dernière adresse
+Env.Var.dhcp_end_p3.Error.value = Format incorrect
+Env.Var.dhcp_end_p3.Error.invalid = Adresse IP incorrecte
+
+Env.Var.dhcp_lease.Header = Bail (en secondes)
+Env.Var.dhcp_lease.Error.value = Format incorrect
+
+Env.Section.dhcp_static.Title = Adresses statiques
+
+Env.Var.dhcp_static_ipaddr.Header = Adresse IP
+Env.Var.dhcp_static_ipaddr.Error.value = Format incorrect
+Env.Var.dhcp_static_ipaddr.Error.invalid = Adresse IP invalide
+Env.Var.dhcp_static_ipaddr.Error.already_use = Adresse IP déjà utilisée
+Env.Var.dhcp_static_ipaddr.Error.boxip = Vous ne pouvez pas utiliser l'ip de la $BOXNAME
+
+Env.Var.dhcp_static_macaddr.Header = Adresse MAC
+Env.Var.dhcp_static_macaddr.Error.value = Format incorrect
+Env.Var.dhcp_static_macaddr.Error.invalid = Adresse MAC invalide
+Env.Var.dhcp_static_macaddr.Error.already_use = Adresse MAC déjà utilisée
+
+Env.Text.dhcp_off_warning = Attention ! En désactivant le serveur DHCP de la $BOXNAME, vous risquez d'empêcher le bon fonctionnement du décodeur TV.

@@ -1,0 +1,100 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs include:"tpl/header.html"?>
+
+<div class="title">
+    <h1><?cs var:Env.Section.lan_configuration.Title ?></h1>
+</div>
+
+<div class="content">
+  
+    <form method="post" action="<?cs var:Env.Page.Name ?>" id="form_lan_configuration">
+    
+    <table id="lan_configuration">
+	<tr>  
+	    <th scope="row">
+		<?cs call:varHeader("lan_ipaddr") ?>
+	    </th>
+	    <td>
+		<input type="text"
+		       name="lan_ipaddr_start_part1"
+		       id="lan_ipaddr_start_part1"
+		       size="3"
+		       maxlength="3"
+		       value="<?cs var:Var.lan_ipaddr_start_part1.Value ?>"
+		       class="<?cs if:?Var.lan_ipaddr.Error ?>error<?cs else ?>text<?cs /if ?> ip"  />&nbsp;.
+        
+	       <input type="text" 
+		      name="lan_ipaddr_start_part2"  
+	              id="lan_ipaddr_start_part2" 
+		      size="3" 
+		      maxlength="3" 
+		      value="<?cs var:Var.lan_ipaddr_start_part2.Value ?>"
+		      class="<?cs if:?Var.lan_ipaddr.Error ?>error<?cs else ?>text<?cs /if ?> ip" />&nbsp;.
+		      
+	       <input type="text"
+		      name="lan_ipaddr_start_part3"
+		      id="lan_ipaddr_start_part3"
+		      size="3"
+		      maxlength="3"
+		      value="<?cs var:Var.lan_ipaddr_start_part3.Value ?>" 
+		      class="<?cs if:?Var.lan_ipaddr.Error ?>error<?cs else ?>text<?cs /if ?> ip" />&nbsp;.
+
+	       <input type="text"
+		      name="lan_ipaddr_start_part4"
+		      id="lan_ipaddr_start_part4" 
+		      size="3" maxlength="3" 
+		      value="<?cs var:Var.lan_ipaddr_start_part4.Value ?>"
+		      class="<?cs if:?Var.lan_ipaddr.Error ?>error<?cs else ?>text<?cs /if ?> ip"  />
+        
+	       <?cs call:varErrorDiv("lan_ipaddr")?>
+	   </td>
+       </tr>
+       <tr>
+	   <th scope="row">
+	       <?cs call:varHeader("lan_netmask") ?>
+	   </th>
+	   <td>
+	       <input type="text"
+		      name="lan_netmask_start_part1"
+		      id="lan_netmask_start_part1"
+		      size="3"
+		      maxlength="3"
+		      value="<?cs var:Var.lan_netmask_start_part1.Value ?>"
+		      class="<?cs if:?Var.lan_netmask.Error ?>error<?cs else ?>text<?cs /if ?> ip"  />&nbsp;.
+        
+	       <input type="text" 
+		      name="lan_netmask_start_part2"
+		      id="lan_netmask_start_part2"
+		      size="3"
+		      maxlength="3"
+		      value="<?cs var:Var.lan_netmask_start_part2.Value ?>"
+		      class="<?cs if:?Var.lan_netmask.Error ?>error<?cs else ?>text<?cs /if ?> ip" />&nbsp;.
+
+               <input type="text"
+		      name="lan_netmask_start_part3"
+		      id="lan_netmask_start_part3"
+		      size="3"
+		      maxlength="3"
+		      value="<?cs var:Var.lan_netmask_start_part3.Value ?>"
+		      class="<?cs if:?Var.lan_netmask.Error ?>error<?cs else ?>text<?cs /if ?> ip" />&nbsp;.
+		   
+               <input type="text"
+		      name="lan_netmask_start_part4"
+		      id="lan_netmask_start_part4"
+		      size="3"
+		      maxlength="3"
+		      value="<?cs var:Var.lan_netmask_start_part4.Value ?>"
+		      class="<?cs if:?Var.lan_netmask.Error ?>error<?cs else ?>text<?cs /if ?> ip" />
+
+	       <?cs call:varErrorDiv("lan_netmask")?>
+	   </td>
+       </tr>
+  </table>
+
+  <div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+  
+  </form>
+
+</div>
+
+<?cs include:"tpl/footer.html" ?>

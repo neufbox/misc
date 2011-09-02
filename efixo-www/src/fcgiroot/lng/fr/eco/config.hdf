@@ -1,0 +1,28 @@
+Env.Page.Title = Configuration ECO
+
+Env.Help.Text = Dans cette rubrique, vous pouvez définir le profil du mode ECO.<br /><br />Le profil <b>Standard</b> signifie que la $BOXNAME utilisera la configuration par défaut : Diminution de la luminosité des voyants et ports ethernet en 100Mbps<br /><br />Le profil <b>Personnalisé</b> permet de régler manuellement les différents états de votre $BOXNAME.
+
+Env.Section.configuration.Title = Configuration du mode ECO
+
+Env.Var.warning_led = Attention ! L'extinction des voyants en mode ECO provoquera l'absence de la notification d'appel manqué.
+
+Env.Var.profile.Header = Profil
+Env.Var.profile_standard.Value = Standard
+Env.Var.profile_custom.Value = Personnalisé
+
+Env.Var.disabled.Value = Désactivé
+
+Env.Var.telephone.Header = Téléphone
+Env.Var.cpl.Header = CPL
+Env.Var.port_usb.Header = Port USB
+Env.Var.ethernet_pc_tv.Header = Ethernet PC/TV
+Env.Var.port_ftth.Header = Port FTTH
+Env.Var.brightness.Header = Luminosité des voyants
+
+Env.Var.mbps.Value = Mbps
+
+Env.Var.off.Value = Eteint
+Env.Var.low.Value = Minimum
+Env.Var.medium.Value = Moyen
+Env.Var.high.Value = Maximum
+

@@ -1,0 +1,13 @@
+config HOSTNAME
+	string "Board hostname"
+	default "nb4" if TARGET_brcm63xx
+	default "nb5" if TARGET_octeon
+	default "OpenWRT"
+
+config LOCALDNS
+	string "Board Local DNS"
+	default "neufbox"
+
+config VALID
+	bool "Valid mode"
+	default n

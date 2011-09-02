@@ -1,0 +1,46 @@
+
+Env.Page.Pretitle = $BOXNAME -&nbsp; 
+Env.Page.Index.Title = Accueil
+Env.Help.Title = Aide
+
+Env.Form.Error.unknown = Une erreur s'est produite !
+Env.Form.Error.system = Une erreur système s'est produite !
+Env.Form.Success.default = Données correctement enregistrées
+
+Env.Var.Sys.FirmwareVersion.Header = Version
+Env.Var.Sys.MACAddress.Header = Adresse MAC
+Env.Var.Sys.IPAddress.Header = Adresse IP
+
+Env.Var.Sys.NetInfraExtra.Header = Profil d'accès
+Env.Var.Sys.NetInfraExtra.Value.adsl = $BOXNAME ADSL
+Env.Var.Sys.NetInfraExtra.Value.adslgprs = mix ADSL/3G
+Env.Var.Sys.NetInfraExtra.Value.gprsadsl = mix ADSL/3G
+Env.Var.Sys.NetInfraExtra.Value.ftth = $BOXNAME FTTH
+Env.Var.Sys.NetInfraExtra.Value.ftthgprs = mix FTTH/3G
+Env.Var.Sys.NetInfraExtra.Value.gprsftth = mix FTTH/3G
+Env.Var.Sys.NetInfraExtra.Value.gprs = connexion 3G
+Env.Var.Sys.NetInfraExtra.Value.unknown = inconnu
+
+Button.Signoff = Déconnexion
+Button.Submit = Valider
+Button.Reboot = Redémarrer
+Button.Launch = Lancer
+Button.Relaunch = Relancer
+Button.Stop = Stopper
+
+Env.Text.General = Général
+Env.Text.UnknownError = Erreur inconnue
+Env.Text.InternalError = Erreur interne !
+Env.Text.UnknownValue = Valeur inconnue !
+Env.Text.InvalidValue = Valeur invalide
+
+Env.Var.voip_slicerrnum.Value.14 = Erreur sur le slic
+Env.Var.voip_slicerrnum.Value.15 = Erreur lors du chargement des valeurs du registre
+Env.Var.voip_slicerrnum.Value.16 = Erreur lors de la lecture des valeurs de réinitilisation
+Env.Var.voip_slicerrnum.Value.17 = Erreur lors de la lecture de l'identifiant de la puce
+Env.Var.voip_slicerrnum.Value.18 = Echec alimentation DC/DC: le VBAT n'a pas atteint la tension requise
+Env.Var.voip_slicerrnum.Value.19 = Etalonage DC/DC: délais d'attente expiré
+Env.Var.voip_slicerrnum.Value.20 = Etalonage automatique: délais d'attente expiré
+Env.Var.voip_slicerrnum.Value.21 = Le téléphone était décroché pendant l'étalonage
+Env.Var.voip_slicerrnum.Value.22 = Etalonage automatique 2: délais d'attente expiré
+Env.Var.voip_slicerrnum.Value.23 = Tension extérieure perturbatrice détectée

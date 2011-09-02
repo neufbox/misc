@@ -1,0 +1,41 @@
+#!/bin/sh
+
+RESOLV_CONF="/var/dhcp/voip-resolv.conf"
+
+ipup() {
+
+	rm -f $RESOLV_CONF
+	for i in $dns
+	do
+		echo nameserver $i >> $RESOLV_CONF
+	done
+
+	echo $interface > /var/dhcp/voip-ifname
+	echo $ip > /var/dhcp/voip-ipaddr
+	echo $router > /var/dhcp/voip-gateway
+
+	[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+	[ -n "$subnet" ] && NETMASK="netmask $subnet"
+	ifconfig $interface $ip $BROADCAST $NETMASK
+	killall sleep
+}
+
+ipdown() {
+
+	rm -f /var/dhcp/voip-*
+	ifconfig $interface 0.0.0.0
+
+}
+
+echo "dhcp voip answer [$1] ($nisdomain)"
+
+case "$1" in
+	bound|renew)
+		ipup
+	;;
+
+	deconfig|leasefail|nak)
+		ipdown
+	;;
+esac
+

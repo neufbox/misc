@@ -1,0 +1,27 @@
+#table_sambaconf th {
+    width: 205px;
+}
+
+#table_sambaconf td {
+    width: 179px;
+}
+
+#table_form_sambashare td {
+    width: 205px;
+}
+
+#col_samba_stock_name { 
+    width: 192px;
+}
+
+#col_samba_stock_part { 
+    width: 294px;
+}
+
+#col_samba_stock_dir { 
+    width: 192px;
+}
+
+#select_samba_stock_share { 
+    width: 410px;
+}

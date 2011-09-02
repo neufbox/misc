@@ -1,0 +1,23 @@
+#!/bin/sh
+
+lock /var/lock/reset-factory.lock
+
+# user notification
+ledctl red blinks
+ledctl blue off
+ledctl green off
+
+# erase bootcfg and config
+flash_eraseall -j /dev/mtd-config 1>/dev/console 2>&1
+cat /dev/zero > /dev/mtdblock-bootcfg 2>&1
+
+# deauthenticate stations
+ifconfig ath0 down  2>&1 > /dev/null
+ifconfig ath1 down 2>&1 > /dev/null
+ifconfig wl0 down 2>&1 > /dev/null
+ifconfig wl0.1 down 2>&1 > /dev/null
+
+# reboot
+busybox reboot -f
+
+lock -u /var/lock/reset-factory.lock

@@ -1,0 +1,155 @@
+<?cs set:css = Env.Page.Name ?>
+<?cs set:js = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+        <h1><?cs var:Env.Section.services_status.Title ?></h1>
+</div>
+
+<div class="content">
+
+        <table id="services_status">
+                <tr>
+                        <th scope="row"><?cs call:varHeader("internet_status") ?></th>
+                        <td class="<?cs if:Var.internet_status.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>" id="internet_status">
+                                <?cs if:Var.internet_status.Value == "up" ?>
+                                        <?cs var:Env.Var.internet_status.Value.up ?>
+                                <?cs else ?>
+                                        <?cs var:Env.Var.internet_status.Value.down ?>
+                                <?cs /if ?>
+
+                                <?cs if:Var.internet_access.Value == "gprs" ?>
+                                        (<?cs var:Env.Var.internet_access.Value.gprs ?>)
+                                <?cs /if ?>
+                        </td>
+                </tr>
+
+#ifdef HAVE_IPV6_SUPPORT
+                <?cs if:Var.ipv6_enable.Value == "on" || Var.ipv6_lock.Value == "on" ?>
+                        <?cs if:Var.ipv6_status.Value == "up" ?>
+                                <?cs set:ipv6_status = "enabled" ?>
+                        <?cs else ?>
+                                <?cs set:ipv6_status = "unused" ?>
+                        <?cs /if ?>
+                <?cs else ?>
+                        <?cs set:ipv6_status = "disabled" ?>
+                <?cs /if ?>
+                <tr>
+                        <th scope="row"><?cs var:Env.Section.ipv6_info.Title ?></th>
+                        <td class="<?cs var:ipv6_status ?>" id="internet_status_v6">
+                                <?cs if:ipv6_status == "enabled" ?><?cs var:Env.Var.ipv6_status.up ?><?cs /if ?>
+                                <?cs if:ipv6_status == "unused" ?><?cs var:Env.Var.ipv6_status.noconnect ?><?cs /if ?>
+                                <?cs if:ipv6_status == "disabled" ?><?cs var:Env.Var.ipv6_status.down ?><?cs /if ?>
+                        </td>
+                </tr>
+
+#endif
+                
+                <tr>
+                        <th scope="row"><?cs call:varHeader("voip_status") ?></th>
+                        <td class="<?cs if:Var.voip_status.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>" id="voip_status">
+                                <?cs if:Var.voip_status.Value == "up" ?>
+                                        <?cs var:Env.Var.voip_status.Value.up ?>
+                                <?cs else ?>
+                                        <?cs var:Env.Var.voip_status.Value.down ?>
+                                <?cs /if ?>
+
+                                <?cs if:Var.voip_access.Value == "gprs" ?>
+                                        (<?cs var:Env.Var.voip_access.Value.gprs ?>)
+                                <?cs /if ?>
+                        </td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("tv_status") ?></th>
+                        <td class="<?cs if:Var.tv_status.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>" id="tv_status">
+                                <?cs if:Var.tv_status.Value == "up" ?>
+                                        <?cs var:Env.Var.tv_status.Value.up ?>
+                                <?cs else ?>
+                                        <?cs var:Env.Var.tv_status.Value.down ?>
+                                <?cs /if ?>
+                        </td>
+                </tr>
+        </table>
+
+</div>
+
+<div class="title">
+        <h1><?cs var:Env.Section.modem_infos.Title ?></h1>
+</div>
+
+<div class="content">
+
+        <table id="modem_infos">
+                <tr>
+                        <th scope="row"><?cs call:varHeader("modem_model") ?></th>
+                        <td><?cs var:Var.modem_model.Value ?></td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("modem_macaddr") ?></th>
+                        <td><?cs var:Var.modem_macaddr.Value ?></td>
+                </tr>
+                <tr>
+                        <th scope="row"><?cs call:varHeader("modem_mainversion") ?></th>
+                        <td><?cs var:Var.modem_mainversion.Value ?></td>
+                </tr>
+#ifndef CIBOX
+                <tr>
+                        <th scope="row"><?cs call:varHeader("modem_rescueversion") ?></th>
+                        <td><?cs var:Var.modem_rescueversion.Value ?></td>
+                </tr>
+#endif
+#ifndef NB5
+                <tr>
+                        <th scope="row"><?cs call:varHeader("modem_adslversion") ?></th>
+                        <td><?cs var:Var.modem_adslversion.Value ?></td>
+                </tr>
+#endif
+                <tr>
+                        <th scope="row"><?cs call:varHeader("modem_uptime") ?></th>
+                        <td id="row_uptime">
+				<?cs var:Var.modem_uptime.day.Value ?> <?cs var:Env.Text.dayAbbr?>
+				<?cs var:Var.modem_uptime.hour.Value ?> <?cs var:Env.Text.hourAbbr?>
+				<?cs var:Var.modem_uptime.min.Value ?> <?cs var:Env.Text.minAbbr?>
+				<?cs var:Var.modem_uptime.sec.Value ?> <?cs var:Env.Text.secAbbr?>
+			</td>
+                </tr>
+        </table>
+
+</div>
+
+#ifdef HAVE_LED_SUPPORT
+<div class="title">
+        <h1><?cs var:Env.Section.led_configuration.Title ?></h1>
+</div>
+
+<div class="content">
+
+        <span class="<?cs if:Var.led_dsl.Value == "off"?>off<?cs else?>on<?cs /if?>" id="led_dsl"></span>
+        <span class="<?cs if:Var.led_traffic.Value == "off"?>off<?cs else?>on<?cs /if?>" id="led_traffic"></span>
+        <span class="<?cs if:Var.led_tel.Value == "off"?>off<?cs else?>on<?cs /if?>" id="led_tel"></span>
+        <span class="<?cs if:Var.led_tv.Value == "off"?>off<?cs else?>on<?cs /if?>" id="led_tv"></span>
+        <span class="<?cs if:Var.led_wifi.Value == "off"?>off<?cs else?>on<?cs /if?>" id="led_wifi"></span>
+        <span class="<?cs if:Var.led_alarm.Value == "off"?>off<?cs else?>on<?cs /if?>" id="led_alarm"></span>
+
+        <form method="post" action="<?cs var:Env.Page.Name ?>">
+
+        <table id="leds_configuration">
+                <tr>
+                        <th scope="row"><label for="leds_state"><?cs call:varHeader("leds_state") ?></label></th>
+                        <td>
+                                <select id="leds_state" name="leds_state" >
+                                        <option value="on"<?cs if:Var.leds_state.Value == "on" ?> selected="selected"<?cs /if ?>><?cs var:Env.Var.leds_state.Value.on ?></option>
+                                        <option value="off"<?cs if:Var.leds_state.Value == "off" ?> selected="selected"<?cs /if ?>><?cs var:Env.Var.leds_state.Value.off ?></option>
+                                </select>
+                        </td>
+                </tr>
+        </table>
+
+        <div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+
+        </form>
+
+</div>
+#endif
+
+<?cs include:"tpl/footer.html" ?>

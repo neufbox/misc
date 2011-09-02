@@ -1,0 +1,78 @@
+Env.Page.Title = Settings
+
+Env.Help.Text << EOM
+In the <b>General settings</b> section, you can select different settings for your WiFi access point. You can 
+#ifndef NB6
+disable or enable it, 
+#endif
+change the name of the network (SSID), choose if you want this name to be seen by nearby WiFi equipments (SSID broadcasting), set a specific WiFi channel 
+#ifdef NB4
+or let the $BOXNAME choose the best channel available, 
+#endif
+#ifdef NB4
+and finally force the rate to 11Mb/s (11b), 54Mb/s (54g) or let the $BOXNAME decide the best available (auto).
+#else
+and finally set the radio mode to 11n, 11b/g/n ou 11b/g.
+#endif
+#ifndef NB4
+.<br /><br />Depending on the chosen radio mode, it could be needed to chang the encryption system. The <b>11n</b> radio mode works only with the <b>WPA2 Personnal (PSK)</b> encryption system, the <b>11b/g/n</b> mode works only with the <b>WPA Personnal (PSK)</b> and/or the <b>WPA2 Personnal (PSK)</b> and the <b>11b/g</b> mode works with all the encryption systems.
+#endif
+#ifndef NB4
+<br /><br />In <b>11n</b> mode, you can enable <b>wide channels</b> (HT40) to improve the WiFi bandwidth. However, this option may cause disturbances if other wireless networks are nearby and can also cause harmful interference in Bluetooth connections. It is strongly recommended to use this option only in environments devoid of other WiFi networks.
+#endif
+EOM
+
+Env.Section.configuration.Title = General settings
+
+Env.Var.ap_active.Header = WiFi access point
+Env.Var.ap_active.Value.on = enabled
+Env.Var.ap_active.Value.off = disabled
+Env.Var.Nb6WifiDisabled = Disabled by WiFi button.
+Env.Var.Nb6WifiEnabled = Activated by WiFi button.
+
+Env.Var.ap_ssid.Header = SSID
+Env.Var.ap_ssid.Error.value = Invalid value. Only alphanumeric characters, the space and the following characters are allowed: # + - _ .
+
+Env.Var.ap_closed.Header = SSID broadcasting
+Env.Var.ap_closed.Value.on = enabled
+Env.Var.ap_closed.Value.off = disabled
+
+Env.Var.ap_channel.Header = Channel
+Env.Var.ap_channel.Error.value = Invalid value
+
+Env.Var.ap_mode.Header = Radio mode
+Env.Var.ap_mode.Error.value = Invalid value
+
+#ifdef NB4
+
+Env.Var.ap_mode.List.0.Value = auto
+Env.Var.ap_mode.List.0.Label = auto
+
+Env.Var.ap_mode.List.1.Value = 11b
+Env.Var.ap_mode.List.1.Label = 11b
+
+Env.Var.ap_mode.List.2.Value = 11g
+Env.Var.ap_mode.List.2.Label = 54g
+
+#else
+
+Env.Var.ap_mode.List.1.Value = 11n
+Env.Var.ap_mode.List.1.Label = 11n
+
+Env.Var.ap_mode.List.2.Value = 11ng
+Env.Var.ap_mode.List.2.Label = 11b/g/n
+
+Env.Var.ap_mode.List.3.Value = 11g
+Env.Var.ap_mode.List.3.Label = 11b/g
+
+#endif
+
+#ifndef NB4
+Env.Var.AccessPointOption.Header = Options
+
+Env.Var.ap_ht40.Header = Use wide channels <i>(provides for a higher rate, but can interfere with nearby wireless networks)</i>
+#endif
+
+Env.Form.Error.enc_mode_incompatibility = The radio mode you have selected is not compatible with the currently used encryption system. Please change the encryption system on page "Encryption" before changing the radio mode.
+
+

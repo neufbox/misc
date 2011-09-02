@@ -1,0 +1,77 @@
+Env.Page.Title = Configuration
+
+Env.Help.Text << EOM
+Dans la rubrique <b>Configuration générale</b>, vous pouvez modifier les principaux paramètres de votre liaison sans fil WiFi. 
+Vous pouvez 
+#ifndef NB6
+désactiver ou réactiver votre liaison WiFi, 
+#endif
+modifier le nom de votre réseau sans fil (SSID), définir si le nom de votre réseau peut être vu par les équipements WiFi (Diffusion du SSID), fixer un canal WiFi spécifique 
+#ifdef NB4
+ou laisser la $BOXNAME choisir le meilleur (liste Canal) 
+#endif
+#ifdef NB4
+et enfin forcer le débit WiFi à 11Mb/s (11b) ou 54Mb/s (54g) ou laisser la $BOXNAME choisir le meilleur (auto).
+#else
+et enfin définir le mode radio à 11n, 11b/g/n ou 11b/g.
+#endif
+#ifndef NB4
+<br/><br/>Suivant le mode radio sélectionné, vous pourrez être obligé de changer de système de chiffrement. Le mode radio <b>11n</b> fonctionne uniquement avec le système de chiffrement <b>WPA2 Personnel (PSK)</b>, le <b>11b/g/n</b> fonctionne avec le <b>WPA Personnel (PSK)</b> et/ou le <b>WPA2 Personnel (PSK)</b> et le <b>11b/g</b> fonctionne avec tous les chiffrements.
+#endif
+#ifndef NB4
+<br /><br />En mode radio <b>11n</b>, vous pouvez activer l'utilisation des <b>canaux larges</b> (HT40) pour améliorer le débit WiFi. Néanmoins, cette option peut causer des perturbations si d'autres réseaux WiFi sont à proximité et peut aussi provoquer des dysfonctionnements dans les connexions bluetooth. Il est fortement recommandé d'utiliser cette option uniquement dans des environnements dépourvus d'autres réseaux WiFi.
+#endif
+EOM
+
+Env.Section.configuration.Title = Configuration générale
+
+Env.Var.ap_active.Header = Activation borne WiFi
+Env.Var.ap_active.Value.on = activé
+Env.Var.ap_active.Value.off = désactivé
+Env.Var.Nb6WifiDisabled = Désactivé par le bouton WiFi.
+Env.Var.Nb6WifiEnabled = Activé par le bouton WiFi.
+
+Env.Var.ap_ssid.Header = SSID
+Env.Var.ap_ssid.Error.value = Valeur incorrecte. Seuls les caractères alphanumériques, l'espace et les caractères suivants sont autorisés: # + - _ .
+
+Env.Var.ap_closed.Header = Diffusion du SSID
+Env.Var.ap_closed.Value.on = activé
+Env.Var.ap_closed.Value.off = désactivé
+
+Env.Var.ap_channel.Header = Canal
+Env.Var.ap_channel.Error.value = Valeur incorrecte
+
+Env.Var.ap_mode.Header = Mode radio
+Env.Var.ap_mode.Error.value = Valeur incorrecte
+
+#ifdef NB4
+Env.Var.ap_mode.List.0.Value = auto
+Env.Var.ap_mode.List.0.Label = auto
+
+Env.Var.ap_mode.List.1.Value = 11b
+Env.Var.ap_mode.List.1.Label = 11b
+
+Env.Var.ap_mode.List.2.Value = 11g
+Env.Var.ap_mode.List.2.Label = 54g
+
+#else
+
+Env.Var.ap_mode.List.1.Value = 11n
+Env.Var.ap_mode.List.1.Label = 11n
+
+Env.Var.ap_mode.List.2.Value = 11ng
+Env.Var.ap_mode.List.2.Label = 11b/g/n
+
+Env.Var.ap_mode.List.3.Value = 11g
+Env.Var.ap_mode.List.3.Label = 11b/g
+#endif
+
+#ifndef NB4
+Env.Var.AccessPointOption.Header = Options
+
+Env.Var.ap_ht40.Header = Utilisation des canaux larges <i>(offre un débit supérieur mais peut perturber les réseaux situés à proximité)</i>
+
+#endif
+
+Env.Form.Error.enc_mode_incompatibility = Le mode radio sélectionné est incompatible avec le système de chiffrement actuellement utilisé. Veuillez changer le système de chiffrement avant de changer le mode radio en allant sur la page "Chiffrement".
+

@@ -1,0 +1,6 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <eco>
+    <link val="<?cs var:Var.eco_status.Value?>" text="<?cs call:varValueH3n('eco_status')?>" />
+  </eco>
+</rsp>

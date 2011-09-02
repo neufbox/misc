@@ -1,0 +1,123 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <?cs if:?Var.dsltest_result.Value ?>
+  <result val="<?cs var:Var.dsltest_result.Value?>" text="<?cs call:varValueH3n('dsltest_result')?>" />
+  <?cs /if ?>
+  <?cs if:?Var.InitResult.Value ?>
+  <result>
+        <init val="<?cs var:Var.InitResult.Value ?>" text="
+                <?cs if:Var.InitResult.Value == "success" ?>
+                    <?cs var:Env.Var.InitResult.Value.success ?>
+                <?cs elif:Var.InitResult.Value == "in_progress" ?>
+                    <?cs var:Env.Var.pendingDiag.Value ?>
+                <?cs elif:Var.InitResult.Value == "error" ?>
+                    <?cs if:Var.InitError.Value == "check_hook" ?>
+                        <?cs var:Env.Var.InitError.Value.check_hook ?>
+                    <?cs else ?>
+                        <?cs var:Env.Var.InitError.Value.unknown ?>
+                    <?cs /if ?>
+                <?cs else ?>
+                    <?cs var:Env.Var.initResult.Value.not_launched ?>
+                <?cs /if ?>"
+        />
+        <gr909 val="<?cs var:Var.Gr909Result.Value ?>" text="
+                <?cs if:Var.Gr909Result.Value == "success" ?>
+                    <?cs var:Env.Var.Gr909Result.Value.success ?>
+                <?cs elif:Var.Gr909Result.Value == "in_progress" ?>
+                    <?cs var:Env.Var.pendingDiag.Value ?>
+                <?cs elif:Var.Gr909Result.Value == "error" ?>
+                    <?cs call:varValueH3n_gd("Gr909Error", Env.Var.Gr909Result.Value.error)?>
+                <?cs else ?>
+                    <?cs var:Env.Var.Gr909Result.Value.not_launched ?>
+                <?cs /if ?>"
+        />
+        <ring val="<?cs var:Var.RingResult.Value ?>" text="
+                <?cs if:Var.RingResult.Value == "success" ?>
+                    <?cs var:Env.Var.RingResult.Value.success ?>
+                <?cs elif:Var.RingResult.Value == "in_progress" ?>
+                    <?cs var:Env.Var.pendingDiag.Value ?>
+                <?cs elif:Var.RingResult.Value == "error" ?>
+                    <?cs var:Env.Var.RingResult.Value.error ?>
+                <?cs else ?>
+                    <?cs var:Env.Var.RingResult.Value.not_launched ?>
+                <?cs /if ?>"
+        />
+        <hookntone val="<?cs var:Var.HookntoneResult.Value ?>" text="
+                <?cs if:Var.HookntoneResult.Value == "success" ?>
+                    <?cs var:Env.Var.HookntoneResult.Value.success ?>
+                <?cs elif:Var.HookntoneResult.Value == "in_progress" ?>
+                    <?cs var:Env.Var.pendingDiag.Value ?>
+                <?cs elif:Var.HookntoneResult.Value == "error" ?>
+                    <?cs if:Var.HookntoneError.Value == "pick_up" ?>
+                        <?cs var:Env.Var.HookntoneError.Value.pick_up ?>
+                    <?cs elif:Var.HookntoneError.Value == "hang_up" ?>
+                        <?cs var:Env.Var.HookntoneError.Value.hang_up ?>
+                    <?cs elif:Var.HookntoneError.Value == "ft_standard" ?>
+                        <?cs var:Env.Var.HookntoneError.Value.ft_standard ?>
+                    <?cs else ?>
+                        <?cs var:Env.Var.HookntoneResult.Value.error ?>
+                    <?cs /if ?>
+                <?cs else ?>
+                    <?cs var:Env.Var.HookntoneResult.Value.not_launched ?>
+                <?cs /if ?>"
+        />
+        <dtmf val="<?cs var:Var.DtmfResult.Value ?>" text="
+                <?cs if:Var.DtmfResult.Value == "success" ?>
+                  <?cs var:Env.Var.DtmfResult.Value.success ?>
+                <?cs elif:Var.DtmfResult.Value == "in_progress" ?>
+                  <?cs var:Env.Var.pendingDiag.Value ?>
+                <?cs elif:Var.DtmfResult.Value == "error" ?>
+                  <?cs call:varValueH3n_gd("DtmfError", Env.Var.DtmfResult.Value.error)?>
+                <?cs else ?>
+                  <?cs var:Env.Var.DtmfResult.Value.not_launched ?>
+                <?cs /if ?>"
+        />
+
+        <?cs if:Var.vSStest_nextstep.Value != ""?>
+        <button nextstep="<?cs var:Var.vSStest_nextstep.Value ?>">
+        <?cs if:!?Var.vSStest_step.Value || Var.vSStest_nextstep.Value != Var.vSStest_step.Value?>
+          <?cs if:Var.vSStest_nextstep.Value == "gr909"?>
+            <?cs var:Env.Button.Gr909 ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "ring"?>
+            <?cs var:Env.Button.Ring ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "hookntone"?>
+            <?cs var:Env.Button.Hookntone ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "dtmf"?>
+            <?cs var:Env.Button.Dtmf ?>
+          <?cs else?>
+            <?cs var:Env.Button.Init ?>
+          <?cs /if?>
+        <?cs else?>
+          <?cs if:Var.vSStest_nextstep.Value == "gr909"?>
+            <?cs var:Env.Button.ReGr909 ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "ring"?>
+            <?cs var:Env.Button.ReRing ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "hookntone"?>
+            <?cs var:Env.Button.ReHookntone ?>
+          <?cs elif:Var.vSStest_nextstep.Value == "dtmf"?>
+            <?cs var:Env.Button.ReDtmf ?>
+          <?cs else?>
+            <?cs var:Env.Button.ReInit?>
+          <?cs /if?>
+        <?cs /if?>
+        </button>
+        <text>
+        <?cs if:Var.vSStest_nextstep.Value == "gr909"?>
+            <?cs var:Env.Text.Gr909 ?>
+        <?cs elif:Var.vSStest_nextstep.Value == "ring"?>
+            <?cs var:Env.Text.Ring ?>
+        <?cs elif:Var.vSStest_nextstep.Value == "hookntone"?>
+            <?cs var:Env.Text.Hookntone ?>
+        <?cs elif:Var.vSStest_nextstep.Value == "dtmf"?>
+            <?cs var:Env.Text.Dtmf ?>
+        <?cs else?>
+            <?cs var:Env.Text.Init?>
+        <?cs /if?>
+        </text>
+        <?cs /if ?>
+        <?cs if:Var.DtmfResult.Value == "success" ?>
+        <reboot text="<?cs var:Button.Reboot ?>" />
+        <?cs /if ?>
+   </result>
+   <?cs /if ?>
+</rsp>

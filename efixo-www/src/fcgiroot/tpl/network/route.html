@@ -1,0 +1,100 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.route_config.Title ?></h1>
+</div>
+
+<div class="content">
+
+	<table id="route_config">
+
+		<thead>
+			<tr>
+				<th scope="col" class="col_number">#</th>
+				<th scope="col"><?cs call:varHeader("route_destination") ?></th>
+				<th scope="col"><?cs call:varHeader("route_genmask") ?></th>
+				<th scope="col"><?cs call:varHeader("route_gateway") ?></th>
+				<th scope="col" class="col_action"></th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+			<?cs each:item = Var.route_list ?>
+			<tr>
+				<td class="col_number"><?cs var:name(item) ?></td>
+				<td><?cs var:item.destination.Value ?></td>
+				<td><?cs var:item.genmask.Value ?></td>
+				<td><?cs var:item.gateway.Value ?></td>
+				<td class="col_action">
+					<form method="post" action="<?cs var:Env.Page.Name ?>">
+						<input type="hidden" name="action" value="remove" />
+						<input type="hidden" name="row" value="<?cs name:item ?>" />
+						<button class="button_remove" type="submit" name="submit"></button>
+					</form>
+				</td>
+			</tr>
+			<?cs /each ?>
+
+			<tr>
+				<form method="post" action="<?cs var:Env.Page.Name ?>" id="form_route">
+
+					<td class="col_number">
+						<?cs var:subcount(Var.route_list) + #1 ?>
+					</td>
+
+					<td>
+						<input type="text" name="route_destination_p0" class="<?cs if:?Var.route_destination_p0.Error || ?Var.route_destination.Error ?>error<?cs else ?>text<?cs /if ?> ip" id="route_destination_p0" size="3" maxlength="3" value="<?cs var:Var.route_destination_p0.Value?>" />&nbsp;.
+						<input type="text" name="route_destination_p1" class="<?cs if:?Var.route_destination_p1.Error || ?Var.route_destination.Error ?>error<?cs else ?>text<?cs /if ?> ip" id="route_destination_p1" size="3" maxlength="3" value="<?cs var:Var.route_destination_p1.Value?>" />&nbsp;.
+						<input type="text" name="route_destination_p2" class="<?cs if:?Var.route_destination_p2.Error || ?Var.route_destination.Error ?>error<?cs else ?>text<?cs /if ?> ip" id="route_destination_p2" size="3" maxlength="3" value="<?cs var:Var.route_destination_p2.Value?>" />&nbsp;.
+						<input type="text" name="route_destination_p3" class="<?cs if:?Var.route_destination_p3.Error || ?Var.route_destination.Error?>error<?cs else ?>text<?cs /if ?> ip" id="route_destination_p3" size="3" maxlength="3" value="<?cs var:Var.route_destination_p3.Value?>" />
+
+						<?cs if:?Var.route_destination.Error ?>
+						<div class="error">
+							<?cs var:Env.Var.route_destination.Error[Var.route_destination.Error] ?>
+						</div>
+						<?cs /if ?>
+					</td>
+
+					<td>
+						<input type="text" id="route_genmask_p0" name="route_genmask_p0" class="<?cs if:?Var.route_genmask_p0.Error || ?Var.route_genmask.Error ?>error<?cs else ?>text<?cs /if ?> ip" size="3" maxlength="3" value="<?cs alt:Var.route_genmask_p0.Value?>255<?cs /alt?>" />&nbsp;.
+						<input type="text" id="route_genmask_p1" name="route_genmask_p1" class="<?cs if:?Var.route_genmask_p1.Error || ?Var.route_genmask.Error ?>error<?cs else ?>text<?cs /if ?> ip" size="3" maxlength="3" value="<?cs alt:Var.route_genmask_p1.Value?>255<?cs /alt?>" />&nbsp;.
+						<input type="text" id="route_genmask_p2" name="route_genmask_p2" class="<?cs if:?Var.route_genmask_p2.Error || ?Var.route_genmask.Error ?>error<?cs else ?>text<?cs /if ?> ip" size="3" maxlength="3" value="<?cs alt:Var.route_genmask_p2.Value?>255<?cs /alt?>" />&nbsp;.
+						<input type="text" id="route_genmask_p3" name="route_genmask_p3" class="<?cs if:?Var.route_genmask_p3.Error || ?Var.route_genmask.Error ?>error<?cs else ?>text<?cs /if ?> ip" size="3" maxlength="3" value="<?cs alt:Var.route_genmask_p3.Value?>0<?cs /alt?>" />
+
+						<?cs if:?Var.route_genmask.Error ?>
+						<div class="error">
+							<?cs var:Env.Var.route_genmask.Error[Var.route_genmask.Error] ?>
+						</div>
+						<?cs /if ?>
+					</td>
+
+					<td>
+						<input type="text" id="route_gateway_p0" name="route_gateway_p0" class="readonly" size="3" maxlength="3" readonly="readonly" value="<?cs var:Var.route_gateway_p0.Value ?>" />&nbsp;.
+						<input type="text" id="route_gateway_p1" name="route_gateway_p1" class="readonly" size="3" maxlength="3" readonly="readonly" value="<?cs var:Var.route_gateway_p1.Value ?>" />&nbsp;.
+						<input type="text" id="route_gateway_p2" name="route_gateway_p2" class="readonly" size="3" maxlength="3" readonly="readonly" value="<?cs var:Var.route_gateway_p2.Value ?>" />&nbsp;.
+						<input type="text" id="route_gateway_p3" name="route_gateway_p3" class="<?cs if:?Var.route_gateway_p3.Error || ?Var.route_gateway.Error ?>error<?cs else ?>text<?cs /if ?>" value="<?cs var:Var.route_gateway_p3.Value?>" size="3" maxlength="3" value="" />
+
+						<?cs if:?Var.route_gateway.Error ?>
+						<div class="error">
+							<?cs var:Env.Var.route_gateway.Error[Var.route_gateway.Error] ?>
+						</div>
+						<?cs /if ?>
+					</td>
+
+					<td class="col_action">
+						<input type="hidden" name="action" value="add" />
+						<input type="hidden" name="row" value="<?cs var:subcount(Var.route_list) + #1 ?>" />
+						<button class="button_add" type="submit" name="submit"></button>
+					</td>
+
+				</form>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+
+<?cs include:"tpl/footer.html" ?>

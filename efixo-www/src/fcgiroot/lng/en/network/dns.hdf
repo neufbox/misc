@@ -1,0 +1,17 @@
+Env.Page.Title = Local DNS
+
+Env.Help.Text = On this page, you can associate a hostname with an IP address. For example, you can associate a name (<b>mycomputer</b>) with an IP address of your local network.
+
+Env.Section.dns_configuration.Title = Local DNS
+
+Env.Var.action.Error.value = Invalid format
+
+Env.Var.dnshosts_ip.Header = IP address
+Env.Var.dnshosts_ip.Error.value = Invalid format
+Env.Var.dnshosts_ip.Error.invalid = Invalid IP address
+
+Env.Var.dnshosts_hostname.Header = Hostname
+Env.Var.dnshosts_hostname.Error.value = Invalid format
+
+Env.Form.Error.duplicate = Error: this entry already exists
+Env.Form.Error.hostname_already_used = Error: the hostname is already used with an another IP address

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <storage samba_active="<?cs var:storage.sambaactive ?>" samba_state="<?cs var:storage.sambastate ?>" samba_codeno="<?cs var:storage.sambacodeno ?>" />
+</rsp>

@@ -1,0 +1,35 @@
+Env.Page.Title = MAC filtering
+
+#ifdef CIBOX
+Env.Help.Text = By enabling MAC filtering, you can allow or deny access from known equipments to your $BOXNAME via WiFi. In order to do this, you have to get the MAC address of the equipment (this is the physical of the wireless network card) for which you want to allow or deny access.<br /><br />If you choose an <b>allow policy</b>, only the equipments which have their MAC addresses listed will be able to access your wireless network.<br /><br />If you choose a <b>deny policy</b>, the equipments which have their MAC addresses listed won't be able to access your wireless network.
+#else
+Env.Help.Text = By enabling MAC filtering, you allow access only from known equipments to your $BOXNAME via WiFi. Only the equipments which have their MAC addresses (this is the physical of the wireless network card) listed will be able to access your wireless network, even if this equipment knows the WiFi encryption key.
+#endif
+
+Env.Section.MACFiltering.Title = MAC filtering
+Env.Var.MACFiltering.Header = MAC filtering activation
+
+Env.Var.MACFiltering.Value.off = disabled
+
+#ifdef CIBOX
+Env.Var.MACFiltering.Value.whitelist = allow
+Env.Var.MACFiltering.Value.blacklist = deny
+#endif /* #ifdef CIBOX */
+
+#ifndef CIBOX
+Env.Var.MACFiltering.Value.whitelist = enable
+#endif /* #ifndef CIBOX */
+
+#ifdef CIBOX
+Env.Section.MACWhiteList.Title = MAC addresses
+#endif /* #ifdef CIBOX */
+
+#ifndef CIBOX
+Env.Section.MACWhiteList.Title = Allowed MAC adresses
+#endif /* #ifndef CIBOX */
+
+Env.Var.mac_address.Header = MAC address
+Env.Var.mac_address.Error.invalid = This MAC address is invalid
+Env.Var.mac_address.Error.alreadyused = This MAC adress is already used
+
+Env.Text.WarningMacFiltering = Warning, if you are connected via WiFi, don't forget to add your MAC address before activating MAC filtering.

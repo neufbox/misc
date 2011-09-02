@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <firewall mode="<?cs var:firewall.filter_mode ?>">
+      <winsharedrop active="<?cs var:firewall.filter_simple_winsharedrop?>" />
+      <icmpdrop active="<?cs var:firewall.filter_simple_icmpdrop?>" />
+      <smtpdrop active="<?cs var:firewall.filter_simple_smtpdrop?>" />
+   </firewall>
+</rsp>

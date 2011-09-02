@@ -1,0 +1,133 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+    <h1><?cs var:Env.Section.ping.Title ?></h1>
+</div>
+
+<div id="ping_nojs_content" class="content">
+    <?cs var:Env.Text.nojs?>
+</div>
+
+<div id="ping_content" class="content" style="display: none;">
+    <fieldset>
+        
+        <table id="ping">
+            <tr>
+                <th scope="row"><?cs var:Env.Var.ping_dest_hostname.Header ?></th>
+                <td>
+                    <input type="text" class="text" name="ping_dest_hostname" id="ping_dest_hostname" size="20" maxlength="30" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs var:Env.Text.ping_sent ?></th>
+                <td id="ping_sent">0</td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs var:Env.Text.ping_recv ?></th>
+                <td id="ping_recv">0</td>
+            </tr>
+            <tr>
+                <th scope="row"><?cs var:Env.Text.ping_avgrtt ?></th>
+                <td id="ping_avgrtt"></td>
+            </tr>
+        </table>
+        
+        <div>
+            <div id="div_submit_ping" class="button_submit">
+                <button id="button_ping" name="submit">
+                    <span id="button_ping_launch">
+                        <?cs var:Button.Launch ?>
+                    </span>
+                    
+                    <span id="button_ping_stop" style="display: none;">
+                        <?cs var:Button.Stop ?>
+                    </span>
+                </button>
+            </div>
+            
+            <div id="ping_status" class="status" style="display: none;">
+                <span id="ping_status_starting" style="display: none;">
+                    <?cs var:Env.Var.ping_status.Value.starting?>
+                </span>
+                
+                <span id="ping_status_stopping" style="display: none;">
+                    <?cs var:Env.Var.ping_status.Value.stopping?>
+                </span>
+                
+                <span id="ping_status_custom" style="display: none;">
+                </span>
+                
+                ( <b></b> )
+            </div>
+        </div>
+        
+    </fieldset>
+</div>
+
+<div class="title">
+    <h1><?cs var:Env.Section.traceroute.Title ?></h1>
+</div>
+
+<div id="traceroute_nojs_content" class="content">
+    <?cs var:Env.Text.nojs?>
+</div>
+
+<div id="traceroute_content" class="content" style="display: none;">
+    <fieldset>
+        <table id="traceroute">
+            <tr>
+                <th scope="row"><?cs var:Env.Var.traceroute_dest_hostname.Header ?></th>
+                <td>
+                    <input type="text" class="text" name="traceroute_dest_hostname" id="traceroute_dest_hostname" size="20" maxlength="30" />
+                </td>
+            </tr>
+        </table>
+        
+        <div>
+            <div id="div_submit_traceroute" class="button_submit">
+                <button id="button_traceroute" name="submit">
+                    <span id="button_traceroute_launch">
+                        <?cs var:Button.Launch ?>
+                    </span>
+                    
+                    <span id="button_traceroute_stop" style="display: none;">
+                        <?cs var:Button.Stop ?>
+                    </span>
+                </button>
+            </div>
+            
+            <div id="traceroute_status" class="status" style="display:none;">
+                <span id="traceroute_status_starting" style="display: none;">
+                    <?cs var:Env.Var.traceroute_status.Value.starting?>
+                </span>
+                
+                <span id="traceroute_status_stop" style="display: none;">
+                    <?cs var:Env.Var.traceroute_status.Value.stopping?>
+                </span>
+                
+                <span id="traceroute_status_custom" style="display: none;">
+                </span>
+                
+                ( <b></b> )
+            </div>
+        </div>
+        
+        <div id="traceroute_result" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="row"><?cs var:Env.Text.jump?></th>
+                        <th scope="row"><?cs var:Env.Text.hostname?></th>
+                        <th scope="row"><?cs var:Env.Text.loop_time?></th>
+                    </tr>
+                </thead>
+                
+            </table>
+        </div>
+        
+    </fieldset>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

@@ -1,0 +1,23 @@
+#led_dsl.off {
+	background: transparent url(/img/led_dsl_off.png) no-repeat left top;
+}
+
+#led_traffic.off {
+	background: transparent url(/img/led_traffic_off.png) no-repeat left top;
+}
+
+#led_tel.off {
+	background: transparent url(/img/led_tel_off.png) no-repeat left top;
+}
+
+#led_tv.off {
+	background: transparent url(/img/led_tv_off.png) no-repeat left top;
+}
+
+#led_wifi.off {
+	background: transparent url(/img/led_wifi_off.png) no-repeat left top;
+}
+
+#led_alarm.off {
+	background: transparent url(/img/led_alarm_off.png) no-repeat left top;
+}

@@ -1,0 +1,60 @@
+Env.Page.Title = WiFi
+
+Env.Help.Text = Dans la rubrique <b>Point d'accès</b>, vous trouvez les caractéristiques de votre liaison sans fil WiFi intégrée à la $BOXNAME : l'activation du WiFi, le nom de votre réseau sans fil (SSID), si le nom de votre réseau sans fil est diffusé, le canal, le mode radio, le mode de chiffrement des communications, la clé de chiffrement et l'activation du filtrage par adresse MAC. <br/><br/> Dans la rubrique <b>Postes connectés</b>, vous trouvez la liste des équipements WiFi actuellement connectés à votre $BOXNAME.
+
+Env.Section.wifi_info.Title = Point d'accès
+
+Env.Var.wifi_status.Header = Etat
+Env.Var.wifi_status.Value.on = Activé
+Env.Var.wifi_status.Value.off = Désactivé
+
+Env.Var.wifi_ssid.Header = SSID
+
+Env.Var.wifi_closed.Header = Diffusion du SSID
+Env.Var.wifi_closed.Value.0 = Activé
+Env.Var.wifi_closed.Value.1 = Désactivé
+
+Env.Var.wifi_channel.Header = Canal
+
+Env.Var.wifi_mode.Header = Mode radio
+Env.Var.wifi_mode.Value.auto = auto
+Env.Var.wifi_mode.Value.11b = 11b
+#ifdef NB4
+Env.Var.wifi_mode.Value.11g = 54g
+#else
+Env.Var.wifi_mode.Value.11g = 11b/g
+#endif
+Env.Var.wifi_mode.Value.11ng = 11b/g/n
+Env.Var.wifi_mode.Value.11n = 11n
+
+Env.Var.wifi_encryption.Header = Chiffrement
+Env.Var.wifi_encryption.Value.OPEN = Désactivé
+Env.Var.wifi_encryption.Value.WEP = WEP
+Env.Var.wifi_encryption.Value.WPA_PSK = WPA Personnel
+Env.Var.wifi_encryption.Value.WPA2_PSK = WPA2 Personnel
+Env.Var.wifi_encryption.Value.WPA_WPA2_PSK = WPA/WPA2 Personnel
+
+Env.Var.wifi_wpaenctype.Value.tkip = TKIP
+Env.Var.wifi_wpaenctype.Value.aes = AES
+Env.Var.wifi_wpaenctype.Value.tkipaes = TKIP et AES
+
+Env.Var.wifi_key.Header = Clé
+Env.Var.wifi_key.Value.none = Aucune
+
+Env.Var.wifi_macfiltering.Header = Filtrage MAC
+Env.Var.wifi_macfiltering.Value.on = Activé
+Env.Var.wifi_macfiltering.Value.off = Désactivé
+
+Env.Section.wifi_assoc.Title = Postes connectés
+
+Env.Var.wifi_assoclist_mac.Header = Adresse MAC
+Env.Var.wifi_assoclist_ip.Header = Adresse IP
+
+Env.Text.NoConnectedClients = Aucun poste connecté.
+Env.Text.Undefined = Indéfini
+Env.Text.auto = auto
+Env.Text.currentChannel = canal actuel
+Env.Text.ht40Enabled = canaux larges activés
+
+Env.Var.mac_addr.Header = Adresse MAC
+Env.Var.ip_addr.Header = Adresse IP

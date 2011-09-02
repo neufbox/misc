@@ -1,0 +1,18 @@
+Env.Page.Title = WAN
+
+Env.Help.Text = In the <b>Profile</b> section, you can configure your username and password PPP.
+
+Env.Section.profil.Title = Profile
+
+Env.Var.NetMode.Header = Mode
+Env.Var.NetMode.Value.Router = Router
+
+Env.Var.ppp_login.Header = PPP login
+Env.Var.ppp_login.Error.value = The PPP login must be composed of 64 letters maximum, except space and <b>"</b> <b>'</b> <b>`</b>.
+
+Env.Var.ppp_password.Header = PPP password
+Env.Var.ppp_password.Error.value = The PPP password must be composed of 64 letters maximum, except space and <b>"</b> <b>'</b> <b>`</b>.
+
+Env.Var.mode_ipv6.Value = Internet IPv6
+Env.Var.ipv6_active.Value.on = Enable
+Env.Var.ipv6_active.Value.off = Disable

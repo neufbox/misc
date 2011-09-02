@@ -1,0 +1,14 @@
+<?cs if:string.find(Var.old_uri.Value,"/kit/") == 0?>!upgrading
+<?cs else?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.update_info.Title ?></h1>
+</div>
+
+<div class="content">
+<?cs var:Env.Text.Updating ?>
+</div>
+
+<?cs include:"tpl/footer.html" ?>
+<?cs /if?>

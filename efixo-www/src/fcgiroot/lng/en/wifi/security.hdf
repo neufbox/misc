@@ -1,0 +1,45 @@
+Env.Page.Title = Encryption
+
+#ifdef NB4
+
+Env.Help.Text = In the <b>Encryption</b> section, you can choose the encryption system to be used by you wireless network. Setting a encryption system is strongly advised. Furthermore, the encryption system should be chosen depending on your WiFi equipments.<br/><br/>For security reasons, it is advisable to focus on WPA2.<br/> For compatibility reasons, it is advisable to use a key type TKIP with WPA.
+
+#else
+
+Env.Help.Text = In the <b>Encryption</b> section, you can choose the encryption system to be used by you wireless network. Setting a encryption system is strongly advised. Furthermore, the encryption system should be chosen depending on your WiFi equipments.<br /><br />Depending on the radio mode chosen, some encryption systems might not be available. The <b>11n</b> radio mode only works with <b>WPA2 Personal (PSK)</b>, <b>11b/g/n</b> only with <b>WPA Personal (PSK)</b> and/or <b>WPA2 Personal (PSK)</b> and <b>11b/g</b> works with all the encryption systems.<br/><br/>For security reasons, it is advisable to focus on WPA2.<br/> For compatibility reasons, it is advisable to use a key type TKIP with WPA.
+
+#endif
+
+Env.Text.GenerateKey = Generate a key
+
+Env.Section.wlan_encryption.Title = Encryption
+
+Env.Var.wlan_encryptiontype.Header = System
+Env.Var.wlan_encryptiontype.Value.OPEN = disabled
+Env.Var.wlan_encryptiontype.Value.WEP = WEP
+Env.Var.wlan_encryptiontype.Value.WPA_PSK = WPA Personal (PSK)
+Env.Var.wlan_encryptiontype.Value.WPA2_PSK = WPA2 Personal (PSK)
+Env.Var.wlan_encryptiontype.Value.WPA_WPA2_PSK = WPA/WPA2 Personal (PSK)
+Env.Var.wlan_encryptiontype.Error.value = Invalid format
+
+Env.Var.wlan_keytype.Header = Key type
+Env.Var.wlan_keytype.Value.ascii = ASCII
+Env.Var.wlan_keytype.Value.hexa = Hexadecimal
+Env.Var.wlan_keytype.Error.value = Invalid format
+
+Env.Var.wlan_wepkey.Header = Key
+Env.Var.wlan_wepkey.Error.ascii = Key must be 5 or 13 characters exactly, and must not contain " ' `.
+Env.Var.wlan_wepkey.Error.hexa = Key must be 10 or 26 characters exactly, and contain only hexadecimal characters.
+
+Env.Var.wlan_wpaenctype.Header = Key type
+Env.Var.wlan_wpaenctype.Value.tkip = TKIP
+Env.Var.wlan_wpaenctype.Value.aes = AES
+Env.Var.wlan_wpaenctype.Value.tkipaes = TKIP et AES
+
+Env.Var.wlan_wpakey.Header = Key
+Env.Var.wlan_wpakey.Error.value = The key length must be between 8 and 63 characters inclusive, and must not contain " ' `.
+
+Env.Form.Error.wpa_aes_incompatibility = Some wireless devices are not compatible with the encryption system 'WPA Personal (PSK)' and the key type 'AES'.
+
+Env.Form.Error.enc_mode_incompatibility = The selected encryption system is not compatible with the radion mode currently in use. Please change the radio mode on the "Settings" page before selecting another encryption sytem.
+

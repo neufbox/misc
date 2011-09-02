@@ -1,0 +1,10 @@
+255	local
+254	main
+253	default
+
+150     tv_t
+200     data_t
+201     lan_t
+202     hotspot_t
+
+0	unspec

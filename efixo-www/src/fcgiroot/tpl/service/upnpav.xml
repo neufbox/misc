@@ -1,0 +1,9 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <upnpav>
+    <active val="<?cs var:Var.upnpav_active.Value?>" text="<?cs call:varValueH3n_d('upnpav_active', 'off')?>" />
+    <status val="<?cs var:Var.upnpav_status.Value?>" text="<?cs call:varValueH3n_d('upnpav_status', 'down')?>" />
+    <errno val="<?cs var:Var.upnpav_errno.Value?>" text="<?cs call:varValueH3n_d('upnpav_errno', 'internal')?>" />
+    <sharedcount val="<?cs var:Var.upnpav_sharedcount.Value?>" posttext="<?cs if:#Var.upnpav_sharedcount.Value > 1?><?cs var:Env.Var.upnpav_sharedcount.Value.multiple?><?cs else?><?cs var:Env.Var.upnpav_sharedcount.Value.single?><?cs /if?>" />
+  </upnpav>
+</rsp>

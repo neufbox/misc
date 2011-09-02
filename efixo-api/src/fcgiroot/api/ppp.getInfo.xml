@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <ppp status="<?cs var:ppp.status ?>" ip_addr="<?cs var:ppp.ip_addr ?>" />
+</rsp>

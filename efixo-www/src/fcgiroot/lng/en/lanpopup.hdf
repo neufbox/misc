@@ -1,0 +1,14 @@
+
+Env.Section.connected_computers.Header = Connected computers
+
+Env.Var.name.Header = Hostname
+Env.Var.mac_addr.Header = MAC address
+Env.Var.ip_addr.Header = IP address
+Env.Var.port.Header = Port
+Env.Var.choice.Header = Choice
+
+Env.Text.InWifi = WiFi
+Env.Text.Validate = Apply
+Env.Text.NoClient = No connected host
+
+Env.Var.portfilter.Regex = wlan0

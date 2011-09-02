@@ -1,0 +1,66 @@
+Env.Page.Title = Etat
+
+Env.Help.Text << EOM
+#ifdef NB5
+Dans la rubrique <b>Etat des services</b>, vous retrouvez l'état général de vos services $BOXNAME : accès à Internet, téléphonie, et télévision.<br /><br />Dans la rubrique <b>Informations modem</b>, vous retrouvez les informations suivantes sur votre $BOXNAME : Adresse MAC, Version principale et de secours du firmware, Temps de service (le temps qui s'est écoulé depuis le dernier redémarrage de votre $BOXNAME).
+#else
+#ifdef CIBOX
+Dans la rubrique <b>Etat des services</b>, vous retrouvez l'état général de vos services $BOXNAME : accès à Internet, téléphonie, et télévision.<br /><br />Dans la rubrique <b>Informations modem</b>, vous retrouvez les informations suivantes sur votre $BOXNAME : Adresse MAC, Version principale, Temps de service (le temps qui s'est écoulé depuis le dernier redémarrage de votre $BOXNAME).
+#else
+Dans la rubrique <b>Etat des services</b>, vous retrouvez l'état général de vos services $BOXNAME : accès à Internet, téléphonie, et télévision.<br /><br />Dans la rubrique <b>Informations modem</b>, vous retrouvez les informations suivantes sur votre $BOXNAME : Adresse MAC, Modèle, Version principale et de secours du firmware, Temps de service (le temps qui s'est écoulé depuis le dernier redémarrage de votre $BOXNAME).
+#endif
+#endif
+#ifdef HAVE_LED_SUPPORT
+<br /><br />
+Dans la rubrique <b>Etat des voyants</b>, vous pouvez vérifier quels sont les voyants allumés sur votre $BOXNAME, ainsi qu'activer ou désactiver les voyants de la façade. Cliquez sur Valider pour confirmer les modifications.
+#endif
+EOM
+
+Env.Section.services_status.Title = Etat des services
+
+Env.Var.internet_status.Header = Internet
+Env.Var.internet_status.Value.up = Internet opérationnel
+Env.Var.internet_status.Value.down = Pas de connexion internet
+
+Env.Var.internet_access.Value.adsl = connexion ADSL
+Env.Var.internet_access.Value.gprs = connexion clé 3G
+
+Env.Var.voip_status.Header = Téléphonie
+Env.Var.voip_status.Value.up = Téléphonie active
+Env.Var.voip_status.Value.down = Téléphonie non fonctionnelle
+
+Env.Var.voip_access.Value.adsl = connexion ADSL
+Env.Var.voip_access.Value.gprs = connexion clé 3G
+
+Env.Var.tv_status.Header = Télévision
+Env.Var.tv_status.Value.up = Télévision connectée
+Env.Var.tv_status.Value.down = Télévision non connectée
+
+Env.Section.modem_infos.Title = Informations modem
+
+Env.Var.modem_macaddr.Header = Adresse MAC
+
+Env.Var.modem_model.Header = Modèle
+
+Env.Var.modem_mainversion.Header = Version principale
+Env.Var.modem_rescueversion.Header = Version de secours
+
+Env.Var.modem_adslversion.Header = Version driver adsl
+
+Env.Var.modem_uptime.Header = Temps de service
+
+Env.Section.led_configuration.Title = Etat des voyants
+
+Env.Var.leds_state.Header = Voyants
+Env.Var.leds_state.Value.on =  Voyants allumés
+Env.Var.leds_state.Value.off = Voyants éteints
+
+Env.Text.dayAbbr = j
+Env.Text.hourAbbr = h
+Env.Text.minAbbr = min.
+Env.Text.secAbbr = sec.
+
+Env.Section.ipv6_info.Title = Internet IPv6
+Env.Var.ipv6_status.up = Opérationnel
+Env.Var.ipv6_status.noconnect = Non connecté
+Env.Var.ipv6_status.down = Désactivé

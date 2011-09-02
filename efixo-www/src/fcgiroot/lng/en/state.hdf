@@ -1,0 +1,66 @@
+Env.Page.Title = Status
+
+Env.Help.Text << EOM
+#ifdef NB5
+In the <b>Services status</b> section, you can check the general status of the services provided by your $BOXNAME: Internet access, telephony, and television.<br /><br />In the <b>Gateway information</b> section, you can find the following information about your $BOXNAME: MAC address, main firmware and rescue version, uptime (length since last reboot of your $BOXNAME).
+#else
+#ifdef CIBOX
+In the <b>Services status</b> section, you can check the general status of the services provided by your $BOXNAME: Internet access, telephony, and television.<br /><br />In the <b>Gateway information</b> section, you can find the following information about your $BOXNAME: MAC address, model, main firmware, uptime (length since last reboot of your $BOXNAME).
+#else
+In the <b>Services status</b> section, you can check the general status of the services provided by your $BOXNAME: Internet access, telephony, and television.<br /><br />In the <b>Gateway information</b> section, you can find the following information about your $BOXNAME: MAC address, model, main firmware and rescue version, uptime (length since last reboot of your $BOXNAME).
+#endif
+#endif
+#ifdef HAVE_LED_SUPPORT
+<br /><br />
+In the <b>LED status</b> section, you can check which LEDs are up on your $BOXNAME, and enable or disable them. Click on "Apply" in order to save your settings.
+#endif
+EOM
+
+Env.Section.services_status.Title = Services status
+
+Env.Var.internet_status.Header = Internet
+Env.Var.internet_status.Value.up = Internet up
+Env.Var.internet_status.Value.down = No Internet connection
+
+Env.Var.internet_access.Value.adsl = ADSL connection
+Env.Var.internet_access.Value.gprs = 3G dongle connection
+
+Env.Var.voip_status.Header = Telephony
+Env.Var.voip_status.Value.up = Telephony up
+Env.Var.voip_status.Value.down = Telephony down
+
+Env.Var.voip_access.Value.adsl = ADSL connection
+Env.Var.voip_access.Value.gprs = 3G dongle connection
+
+Env.Var.tv_status.Header = Television
+Env.Var.tv_status.Value.up = Television connected
+Env.Var.tv_status.Value.down = Television not connected
+
+Env.Section.modem_infos.Title = Gateway information
+
+Env.Var.modem_macaddr.Header = MAC address
+
+Env.Var.modem_model.Header = Model
+
+Env.Var.modem_mainversion.Header = Main version
+Env.Var.modem_rescueversion.Header = Rescue version
+
+Env.Var.modem_adslversion.Header = DSL driver version
+
+Env.Var.modem_uptime.Header = Uptime
+
+Env.Section.led_configuration.Title = LED status
+
+Env.Var.leds_state.Header = LEDs
+Env.Var.leds_state.Value.on =  enabled
+Env.Var.leds_state.Value.off = disabled
+
+Env.Text.dayAbbr = d
+Env.Text.hourAbbr = h
+Env.Text.minAbbr = min.
+Env.Text.secAbbr = sec.
+
+Env.Section.ipv6_info.Title = Internet IPv6
+Env.Var.ipv6_status.up = Operational
+Env.Var.ipv6_status.noconnect = Not connected
+Env.Var.ipv6_status.down = Disable

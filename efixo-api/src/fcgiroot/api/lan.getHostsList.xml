@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+   <?cs each:item = lan.hosts ?>
+   <host name="<?cs var:item.name ?>" ip="<?cs var:item.ip ?>" mac="<?cs var:item.mac ?>" iface="<?cs var:item.iface ?>" />
+   <?cs /each ?>
+</rsp>

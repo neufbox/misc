@@ -1,0 +1,6 @@
+Env.Page.Title = Reboot
+
+Env.Section.reboot.Title = Reboot
+
+Env.Text.WillReboot = Click on the "Reboot" button to reboot the $BOXNAME.
+Env.Text.IsRebooting = Reboot in progress. Please wait.

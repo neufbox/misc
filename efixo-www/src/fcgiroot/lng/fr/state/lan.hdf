@@ -1,0 +1,48 @@
+Env.Page.Title = Réseau local
+
+Env.Help.Text = Dans la rubrique <b>Statistiques des ports du switch</b>, vous trouverez diverses statistiques des ports ethernet de votre $BOXNAME.<br/><br/>Dans la rubrique <b>Statistiques des clients WiFi</b>, vous trouverez les statistiques des clients WiFi connectés à votre $BOXNAME.
+
+Env.Link.GeneralStat = Statistiques détaillées
+Env.Link.WifiGeneralStat = Statistiques WiFi détaillées
+
+Env.Section.pcports_stats.Title = Statistiques des ports du switch
+
+Env.Section.wlanhost_stats.Title = Statistiques des clients WiFi
+
+Env.Var.rssi.Header = Puissance signal
+
+Env.Var.rates.Header = Débits supportés
+
+Env.Var.in.Header = Temps de connexion
+
+Env.Var.idle.Header = Temps d'inactivité
+
+Env.Var.tx_pkts.Header = Paquets transmis
+
+Env.Var.tx_failures.Header = Paquets transmis echoués
+
+Env.Var.rx_ucast_pkts.Header = Paquets unicast envoyés
+
+Env.Var.rx_mcast_pkts.Header = Paquets multicast envoyés
+
+Env.Var.tx_rate.Header = Débit du dernier paquet envoyé
+
+Env.Var.rx_rate.Header = Débit du dernier paquet reçu
+
+Env.Text.tx_good_pkts = Paquet émis
+Env.Text.rx_good_pkts = Paquet reçus
+Env.Text.tx_unicast_pkts = Paquet unicast émis
+Env.Text.rx_unicast_pkts = Paquet unicast reçus
+Env.Text.tx_good_bytes = Compteur octets émis
+Env.Text.rx_good_bytes = Compteur octets reçus
+Env.Text.tx_collisions = Collisions
+Env.Text.rx_fcs_errors = Erreurs FCS
+
+Env.Text.NoConnectedClients = Aucun client wifi connecté.
+Env.Text.Undefined = Indéfini
+Env.Text.port = Port
+
+Env.Text.mac_addr = Adresse MAC
+Env.Text.ip_addr = Adresse IP
+
+Env.text.second = seconde

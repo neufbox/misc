@@ -1,0 +1,26 @@
+APN=`status get gprs_apn`
+
+exec chat						\
+	TIMEOUT		10				\
+	ECHO		ON				\
+	ABORT		'\nBUSY\r'			\
+	ABORT		'\nERROR\r'			\
+	ABORT		'\nNO ANSWER\r'			\
+	ABORT		'\nNO CARRIER\r'		\
+	ABORT		'\nNO DIALTONE\r'		\
+	ABORT		'\nRINGING\r\n\r\nRINGING\r'	\
+	ABORT		'SIM PIN\r'	\
+	ABORT		'SIM PUK\r'	\
+	''		'\rAT'				\
+	TIMEOUT		12				\
+	SAY		"Press CTRL-C to close the connection at any stage!"	\
+	SAY		"\nChecking Pin status\n"			\
+	OK		AT+CPIN?			\
+	OK		ATD*99#				\
+	TIMEOUT		22				\
+	SAY		"\nwaiting for connect...\n"	\
+	CONNECT		""				\
+	SAY		"\nConnected."			\
+	SAY		"\nIf the following ppp negotiations fail,\n"	\
+	SAY		"try restarting the phone.\n"
+

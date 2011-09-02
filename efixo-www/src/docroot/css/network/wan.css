@@ -1,0 +1,7 @@
+table#net_config th {
+    width: 128px;
+}
+
+table#net_config td {
+    width: 410px;
+}

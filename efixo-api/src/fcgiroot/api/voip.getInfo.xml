@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="<?cs var:stat ?>" version="<?cs var:version ?>">
+    <voip status="<?cs var:voip.status?>" infra="<?cs var:voip.infra?>" hook_status="<?cs var:voip.hookstatus?>" callhistory_active="<?cs var:voip.callhistory?>" />
+</rsp>

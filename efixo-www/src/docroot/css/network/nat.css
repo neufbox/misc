@@ -1,0 +1,25 @@
+#upnpd_config th {
+    width: 179px;
+}
+
+#dmz_config th {
+    width: 179px;
+}
+
+#upnpd_config td {
+    width: 205px;
+}
+
+#privateport_list li {
+    margin-left: 17px;
+    list-style-type: disc;
+}
+.button_network {
+    visibility: hidden;
+}
+#nat_add, #nat_config {
+        width:100%;
+}
+#nat_menu {
+        display:none;
+}

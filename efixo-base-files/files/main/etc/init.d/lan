@@ -1,0 +1,62 @@
+#!/bin/sh /etc/rc.common
+
+boot() {
+
+	iptables -N LAN_FILTER
+
+	# DHCP server
+	iptables -A LAN_FILTER -p udp -m udp --dport 67 -j ACCEPT
+	# DNS
+	iptables -A LAN_FILTER -p tcp -m tcp --dport 53 -j ACCEPT
+	iptables -A LAN_FILTER -p udp -m udp --dport 53 -j ACCEPT
+	# WEBUI
+	iptables -A LAN_FILTER -p tcp -m tcp --dport 80 -j ACCEPT
+	# SSDP
+	iptables -A LAN_FILTER -p udp -m udp --dport 1900 -j ACCEPT
+
+	start
+
+}
+
+start() {
+
+	lan_ifname=`nvram get lan_ifname`
+
+	iptables -A INPUT -i ${lan_ifname} -m state --state NEW -j LAN_FILTER
+
+	ip link set ${lan_ifname} up
+
+	# setup local lan IP address
+	lan_ipaddr=`nvram get lan_ipaddr`
+	lan_netmask=`nvram get lan_netmask`
+	IPADDR=${lan_ipaddr}
+	eval `ipcalc -npb ${lan_ipaddr} ${lan_netmask}`
+
+	ip addr add ${IPADDR}/${PREFIX} broadcast ${BROADCAST} dev ${lan_ifname}
+	ip rule add priority 32765 from ${NETWORK}/${PREFIX} table lan_t
+	ip route add ${NETWORK}/${PREFIX} dev ${lan_ifname} table lan_t
+
+	# setup local lan alias IP addres
+	alias_ipaddr=`nvram get lan_alias_ipaddr`
+	alias_netmask=`nvram get lan_alias_netmask`
+	IPADDR=${alias_ipaddr}
+	eval `ipcalc -npb ${alias_ipaddr} ${alias_netmask}`
+
+	ip addr add ${IPADDR}/${PREFIX} broadcast ${BROADCAST} dev ${lan_ifname}
+	ip rule add priority 32764 from ${NETWORK}/${PREFIX} table lan_t
+	ip route add ${NETWORK}/${PREFIX} dev ${lan_ifname} table lan_t
+
+	uroute init
+
+}
+
+stop() {
+
+	uroute cleanup
+
+	iptables -D INPUT -i ${lan_ifname} -m state --state NEW -j LAN_FILTER
+
+	ip addr flush dev ${lan_ifname}
+	ip link set ${lan_ifname} down
+
+}

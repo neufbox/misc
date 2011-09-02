@@ -1,0 +1,18 @@
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+    <h1><?cs var:Env.Section.switch_stats.Title ?></h1>
+</div>
+
+<div class="content">
+    <?cs each:port = Var.ports?>
+    <h3><?cs call:lanIfaceToPortName(port.name.Value)?></h3>
+    
+    <pre>
+	<?cs each:counter = port.counters?>
+	<?cs var:name(counter)?> = <?cs var:counter.Value?><?cs /each?>
+    </pre>
+    <?cs /each?>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

@@ -1,0 +1,36 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006-2010 OpenWrt.org
+# Copyright (C) 2006 Carlos Sobrinho
+
+START=50
+STOP=50
+
+keygen() {
+	for keytype in rsa dss; do
+		# check for keys
+		key=dropbear/dropbear_${keytype}_host_key
+		[ -f /tmp/$key -o -s /etc/$key ] || {
+			# generate missing keys
+			mkdir -p /tmp/dropbear
+			[ -x /usr/bin/dropbearkey ] && {
+				/usr/bin/dropbearkey -t $keytype -f /tmp/$key -s 1024 2>&- >&-
+			}
+		}
+	done
+
+	mkdir -p /etc/config/dropbear
+	mv /tmp/dropbear/dropbear_* /etc/dropbear/
+}
+
+start() {
+	[ -s /etc/dropbear/dropbear_rsa_host_key -a \
+	  -s /etc/dropbear/dropbear_dss_host_key ] || keygen
+
+	dropbear -p 1288 \
+			-d /etc/dropbear/dropbear_dss_host_key \
+			-r /etc/dropbear/dropbear_rsa_host_key
+}
+
+stop() {
+	killall dropbear
+}

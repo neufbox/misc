@@ -1,0 +1,19 @@
+Env.Page.Title = System
+
+Env.Help.Text = On this page, you can reboot and manage the settings of your $BOXNAME.
+
+Env.Section.reboot.Title = Reboot
+
+Env.Var.rebootbox.Header = Reboot your $BOXNAME
+
+Env.Section.Params.Title = Settings
+
+Env.Var.paramexport.Header = Export my settings
+Env.Var.paramimport.Header = Import my settings
+Env.Var.paramrestore.Header = Reset settings to default
+
+Env.Section.extended_infos.Title = Information
+
+Env.Var.webui_version.Header = Web interface version
+
+Env.Form.Error.import_failed = The import of the config file has failed.

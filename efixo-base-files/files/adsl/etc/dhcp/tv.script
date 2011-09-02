@@ -1,0 +1,77 @@
+#!/bin/sh
+
+RESOLV_CONF="/var/dhcp/resolv.conf.tv"
+
+net_setup() {
+
+	[ -z "$broadcast" ] && {
+		eval `ipcalc -b $ip $subnet`
+		broadcast=$BROADCAST
+	}
+	status set dhcpc_tv_ifname "$interface"
+	status set dhcpc_tv_ipaddr "$ip"
+	status set dhcpc_tv_netmask "$subnet"
+	status set dhcpc_tv_broadcast "$broadcast"
+	status set dhcpc_tv_gateway "$router"
+	status set dhcpc_tv_dns "$dns"
+	status set dhcpc_tv_nisdomain "$nisdomain"
+	status set dhcpc_tv_lease "$lease"
+
+#	Ok, one beer for who understand this bug
+#	ifconfig must be set into wrapper to get igmp fwd
+#
+#	[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+#	[ -n "$subnet" ] && NETMASK="netmask $subnet"
+#	ifconfig $interface $ip $BROADCAST $NETMASK
+	rm -f $RESOLV_CONF
+	for i in $dns
+	do
+		echo nameserver $i >> $RESOLV_CONF
+	done
+
+	if [ "`status get dhcpc_tv_status`" = "down" ]
+	then
+		status set dhcpc_tv_status "up"
+		event notify "dhcp-tv-up"
+	fi
+
+}
+
+net_setdown() {
+
+	status set dhcpc_tv_ipaddr ""
+	status set dhcpc_tv_netmask ""
+	status set dhcpc_tv_broadcast ""
+	status set dhcpc_tv_gateway ""
+	status set dhcpc_tv_dns ""
+	status set dhcpc_tv_nisdomain ""
+
+	if [ "`status get dhcpc_tv_status`" = "up" ]
+	then
+#		ifconfig "$interface" "0.0.0.0" up
+		rm -f $RESOLV_CONF
+		status set dhcpc_tv_status "down"
+		event notify "dhcp-tv-down"
+	fi
+
+}
+
+previous_answer=`status get dhcpc_tv_answer`
+if [ "$previous_answer" != "$1" ]
+then
+	logger -s -t "TV_DHCP_STATUS" -p local1.info "[tv] DHCP ANSWER changed [$previous_answer] -> [$1] ($nisdomain)"
+	logger -s -t "TV_DHCP_STATUS" -p daemon.debug "[tv] DHCP ANSWER changed [$previous_answer] -> [$1] ($nisdomain)"
+	status set dhcpc_tv_answer $1
+fi
+
+case "$1" in
+
+	deconfig|leasefail|nak)
+		net_setdown
+	;;
+
+	bound|renew)
+		net_setup
+	;;
+
+esac

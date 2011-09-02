@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "Indent files (using .indent.pro)..."
+find src/ -name '*.[ch]' -exec indent {} \;
+find src/ -name '*.[ch]~' -delete
+
+echo "Remove trailing whitespaces..."
+find src/ -name '*.[ch]' -exec perl -p -i -e 's/[ \t]*$//' {} \;
+

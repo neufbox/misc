@@ -1,0 +1,12 @@
+<?cs include:"tpl/defs.cst" ?>
+<rsp stat="ok">
+  <?cs if:Var.action.Value == "challenge"?>
+  <?cs if:!Var.challenge.Value?>
+  <error txt="<?cs var:Env.Var.challenge.error?>" />
+  <?cs else?>
+  <challenge><?cs var:Var.challenge.Value?></challenge>
+  <?cs /if?>
+  <?cs else?>
+  <autologin><?cs var:Var.autologin.Value?></autologin>
+  <?cs /if?>
+</rsp>

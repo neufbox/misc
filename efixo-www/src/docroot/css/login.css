@@ -1,0 +1,20 @@
+div#access_lock {
+    text-align: center;
+    width: 450px;
+    background-image: url(/img/icon_lock.png);
+    background-repeat: no-repeat;
+    background-position: 15px center;
+}
+
+div#access_lock h1 {
+    font-size: 1.7em;
+}
+
+div.content li { 
+    background-image: url(/img/img_arrow.png);
+    background-repeat: no-repeat;
+    background-position: left top;
+    list-style-type: none;
+    padding-left: 20px;
+    padding-bottom: 12px;
+}

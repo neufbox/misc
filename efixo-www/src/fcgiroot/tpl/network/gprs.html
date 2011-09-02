@@ -1,0 +1,190 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+        <h1><?cs var:Env.Section.gprs_config.Title ?></h1>
+</div>
+
+<div class="content">
+        <div id="error_simlock"
+             class="error_notice"
+             <?cs if:!(Var.gprs_sim_pinremaining.Value == "0" || Var.gprs_sim_pukremaining.Value == "0")?> style="display:none;"<?cs /if?>>
+             <?cs if:Var.gprs_sim_pukremaining.Value == "0"?>
+             <?cs call:varValueH3n("gprs_sim_pukremaining")?>
+             <?cs elif:Var.gprs_sim_pinremaining.Value == "0"?>
+             <?cs call:varValueH3n("gprs_sim_pinremaining")?>
+             <?cs /if?>
+</div>
+
+<div id="div_unlocksim" <?cs if:!(Var.gprs_sim_pukremaining.Value != "0" && Var.gprs_sim_pinremaining.Value == "0")?> style="display:none;"<?cs /if?>>
+
+     <form id="form_gprs_unlocksim" method="post" action="<?cs var:Env.Page.Name ?>">
+                <input type="hidden" name="action" value="unlocksim" />
+
+                <table id="gprs_unlocksim">
+                        <tr>
+                                <th scope="row">
+                                        <?cs call:varHeader("gprs_pukcode") ?>
+                                </th>
+                                <td>
+                                        <input type="text"
+                                               class="<?cs if:?Var.gprs_pukcode.Error ?>error<?cs else ?>text<?cs /if ?>"
+                                               value="<?cs var:Var.gprs_pukcode.Value?>" name="gprs_pukcode" id="gprs_pukcode" />
+
+                                        <div class="error">
+                                                <?cs if:?Var.gprs_pukcode.Error ?><?cs var:Env.Var.gprs_pukcode.Error[Var.gprs_pukcode.Error] ?><?cs /if ?>
+                                        </div>
+                                </td>
+                        </tr>
+                        <tr>
+                                <th scope="row">
+                                        <?cs call:varHeader("gprs_newpincode") ?>
+                                </th>
+                                <td>
+                                        <input type="text"
+                                               class="<?cs if:?Var.gprs_newpincode.Error ?>error<?cs else ?>text<?cs /if ?>"
+                                               value="<?cs var:Var.gprs_newpincode.Value?>" name="gprs_newpincode" id="gprs_newpincode" />
+
+                                        <div class="error">
+                                                <?cs if:?Var.gprs_newpincode.Error ?><?cs var:Env.Var.gprs_newpincode.Error[Var.gprs_newpincode.Error] ?><?cs /if ?>
+                                        </div>
+                                </td>
+                        </tr>
+                </table>
+
+                <div class="button_submit">
+                        <button type="submit" name="submit"><?cs var:Button.Submit ?></button>
+                </div>
+
+        </form>
+
+</div>
+
+<div id="div_config" <?cs if:!(Var.gprs_sim_pukremaining.Value != "0" && Var.gprs_sim_pinremaining.Value != "0")?> style="display:none;"<?cs /if?>>
+
+     <form id="form_gprs_config" method="post" action="<?cs var:Env.Page.Name ?>">
+                <input type="hidden" name="action" value="editcfg" />
+
+                <table id="gprs_config">
+                        <tr>
+                                <th scope="row">
+                                        <?cs call:varHeader("gprs_device_state") ?>
+                                </th>
+                                <td id="device_state"
+                                    class="<?cs if:Var.gprs_device_state.Value == "unavailable"?>disabled<?cs else?>enabled<?cs /if ?>">
+                                    <?cs call:varValueH3n("gprs_device_state") ?>
+                        </td>
+                </tr>
+                <tr id="row_active_data"<?cs if:Var.gprs_device_state.Value != "available"?> style="display:none;"<?cs /if?>>
+                    <th scope="row">
+                                <?cs call:varHeader("gprs_active_data") ?>
+                        </th>
+                        <td id="active_data"
+                            class="<?cs if:Var.gprs_active_data.Value == "on"?>enabled<?cs else ?>disabled<?cs /if ?>">
+                            <?cs call:varValueH3n("gprs_active_data") ?>
+                            <?cs if:Var.gprs_sim_pinstatus.Value == "ko"?>
+                            ( <?cs call:varValueH3n("gprs_sim_pinstatus") ?> <?cs if:Var.gprs_sim_pinremaining.Value > 0 && Var.gprs_sim_pinremaining.Value <= 3?> - <?cs call:varValueH3n("gprs_sim_pinremaining") ?><?cs /if?> )
+                            <?cs elif:Var.gprs_sim_status.Value == "ko"?>
+                            ( <?cs call:varValueH3n("gprs_sim_status") ?> )
+                            <?cs /if?>
+                </td>
+        </tr>
+        <tr>
+                <th scope="row">
+                        <?cs call:varHeader("gprs_service_data") ?>
+                </th>
+                <td>
+                        <input type="radio"
+                               value="on"
+                               name="gprs_service_data"
+                               id="gprs_service_data_on"
+                               <?cs if:Var.gprs_service_data.Value == "on" ?> checked="checked"<?cs /if ?> />
+                               <label for="gprs_service_data_on"><?cs var:Env.Var.gprs_service_data.Value.on ?></label>
+
+                        <input type="radio"
+                               value="off"
+                               name="gprs_service_data"
+                               id="gprs_service_data_off"
+                               <?cs if:Var.gprs_service_data.Value == "off" ?> checked="checked"<?cs /if ?> />
+                               <label for="gprs_service_data_off"><?cs var:Env.Var.gprs_service_data.Value.off ?></label>
+
+                        <input type="radio"
+                               value="auto"
+                               name="gprs_service_data"
+                               id="gprs_service_data_auto"
+                               <?cs if:Var.gprs_service_data.Value == "auto" ?> checked="checked"<?cs /if ?> />
+                               <label for="gprs_service_data_auto"><?cs var:Env.Var.gprs_service_data.Value.auto ?></label>
+
+                        <div class="error">
+                                <?cs if:?Var.gprs_service_data.Error ?><?cs var:Env.Var.gprs_service_data.Error[Var.gprs_service_data.Error] ?><?cs /if ?>
+                        </div>
+                </td>
+        </tr>
+        <tr>
+                <th scope="row">
+                        <?cs call:varHeader("gprs_service_voice") ?>
+                </th>
+                <td>
+
+
+                        <input type="radio"
+                               value="on"
+                               name="gprs_service_voice"
+                               id="gprs_service_voice_on"
+                               <?cs if:Var.gprs_service_voice.Value == "on" ?> checked="checked"<?cs /if ?> />
+                               <label for="gprs_service_voice_on"><?cs var:Env.Var.gprs_service_voice.Value.on ?></label>
+                        <input type="radio"
+                               value="off"
+                               name="gprs_service_voice"
+                               id="gprs_service_voice_off"
+                               <?cs if:Var.gprs_service_voice.Value == "off" ?> checked="checked"<?cs /if ?> />
+                               <label for="gprs_service_voice_off"><?cs var:Env.Var.gprs_service_voice.Value.off ?></label>
+                        <input type="radio"
+                               value="auto"
+                               name="gprs_service_voice"
+                               id="gprs_service_voice_auto"
+                               <?cs if:Var.gprs_service_voice.Value == "auto" ?> checked="checked"<?cs /if ?> />
+                               <label for="gprs_service_voice_auto"><?cs var:Env.Var.gprs_service_voice.Value.auto ?></label>
+
+                        <div class="error">
+                                <?cs if:?Var.gprs_service_voice.Error ?><?cs var:Env.Var.gprs_service_voice.Error[Var.gprs_service_voice.Error] ?><?cs /if ?>
+                        </div>
+                </td>
+        </tr>
+        <tr>
+                <th scope="row">
+                        <?cs call:varHeader("gprs_pin") ?>
+                </th>
+                <td>
+                        <input type="text"
+                               class="<?cs if:?Var.gprs_pin.Error ?>error<?cs else ?>text<?cs /if ?>"
+                               value="<?cs var:Var.gprs_pin.Value?>" name="gprs_pin" id="gprs_pin" />
+
+                        <div class="error"><?cs if:?Var.gprs_pin.Error ?><?cs var:Env.Var.gprs_pin.Error[Var.gprs_pin.Error]  ?><?cs /if ?></div>
+                </td>
+        </tr>
+        <tr>
+                <th scope="row">
+                        <?cs call:varHeader("gprs_apn") ?>
+                </th>
+                <td>
+                        <input type="text"
+                               class="<?cs if:?Var.gprs_apn.Error ?>error<?cs else ?>text<?cs /if ?>"
+                               value="<?cs var:Var.gprs_apn.Value?>" name="gprs_apn" id="gprs_apn" />
+
+                        <div class="error"><?cs if:?Var.gprs_apn.Error ?><?cs var:Env.Var.gprs_apn.Error[Var.gprs_apn.Error]  ?><?cs /if ?></div>
+                </td>
+        </tr>
+</table>
+
+<div class="button_submit">
+        <button type="submit" name="submit"><?cs var:Button.Submit ?></button>
+</div>
+
+</form>
+
+</div>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

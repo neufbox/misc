@@ -1,0 +1,30 @@
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.Applications.Value?></h1>
+</div>
+
+<div class="content">
+	<table>
+		<tr>
+			<th scope="row"><?cs var:Env.Header.FileSharing.Value?></th>
+			<td class="<?cs if:Var.samba_state.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>">
+	                        <?cs call:varValueH3n_d("samba_state", "down")?>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs var:Env.Header.PrinterSharing.Value?></th>
+			<td class="<?cs if:Var.print_server_status.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>">
+	                        <?cs call:varValueH3n_d("print_server_status", "down")?>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?cs var:Env.Header.MediaServer.Value?></th>
+			<td class="<?cs if:Var.upnpav_state.Value == "up" ?>enabled<?cs else ?>disabled<?cs /if ?>">
+				<?cs call:varValueH3n_d("upnpav_state", "down")?>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

@@ -1,0 +1,4 @@
+Env.Page.Title = Réseau local - Statistiques des plugs
+Env.Section.General.Title = Statistiques des plugs
+
+Env.Btn.ShowHideDump.Value = Afficher / Cacher le dump de diagnostique

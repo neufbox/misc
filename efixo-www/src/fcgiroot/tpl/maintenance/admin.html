@@ -1,0 +1,115 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.access.Title?></h1>
+</div>
+
+<div class="content">
+	<form id="form_loginconfig" method="post" action="<?cs var:Env.Page.Name ?>">
+	<input type="hidden" name="action" value="loginconfig" />
+  
+	<table id="loginconfig">
+		<tr>
+			<th scope="row"><?cs call:varHeader("web_auth")?></th>
+			<td>
+				<select id="web_auth" name="web_auth">
+					<option value="off" <?cs if:Var.web_auth.Value == "off" ?>selected="selected"<?cs /if?>><?cs var:Env.Var.web_auth.Value.off?></option>
+					<option value="passwd" <?cs if:Var.web_auth.Value == "passwd" ?>selected="selected"<?cs /if?>><?cs var:Env.Var.web_auth.Value.passwd?></option>
+#ifndef CIBOX
+					<option value="button" <?cs if:Var.web_auth.Value == "button" ?>selected="selected"<?cs /if?>><?cs var:Env.Var.web_auth.Value.button?></option>
+					<option value="all" <?cs if:Var.web_auth.Value == "all" ?>selected="selected"<?cs /if?>><?cs var:Env.Var.web_auth.Value.all?></option>
+#endif
+				</select>
+			</td>
+		</tr>
+		<tr id="loginconfig_login" <?cs if:(Var.web_auth.Value != "passwd" && Var.web_auth.Value != "all") ?> style="display: none;"<?cs /if ?>>
+			<th scope="row" valign="top"><?cs call:varHeader("web_login")?></th>
+			<td>
+				<input type="text" name="web_login" value="<?cs var:html_escape(Var.web_login.Value)?>" class="<?cs if:?Var.web_login.Error ?>error<?cs else ?>text<?cs /if ?>"  />
+				
+				<?cs if:?Var.web_login.Error ?>
+				<div class="error">
+					<?cs var:Env.Var.web_login.Error[Var.web_login.Error] ?>
+				</div>
+				<?cs /if ?>
+			</td>
+		</tr>
+		<tr id="loginconfig_password" <?cs if:(Var.web_auth.Value != "passwd" && Var.web_auth.Value != "all") ?> style="display: none;"<?cs /if ?>>
+			<th scope="row"><?cs call:varHeader("web_password")?></th>
+			<td>
+				<input id="web_password" type="password" name="web_password" value="" class="<?cs if:?Var.web_password.Error?>error<?cs else ?>text<?cs /if ?>" />
+			</td>
+		</tr>
+		<tr id="loginconfig_password_verif" <?cs if:(Var.web_auth.Value != "passwd" && Var.web_auth.Value != "all") ?> style="display: none;"<?cs /if ?>>
+			<th scope="row"><?cs call:varHeader("web_password_check")?></th>
+			<td>
+				<input id="web_password_check" type="password" name="web_password_check" value="" class="<?cs if:?Var.web_password_check.Error?>error<?cs else ?>text<?cs /if ?>" />
+				
+				<?cs if:?Var.web_password.Error ?>
+				<div class="error">
+					<?cs var:Env.Var.web_password.Error[Var.web_password.Error] ?>
+				</div>
+				<?cs /if ?>
+
+                                <?cs if:?Var.web_password_hash.Error?>
+                                <div class="error">
+					<?cs var:Env.Form.Error.unknown ?>
+				</div>
+                                <?cs /if?>
+			</td>
+		</tr>
+	</table>
+
+	<?cs if:Var.WebAuthChangeCheckMethod.Value == "passwd"?>
+	<?cs var:Env.Text.SecurityCheck.passwd?>
+	
+	<table id="logincheck">
+		<tr id="logincheck_login">
+			<th scope="row" valign="top"><?cs call:varHeader("web_old_login")?></th>
+			<td>
+				<input id="web_old_login" type="text" name="web_old_login" value="<?cs var:html_escape(Var.web_old_login.Value)?>" class="<?cs if:?Var.web_old_login.Error ?>error<?cs else ?>text<?cs /if ?>"  />
+				
+				<?cs if:?Var.web_old_login.Error ?>
+				<div class="error">
+					<?cs var:Env.Var.web_old_login.Error[Var.web_old_login.Error] ?>
+				</div>
+				<?cs /if ?>
+			</td>
+		</tr>
+		<tr id="logincheck_password">
+			<th scope="row"><?cs call:varHeader("web_old_password")?></th>
+			<td>
+				<input id="web_old_password" type="password" name="web_old_password" value="<?cs var:html_escape(Var.web_old_password.Value)?>" class="<?cs if:?Var.web_old_password.Error?>error<?cs else ?>text<?cs /if ?>" />
+				
+				<?cs if:?Var.web_old_password.Error ?>
+				<div class="error">
+					<?cs var:Env.Var.web_old_password.Error[Var.web_old_password.Error] ?>
+				</div>
+				<?cs /if ?>
+			</td>
+		</tr>
+	</table>
+#ifndef CIBOX
+	<?cs elif:Var.WebAuthChangeCheckMethod.Value == "button"?>
+	
+	<p id="buttoncheck">
+#ifndef NB6
+	<img src="/img/img_led_service.png" align="right" style="margin-right: 180px;"/>
+#endif
+#ifdef NB6
+	<img src="/img/img_led_service_nb6.png" align="right" style="margin-right: 180px;"/>
+#endif
+        <?cs var:Env.Text.SecurityCheck.button?>
+	</p>
+#endif
+	
+	<?cs /if?>
+	
+	<div class="button_submit"><button type="submit" name="submit"><?cs var:Button.Submit ?></button></div>
+	
+	</form>
+</div>
+
+<?cs include:"tpl/footer.html" ?>

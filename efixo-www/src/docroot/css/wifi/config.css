@@ -1,0 +1,11 @@
+table#access_point_config th {
+    width: 153px;
+}
+
+table#access_point_config td {
+    width: 218px;
+}
+
+select {
+    width: 64px;
+}

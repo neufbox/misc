@@ -1,0 +1,45 @@
+#!/bin/sh /etc/rc.common
+
+echo "[adsl] $$ $action"
+
+boot() {
+	case "$(hostname)" in
+		nb4|nb6)
+			;;
+		*)
+			rm -rf /etc/adsl
+			exit 0
+	esac
+
+	mkdir -p /etc/adsl
+
+	# insert modules
+	echo "ADSL : insert modules..."
+	
+	ln -sf /etc/default/adsl_phy.bin /etc/adsl
+
+	insmod bcmxtmrt
+	insmod bcmxtmcfg
+	insmod adsldd
+
+	start
+}
+
+start() {
+	[ ! -d /etc/adsl ] && exit 0
+
+	xdslctl start --mod dlt --trellis on --bitswap on --up
+}
+
+stop() {
+	[ ! -d /etc/adsl ] && exit 0
+
+	xdslctl stop
+}
+
+restart() {
+	[ ! -d /etc/adsl ] && exit 0
+
+	stop
+	start
+}

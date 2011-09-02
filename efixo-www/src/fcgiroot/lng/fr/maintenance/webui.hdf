@@ -1,0 +1,24 @@
+Env.Page.Title = Personnalisation
+
+Env.Help.Text = Vous pouvez sélectionner ici un nouveau thème pour votre interface $BOXNAME.<br/><br/>Une fois sélectionné, vous devez cliquer sur l'ic&ocirc;ne <i>"Actualiser la page courante"</i> de votre navigateur pour prendre en compte le nouveau style et les nouvelles images. <br/><br/> Dans la rubrique <b>Internationalisation</b>, vous pouvez sélectionner votre langue d'affichage préférée pour l'interface d'administration.
+
+Env.Section.theme.Title = Thème
+
+Env.Form.Error.install_failed = Erreur ! Impossible de charger correctement le thème !
+Env.Form.Error.install_uri = Erreur ! Impossible de charger ce thème.
+Env.Form.Error.unknown = Une erreur s'est produite lors du chargement du thème.
+
+Env.Text.NotCompatible = Ce thème n'est pas compatible avec cette version de la Webui.
+Env.Text.Author = Auteur
+Env.Text.Anonymous = Anonyme
+Env.Text.Preview = Prévisualisation
+Env.Text.ActualNameOfThemeDirectory = Nom actuel du répertoire du thème
+
+Env.Error.CurrentThemeNotAvailable.0 = Le thème nommé
+Env.Error.CurrentThemeNotAvailable.1 = que vous avez précédement selectionné n'est plus présent. Le thème par défaut a été chargé.
+
+Env.Section.localization.Title = Internationalisation
+
+Env.Var.lang.Header = Langue
+Env.Var.lang.Value.fr = Français
+Env.Var.lang.Value.en = Anglais

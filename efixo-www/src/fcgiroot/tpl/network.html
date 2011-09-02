@@ -1,0 +1,141 @@
+<?cs set:js = Env.Page.Name ?>
+<?cs set:css = Env.Page.Name ?>
+<?cs include:"tpl/header.html" ?>
+
+<div class="title">
+	<h1><?cs var:Env.Section.lan_status.Header?></h1>
+</div>
+
+<div class="content">
+	<table id="network_status">
+#ifdef CIBOX
+		<tr>
+			<th scope="row"><?cs var:Env.Var.TVStatus.Header?><?cs if:Var.TVIfname.Value && Var.TVStatus.Value == "up"?> (<?cs call:lanIfaceToPortName(Var.TVIfname.Value)?>)<?cs /if?></th>
+			<td class="<?cs if:Var.TVStatus.Value == "up" ?>enabled<?cs else ?>unused<?cs /if ?>" id="tv_status">
+			    	<?cs call:varValueH3n_d("TVStatus", "down")?>
+			</td>
+		</tr>
+#endif
+		<?cs each:link = Var.links?>
+		<?cs if:link.name.Value != Var.TVIfname.Value?>
+		<tr>
+			<th scope="row"><?cs call:IfaceToPortName(link.name.Value)?></th>
+			<td class="<?cs if:link.status.Value == "up" ?>enabled<?cs else ?>unused<?cs /if ?>" id="<?cs var:link.name.Value?>_status">
+				<?cs if:link.status.Value == "up" ?>
+				        <?cs if:link.type.Value == "stb" ?>
+                                                <?cs var:Env.Var.type.Value.stb?>
+				        <?cs else ?>
+					        <?cs var:link.speed.Value?>
+				        <?cs /if ?>
+				<?cs else?>
+					<?cs var:Env.Var.LinkStatus.Value.down?>
+				<?cs /if?>
+			</td>
+		</tr>
+		<?cs /if?>
+		<?cs /each?>
+
+		<?cs if:?Var.USBStatus.Value?>
+		<tr>
+			<th scope="row"><?cs var:Env.Var.USBStatus.Header?></th>
+			<td class="<?cs if:Var.USBStatus.Value == "up" ?>enabled<?cs else ?>unused<?cs /if ?>" id="usb_status">
+			    	<?cs call:varValueH3n_d("USBStatus", "down")?>
+			</td>
+		</tr>
+		<?cs /if?>
+		
+		<tr>
+			<th scope="row"><?cs var:Env.Var.WifiStatus.Header?></th>
+			<td class="<?cs if:Var.WifiStatus.Value == "on" ?>enabled<?cs else ?>disabled<?cs /if ?>" id="wifi_status">
+	                        <?cs call:varValueH3n_d("WifiStatus", "off")?>
+				<?cs if:Var.WifiStatus.Value == "on" ?>
+				     	 (<?cs if:Var.WifiCountClient.Value == "0" ?><?cs var:Env.Var.WifiCountClient.Value.0?><?cs elif:Var.WifiCountClient.Value == "1" ?><?cs var:Env.Var.WifiCountClient.Value.1?><?cs else ?><?cs var:Var.WifiCountClient.Value ?> <?cs var:Env.Var.WifiCountClient.Value.many?><?cs /if ?>)
+				<?cs /if ?>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="title">
+	<h1><?cs var:Env.Section.connected_computers.Header?></h1>
+</div>
+
+<div class="content">
+	<table id="network_clients">
+		<thead>
+			<tr>
+				<th scope="col" class="col_number">#</th>
+				<th scope="col" class="col_mac"><?cs var:Env.Var.mac_addr.Header?></th>
+				<th scope="col" class="col_ip"><?cs var:Env.Var.ip_addr.Header?></th>
+				<th scope="col" class="col_port"><?cs var:Env.Var.port.Header?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?cs each:host = Var.hosts ?>
+			<tr>
+				<td class="col_number">
+					<?cs name:host ?>
+				</td>
+				<td>
+					<?cs var:host.mac.Value ?>
+				</td>
+				<td>
+					<?cs var:host.ip.Value ?>
+                                        <?cs if:host.name.Value != ''  ?>
+                                        (<?cs var:host.name.Value ?>)
+                                        <?cs /if?>
+
+				</td>
+				<td>
+					<?cs call:IfaceToPortName(host.iface.Value)?>
+				</td>
+			</tr>
+			<?cs /each ?>
+		</tbody>
+	</table>
+</div>
+
+#ifdef CIBOX
+<div class="title">
+	<h1><?cs var:Env.Section.stbconfig.Header?></h1>
+</div>
+
+<div class="content">
+
+	<form method="post">
+	
+	<table id="stbconfig">
+		<tr>
+			<th scope="row"><?cs call:varHeader("stbconfig")?></th>
+			<td>
+				<input type="radio" id="stbconfig_dynamic" name="stbconfig" value="dynamic"<?cs if:Var.TVConfig.Value == "dynamic" ?> checked="checked"<?cs /if ?> />
+				<label for="stbconfig_dynamic"><?cs var:Env.Var.stbconfig.Value.dynamic ?></label>
+				<input type="radio" id="stbconfig_config" name="stbconfig" value="static"<?cs if:Var.TVConfig.Value == "static" ?> checked="checked"<?cs /if ?> />
+				<label for="stbconfig_config"><?cs var:Env.Var.stbconfig.Value.static ?></label>
+				
+				<div class="error"><?cs if:?Var.stbconfig.Error ?><?cs var:Env.Var.stbconfig.Error.regex ?><?cs /if ?></div>
+			</td>
+		</tr>
+
+		<tr id="stbconfig_iface"<?cs if:Var.TVConfig.Value == "dynamic"?> style="display:none;"<?cs /if?>>
+			<th scope="row"><?cs call:varHeader("stbconfig_iface")?></th>
+			<td>
+				<select name="stbconfig_iface">
+					<option value="lan1"<?cs if:Var.TVIfname.Value == "lan1"?> selected="selected"<?cs /if?>><?cs call:lanIfaceToPortName("lan1")?></option>
+					<option value="lan2"<?cs if:Var.TVIfname.Value == "lan2"?> selected="selected"<?cs /if?>><?cs call:lanIfaceToPortName("lan2")?></option>
+				</select>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="button_submit">
+		<button type="submit" name="submit"><?cs var:Button.Submit ?></button>
+	</div>
+	
+	</form>
+
+</div>
+
+#endif
+
+<?cs include:"tpl/footer.html" ?>

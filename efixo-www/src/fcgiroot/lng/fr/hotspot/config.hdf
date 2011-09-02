@@ -1,0 +1,58 @@
+Env.Page.Title = Configuration
+
+Env.Help.Text << EOM
+En activant le Hotspot (borne Wifi), vous permettez aux utilisateurs de la communauté <i>$BOXNAME WiFi de $OPERATORNAME</i> 
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+et <i>FON</i> 
+#endif
+de se connecter sans fil à Internet <i>via votre $BOXNAME</i>. Pour votre sécurité ces utilisateurs ne pourront pas accéder aux équipements que vous possédez (ordinateur, décodeur TV,...) et seront authentifiés avant de pouvoir se connecter.<br /><br />
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+Sélectionnez l'un des modes suivants avant de valider :<br /><br />
+#endif
+Le mode <strong>WiFi communautaire $OPERATORNAME</strong> 
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+qui 
+#endif
+autorise les abonnés $BOXNAME de $OPERATORNAME et les clients $OPERATORNAME à se connecter à votre hotspot et vous permet d'accéder gratuitement à l'ensemble des hotspots de la communauté $OPERATORNAME en France ;<br /><br />
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+Le mode <strong>WiFi communautaire $OPERATORNAME et FON</strong> qui autorise les abonnés $BOXNAME de $OPERATORNAME, les clients $OPERATORNAME et FON à se connecter à votre hotspot et vous permet d'accéder gratuitement à l'ensemble des hotspots de la communauté $OPERATORNAME et FON en France et à l'étranger.
+#endif
+EOM
+
+Env.Section.hotspot_config.Title = Configuration
+
+Env.Var.hotspot_enable.Value.false = Le service hotspot n'est pas disponible.
+
+Env.Var.hotspot_active.Header = Activation
+Env.Var.hotspot_active.Value.on = activé
+Env.Var.hotspot_active.Value.off = désactivé
+Env.Var.hotspot_active.Error.value = Format incorrect
+
+Env.Var.hotspot_status.Header = Etat
+Env.Var.hotspot_status.Value.up = Démarré
+Env.Var.hotspot_status.Value.down = Arrêté
+Env.Var.hotspot_status.Value.starting = Démarrage en cours
+Env.Var.hotspot_status.Value.stopping = Arrêt en cours
+Env.Var.hotspot_status.Value.error_maxup = Désactivé (débit montant trop faible)
+Env.Var.hotspot_status.Value.error_maxdown = Désactivé (débit descendant trop faible)
+Env.Var.hotspot_status.Value.error_conf = Erreur (erreur interne)
+Env.Var.hotspot_status.Value.error_wandown = Erreur (Internet non opérationnel)
+Env.Var.hotspot_status.Value.error_pppdown = Erreur (Internet non opérationnel)
+Env.Var.hotspot_status.Value.error_adsldown = Erreur (Internet non opérationnel)
+Env.Var.hotspot_status.Value.error_wifidown = Erreur (WiFi désactivé)
+
+Env.Var.hotspot_ssid.Header = SSID
+
+Env.Var.hotspot_mode.Header = Mode
+Env.Var.hotspot_mode.Value.sfr = Réseau WiFi communautaire $OPERATORNAME
+#ifdef HAVE_HOTSPOT_FON_SUPPORT
+Env.Var.hotspot_mode.Value.sfr_fon = Réseau WiFi communautaire $OPERATORNAME & FON
+#endif
+Env.Var.hotspot_mode.Error.value = Format incorrect
+
+Env.Var.hotspot_conditions.Header = J'accepte les <a href="$HOTSPOTCONDITIONSURL" rel="external">conditions particulières</a>
+Env.Var.hotspot_conditions.Error.no_accept = Vous devez accepter les conditions particulières.
+
+Env.Text.work_in_progress = Opération en cours 
+
+Env.Text.InfoFON = Vos identifiants et mots de passe FON vous seront envoyés par email sous 48h.<br />L'adresse email à laquelle vous recevrez ces informations est l'adresse email de contact, définie dans <a href="http://moncompte.neuf.fr" rel="external">votre espace abonné</a>. Pensez à vérifier que cet email n'a pas été déplacé dans le dossier courriers indésirables.
